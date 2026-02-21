@@ -1,0 +1,91 @@
+// src/components/ProductCard.jsx
+import React from "react";
+import { Link } from "react-router";
+
+const ProductCard = ({ tuition }) => {
+  const {
+    _id,
+    name,
+    // category,
+    price,
+    images,
+    discountPrice,
+    ability,
+    description,
+    studentName,
+    // postedAt,
+    // status = "Pending",
+  } = tuition;
+
+  //   const formatDate = (dateString) => {
+  //     const date = new Date(dateString);
+  //     return date.toLocaleDateString("en-GB", {
+  //       day: "numeric",
+  //       month: "short",
+  //       year: "numeric",
+  //     });
+  //   };
+
+  const shortDescription =
+    description?.slice(0, 45) + (description?.length > 45 ? "..." : "");
+
+  return (
+    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 overflow-hidden flex flex-col">
+      {/* Image */}
+      <div className="relative h-40 md:h-48">
+        <img
+          src={images[0] || "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"}
+          alt={studentName || name}
+          className="w-full h-full object-cover"
+        />
+        {/* Status Badge */}
+        <div
+          className="absolute top-3 right-3 px-3 py-1 rounded-full text-white text-xs font-semibold
+            bg-gray-600"
+        >
+          {ability}
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className="p-2 flex-1 flex flex-col justify-between">
+        <div>
+          <h2 className="text-sm md:text-base font-bold text-gray-800">
+            {name}
+          </h2>
+          {/* <div className="flex flex-wrap justify-between text-sm">
+            <h1 className="text-black">Category :</h1>
+            <h2 className=" text-gray-800">{category}</h2>
+          </div> */}
+          {/* price */}
+          <div className="flex flex-wrap items-center justify-between mt-1">
+            {discountPrice ? (
+              <>
+                <span className="text-sm">Price : ৳{discountPrice}</span>
+                <span className="text-red-400 line-through text-sm">
+                  ৳{price}
+                </span>
+              </>
+            ) : (
+              <span className="text-black text-sm">Price : ৳{price}</span>
+            )}
+          </div>
+          <p className="text-gray-600 text-sm mt-2">{shortDescription}</p>
+        </div>
+
+        <Link
+          to={`/products-details/${_id}`}
+          className="mt-4 block text-center bg-gray-600 hover:bg-gray-400 text-white py-2 rounded-xl font-semibold transition-all"
+        >
+          View Details
+        </Link>
+      </div>
+
+      {/* <div className="p-2 text-right text-xs text-gray-400">
+        Posted: {formatDate(postedAt)}
+      </div> */}
+    </div>
+  );
+};
+
+export default ProductCard;
