@@ -43,7 +43,7 @@ const EditProduct = () => {
       const res = await axiosSecure.put(`/tuitions/${id}`, data);
       if (res.data.success) {
         Swal.fire("Updated!", "Tuition updated successfully.", "success");
-        navigate(`/tuition-details/${id}`); // back to products page
+        navigate(`/products-details/${id}`); // back to products page
       }
     } catch (err) {
       console.error(err);

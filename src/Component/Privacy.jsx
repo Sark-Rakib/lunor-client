@@ -1,104 +1,113 @@
-import React from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router";
 
 const Privacy = () => {
   return (
-    <section className="bg-amber-50 py-10">
-      <title>Harir Shad | Privacy Policy</title>
-      <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-amber-800 mb-8 text-center">
-          Privacy Policy
-        </h2>
+    <section className="bg-gray-50 py-10">
+      <title>Lunor | Privacy Policy</title>
 
-        <p className="text-gray-700 mb-6 leading-relaxed">
-          At <span className="font-semibold">Harir Shad</span>, we value your
-          privacy and are committed to protecting your personal information.
-          This Privacy Policy explains how we collect, use, and safeguard your
-          data when you visit or place an order through our website.
-        </p>
+      <div className="max-w-5xl mx-auto">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-6"
+        >
+          <h1 className="text-4xl font-bold text-gray-800">Privacy Policy</h1>
+          <p className="text-gray-600 mt-2">
+            Your privacy matters to us at Lunor.
+          </p>
+        </motion.div>
 
-        <div className="space-y-6 text-gray-700">
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className=" p-8 space-y-8 text-gray-700 leading-relaxed"
+        >
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
               1. Information We Collect
-            </h3>
+            </h2>
             <p>
-              We may collect personal information such as your name, phone
-              number, email address, delivery address, and order details when
-              you place an order or contact us.
+              We may collect personal information such as your name, email
+              address, phone number, shipping address, and payment details when
+              you place an order or create an account on Lunor.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
               2. How We Use Your Information
-            </h3>
+            </h2>
             <p>
-              Your information is used solely to process orders, provide
-              customer support, improve our services, and communicate important
-              updates related to your order.
+              Your information is used to process orders, improve our services,
+              provide customer support, and send updates about your purchases.
+              We do not sell or share your personal data with third parties for
+              marketing purposes.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              3. Data Protection
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              3. Payment Security
+            </h2>
             <p>
-              We implement appropriate security measures to protect your
-              personal data from unauthorized access, disclosure, or misuse.
+              All payments are processed securely through trusted payment
+              providers. Lunor does not store your full payment details on our
+              servers.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              4. Sharing of Information
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              4. Cookies
+            </h2>
             <p>
-              We do not sell, trade, or share your personal information with
-              third parties, except when required to fulfill your order or
-              comply with legal obligations.
+              We may use cookies to enhance your browsing experience, remember
+              your preferences, and analyze website traffic.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              5. Cookies
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              5. Your Rights
+            </h2>
             <p>
-              Our website may use cookies to enhance user experience and analyze
-              website performance. You can disable cookies in your browser
-              settings if you prefer.
+              You have the right to access, update, or delete your personal
+              information at any time. Contact us if you need assistance.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              6. Your Consent
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              6. Changes to This Policy
+            </h2>
             <p>
-              By using our website, you consent to our Privacy Policy and agree
-              to the collection and use of information as described.
+              Lunor may update this Privacy Policy occasionally. Any changes
+              will be posted on this page with an updated effective date.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
               7. Contact Us
-            </h3>
+            </h2>
             <p>
-              If you have any questions regarding this Privacy Policy, please
+              If you have any questions about this Privacy Policy, please
               contact us at{" "}
-              <span className="font-medium">harirshad2026@gmail.com</span>.
+              <span className="font-semibold">support@lunor.com</span>.
             </p>
           </div>
-        </div>
-        <p className="mt-8 text-gray-500">
+        </motion.div>
+        <p className="mt-8 text-gray-500 px-8">
           For the full and most up-to-date Privacy Policy, please visit our
           dedicated
           <Link
             to="/terms-service"
-            className="text-amber-800 hover:underline ml-1"
+            className="text-blue-300 hover:underline ml-1"
           >
             Terms of Service page
           </Link>

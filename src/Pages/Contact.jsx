@@ -36,7 +36,7 @@ const ContactUs = () => {
 
   return (
     <section className="rounded py-20 bg-linear-to-r from-gray-50 to-gray-100">
-      <title>Harir Shad | Contact</title>
+      <title>Lunor | Contact</title>
       <div className="w-11/12 mx-auto px-1 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
@@ -196,7 +196,9 @@ const ContactUs = () => {
                   <FaFacebook size={24} />
                 </a>
                 <a
-                  href="+880 1616-084840"
+                  href="https://wa.me/8801745762857"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-green-600 text-white p-4 rounded-full hover:bg-green-700 transition"
                 >
                   <FaWhatsapp size={24} />

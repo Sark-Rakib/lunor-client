@@ -38,7 +38,7 @@ const HeroSection = () => {
   }, [images]);
 
   return (
-    <section className="relative w-full h-[70vh] overflow-hidden">
+    <section className="relative w-full h-[75vh] overflow-hidden">
       {/* Carousel */}
       <div className="relative w-full h-full opacity-70">
         {images.map((img, index) => (
@@ -46,7 +46,7 @@ const HeroSection = () => {
             key={index}
             src={img}
             alt="Hero"
-            className="absolute w-full h-full object-cover"
+            className="absolute w-full h-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: current === index ? 1 : 0 }}
             transition={{ duration: 1 }}
@@ -58,14 +58,14 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Text + Button */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-        <h1 className="text-4xl md:text-6xl font-bold">
-          Welcome to <br />
+      <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center px-6">
+        <h1 className="text-4xl md:text-5xl font-bold">
+          EID COLLECTION / 2026 <br />
           <span className="text-gray-900">LUNOR</span>
         </h1>
 
         <Link to="/all-products">
-          <button className="mt-8 px-8 py-3 bg-gray-600 hover:bg-gray-700 rounded-full text-white font-semibold shadow-xl">
+          <button className="mt-8 mb-4 px-8 py-3 bg-gray-600 hover:bg-gray-700 rounded text-white font-semibold shadow-xl">
             Explore Now
           </button>
         </Link>

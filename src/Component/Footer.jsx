@@ -15,8 +15,8 @@ const Footer = () => {
             {/* <h3 className="text-2xl font-bold">LUNOR</h3> */}
             <img src={logo} alt="LUNOR Logo" className="h-24 -ml-13" />
             <p className="text-gray-100 text-sm leading-relaxed">
-              Taste the Authentic Home-Cooked Flavor. <br />
-              Fresh, Hygienic & Delicious.
+              To provide high-quality, affordable fashion that blends modern
+              trends with cultural elegance.
             </p>
           </div>
 

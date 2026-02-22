@@ -1,125 +1,130 @@
-import React from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router";
 
-const TermService = () => {
+const TermsService = () => {
   return (
-    <section className="bg-amber-50 py-10">
-      <title>Harir Shad | Term of Service</title>
-      <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-amber-800 mb-8 text-center">
-          Terms & Services
-        </h2>
+    <section className="bg-gray-50 py-10">
+      <title>Lunor | Terms & Service</title>
 
-        <p className="text-gray-700 mb-6 leading-relaxed">
-          Welcome to <span className="font-semibold">Harir Shad</span>. By
-          accessing or using our website and services, you agree to be bound by
-          the following Terms & Services. Please read them carefully before
-          placing an order.
-        </p>
+      <div className="max-w-5xl mx-auto">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <h1 className="text-4xl font-bold text-gray-800">Terms & Service</h1>
+          <p className="text-gray-600 mt-2">
+            Please read these terms carefully before using Lunor.
+          </p>
+        </motion.div>
 
-        <div className="space-y-6 text-gray-700">
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="p-8 space-y-8 text-gray-700 leading-relaxed"
+        >
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              1. Use of Our Services
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              1. Acceptance of Terms
+            </h2>
             <p>
-              You agree to use our website only for lawful purposes, including
-              browsing products and placing genuine orders. Any misuse or
-              unauthorized activity is strictly prohibited.
+              By accessing and using Lunor, you agree to comply with these Terms
+              & Service. If you do not agree, please discontinue using our
+              website.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              2. Orders & Payments
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              2. Products & Pricing
+            </h2>
             <p>
-              All orders placed through our website are subject to availability
-              and confirmation. Prices, product descriptions, and availability
-              may change without prior notice.
+              All product descriptions and prices are subject to change without
+              notice. We strive for accuracy but reserve the right to correct
+              any errors.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              3. Delivery
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              3. Orders & Payments
+            </h2>
             <p>
-              We strive to deliver orders on time; however, delivery times may
-              vary due to location, weather, or unforeseen circumstances. Harir
-              Shad is not responsible for delays beyond our control.
+              By placing an order, you confirm that all provided information is
+              accurate. Payments are processed securely through trusted
+              providers. Lunor reserves the right to cancel any order if
+              necessary.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              4. Cancellation & Refunds
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              4. Shipping & Delivery
+            </h2>
             <p>
-              Order cancellations are subject to our refund policy. Once an
-              order is prepared or dispatched, cancellation or refunds may not
-              be possible.
+              Delivery timelines may vary depending on location and product
+              availability. Lunor is not responsible for delays caused by
+              third-party shipping services.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              5. Intellectual Property
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              5. Returns & Refunds
+            </h2>
             <p>
-              All content, logos, images, and text on this website are the
-              property of Harir Shad and may not be copied, reproduced, or used
-              without prior written permission.
+              Returns and refunds are subject to our Refund Policy. Products
+              must be unused and in original condition.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              6. Limitation of Liability
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              6. User Responsibilities
+            </h2>
             <p>
-              Harir Shad shall not be held liable for any indirect, incidental,
-              or consequential damages arising from the use of our website or
-              services.
+              Users agree not to misuse the website, attempt unauthorized
+              access, or engage in harmful activities that may affect Lunor or
+              other users.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
               7. Changes to Terms
-            </h3>
+            </h2>
             <p>
-              We reserve the right to update or modify these Terms & Services at
-              any time. Continued use of our website constitutes acceptance of
-              any changes.
+              Lunor may update these Terms & Service at any time. Continued use
+              of the website means you accept the updated terms.
             </p>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-amber-700 mb-2">
-              8. Contact Information
-            </h3>
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              8. Contact Us
+            </h2>
             <p>
-              If you have any questions about these Terms & Services, please
-              contact us at{" "}
-              <span className="font-medium">harirshad2026@gmail.com</span>.
+              For any questions regarding these Terms, contact us at{" "}
+              <span className="font-semibold">support@lunor.com</span>.
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <p className="mt-8 text-gray-500">
-          For the complete and legally binding Terms of Service, please visit
-          our dedicated
-          <Link
-            to="/privacy-policy"
-            className="text-amber-800 hover:underline ml-1"
-          >
-            Privacy Policy page
+        {/* Bottom Link */}
+        <p className="mt-8 text-gray-500 px-8">
+          To learn more about how we handle your data, please read our{" "}
+          <Link to="/privacy-policy" className="text-blue-300 hover:underline">
+            Privacy Policy
           </Link>
+          .
         </p>
       </div>
     </section>
   );
 };
 
-export default TermService;
+export default TermsService;

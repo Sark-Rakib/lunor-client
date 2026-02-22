@@ -192,7 +192,7 @@ const ProductDetails = () => {
             <div className="mt-6">
               <a
                 href={`https://wa.me/8801745762857?text=${encodeURIComponent(
-                  `Hello! I want to order:\nProduct: ${tuition.name}\nQuantity: ${quantity}\nWeight: ${tuition.weight}\nTotal: ৳${totalPrice}`,
+                  `Hello! I want to order:\nProduct: ${tuition.name}\nQuantity: ${quantity}\nSize: ${tuition.size}\nTotal: ৳${totalPrice}`,
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

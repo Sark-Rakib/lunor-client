@@ -5,14 +5,15 @@ const About = () => {
   return (
     <section className="bg-amber-50 py-20">
       <title>Lunor | About</title>
+
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Left Column: Text + Owner */}
+        {/* Left Column: Text */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col gap-8"
+          className="flex flex-col gap-6"
         >
           {/* Section Title */}
           <h2 className="text-4xl font-bold text-amber-700">
@@ -21,13 +22,30 @@ const About = () => {
 
           {/* Brand Story */}
           <p className="text-gray-700 text-lg leading-relaxed">
-            At <span className="font-semibold">Harir Shad</span>, we bring
-            authentic Bangladeshi flavors to your table. From creamy doi to
-            indulgent sweets like rasmalai and misty, every dish is made fresh
-            with love, care, and the highest quality ingredients.
+            <span className="font-semibold">Lunor</span> is a modern fashion
+            brand dedicated to bringing timeless style and everyday comfort
+            together. We specialize in premium shirts, stylish pants, and
+            elegant panjabis crafted for men who value confidence and
+            individuality.
           </p>
 
-          {/* Owner Profile */}
+          <p className="text-gray-700 text-lg leading-relaxed">
+            At Lunor, we believe clothing is more than just fabric — it's a
+            statement of personality. Whether you're dressing for work, a
+            celebration, or a casual outing, our collections are designed to
+            make you look sharp and feel comfortable.
+          </p>
+
+          {/* Mission */}
+          <div className=" mt-4">
+            <h3 className="text-xl font-semibold text-amber-800 mb-2">
+              Our Mission
+            </h3>
+            <p className="text-gray-600">
+              To provide high-quality, affordable fashion that blends modern
+              trends with cultural elegance.
+            </p>
+          </div>
         </motion.div>
 
         {/* Right Column: Image */}
@@ -40,8 +58,8 @@ const About = () => {
         >
           <img
             src={aboutImg}
-            alt="Traditional Bangladeshi Food"
-            className="w-full md:w-[400px] rounded-xl shadow-xl"
+            alt="Lunor Fashion Collection"
+            className="w-full md:w-[420px]"
           />
         </motion.div>
       </div>

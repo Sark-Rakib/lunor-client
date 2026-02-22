@@ -37,14 +37,14 @@ const Products = () => {
   }, [axiosSecure]);
 
   return (
-    <section className="bg-gray-200 py-15 border-b border-t border-gray-400 overflow-hidden flex flex-col">
+    <section className="bg-gray-200 py-10 border-b border-t border-gray-400 overflow-hidden flex flex-col">
       <div className="w-11/12 mx-auto px-2 md:px-6">
         {/* Title */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-black">
             Our <span className="text-gray-400">Products</span>
           </h2>
-          <p className="text-gray-600 mt-2">Choose your favorite clothing</p>
+          <p className="text-gray-600 mt-1">Choose your favorite clothing</p>
         </div>
 
         {/* Loading */}
@@ -60,17 +60,17 @@ const Products = () => {
             <motion.div
               key={item._id}
               whileHover={{ y: -6 }}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden flex flex-col h-full"
+              className="bg-white rounded shadow-md hover:shadow-xl transition-all overflow-hidden flex flex-col h-full"
             >
               {/* Image */}
-              <div className="relative h-40 md:h-48">
+              <div className="relative h-full">
                 <img
                   src={
                     item.images[0] ||
                     "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"
                   }
                   alt={item.name}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full hover:scale-105 transition-transform duration-300"
                 />
 
                 {/* Status */}
@@ -120,7 +120,7 @@ const Products = () => {
 
                 {/* Button – always bottom */}
                 <Link to={`/products-details/${item._id}`} className="mt-4">
-                  <button className="w-full py-2 rounded-lg bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
+                  <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
                     View Details
                   </button>
                 </Link>
@@ -132,7 +132,7 @@ const Products = () => {
         {/* See All */}
         <div className="flex justify-center mt-10">
           <Link to="/all-products">
-            <button className="flex items-center gap-2 px-6 py-3 rounded-lg bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
+            <button className="flex items-center gap-2 px-6 py-3 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
               See All Products <FaArrowRight />
             </button>
           </Link>

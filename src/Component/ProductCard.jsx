@@ -30,13 +30,13 @@ const ProductCard = ({ tuition }) => {
     description?.slice(0, 45) + (description?.length > 45 ? "..." : "");
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 overflow-hidden flex flex-col">
+    <div className="bg-white rounded shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 overflow-hidden flex flex-col">
       {/* Image */}
-      <div className="relative h-40 md:h-48">
+      <div className="relative h-full">
         <img
           src={images[0] || "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"}
           alt={studentName || name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
         />
         {/* Status Badge */}
         <div
@@ -75,7 +75,7 @@ const ProductCard = ({ tuition }) => {
 
         <Link
           to={`/products-details/${_id}`}
-          className="mt-4 block text-center bg-gray-600 hover:bg-gray-400 text-white py-2 rounded-xl font-semibold transition-all"
+          className="mt-4 block text-center bg-gray-600 hover:bg-gray-400 text-white py-2 rounded font-semibold transition-all"
         >
           View Details
         </Link>

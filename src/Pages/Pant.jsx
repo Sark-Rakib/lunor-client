@@ -59,10 +59,10 @@ const Pant = () => {
             <motion.div
               key={item._id}
               whileHover={{ y: -6 }}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden flex flex-col h-full"
+              className="bg-white rounded shadow-md hover:shadow-xl transition-all overflow-hidden flex flex-col h-full"
             >
               {/* Image */}
-              <div className="relative h-40 md:h-48">
+              <div className="relative h-full">
                 <img
                   src={
                     item.images[0]?.url ||
@@ -115,7 +115,7 @@ const Pant = () => {
 
                 {/* Button */}
                 <Link to={`/products-details/${item._id}`} className="mt-4">
-                  <button className="w-full py-2 rounded-lg bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
+                  <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
                     View Details
                   </button>
                 </Link>

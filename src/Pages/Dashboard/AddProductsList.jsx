@@ -48,7 +48,7 @@ const AddProductsList = () => {
   };
 
   const handleView = (id) => {
-    navigate(`/tuition-details/${id}`);
+    navigate(`/products-details/${id}`);
   };
   const handleApprove = async (id) => {
     Swal.fire({

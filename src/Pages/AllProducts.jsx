@@ -50,7 +50,7 @@ const AllProducts = () => {
 
   return (
     <div className="w-11/12 mx-auto px-1 py-10 min-h-screen">
-      <title>Harir Shad | All Products</title>
+      <title>Lunor | All Products</title>
       <h1 className="text-4xl md:text-5xl font-bold text-center mb-8">
         Available <span className="text-gray-400">Products</span>
       </h1>
@@ -128,7 +128,7 @@ const AllProducts = () => {
                   <button
                     key={page}
                     className={`btn btn-sm ${
-                      currentPage === page ? "btn bg-amber-500" : "btn-outline"
+                      currentPage === page ? "btn bg-gray-500" : "btn-outline"
                     }`}
                     onClick={() => handlePageChange(page)}
                   >

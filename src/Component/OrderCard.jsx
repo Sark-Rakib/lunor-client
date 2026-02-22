@@ -35,7 +35,7 @@ const OrderCard = ({ order, onDelete }) => {
       <img
         src={order.productImage}
         alt={order.productName}
-        className="w-full h-48 object-cover rounded-lg"
+        className="w-full  object-cover rounded-lg"
       />
       <h2 className="font-semibold mt-2">Product Name: {order.productName}</h2>
       <p>Quantity: {order.quantity}</p>
