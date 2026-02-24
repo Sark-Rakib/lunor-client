@@ -48,7 +48,7 @@ const PendingTuitions = () => {
 
   return (
     <div className="p-8 text-gray-400">
-      <title>Harir Shad | User Management</title>
+      <title>Lunor | User Management</title>
       <h1 className="text-3xl font-bold mb-6">
         User Management ({users.length})
       </h1>

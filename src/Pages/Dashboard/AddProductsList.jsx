@@ -120,7 +120,7 @@ const AddProductsList = () => {
 
   return (
     <div className="p-8 text-gray-400">
-      <title>Harir Shad | Product</title>
+      <title>Lunor | Product</title>
       <h1 className="text-3xl text-center font-bold mb-6">
         All Products (<span className="text-amber-500">{tuitions.length}</span>)
       </h1>
@@ -136,7 +136,7 @@ const AddProductsList = () => {
                 <th>Category</th>
                 <th>Price</th>
                 <th>Discount Price</th>
-                <th>Description</th>
+                {/* <th>Description</th> */}
                 <th>PostedAt</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -150,7 +150,7 @@ const AddProductsList = () => {
                   <td>{t.category}</td>
                   <td>{t.price}</td>
                   <td>{t.discountPrice}</td>
-                  <td>{t.description}</td>
+                  {/* <td>{t.description}</td> */}
                   <td>${t.postedAt}</td>
                   <td>
                     {" "}

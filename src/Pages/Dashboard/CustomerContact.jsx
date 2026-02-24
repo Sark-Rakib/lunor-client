@@ -28,7 +28,7 @@ const CustomerContact = () => {
         Customer Message (
         <span className="text-amber-500">{contact.length}</span>)
       </h1>
-      <title>Harir Shad | Customer Contact</title>
+      <title>Lunor | Customer Contact</title>
       <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {contact.map((data, index) => (
           <div
