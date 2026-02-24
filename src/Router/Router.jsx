@@ -29,6 +29,7 @@ import FormalShirt from "../Pages/FormalShirt";
 import CasualShirt from "../Pages/CasualShirt";
 import Pant from "../Pages/Pant";
 import Panjabi from "../Pages/Panjabi";
+import BlogPage from "../Component/BlogPage";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         Component: Contact,
+      },
+      {
+        path: "/blog",
+        Component: BlogPage,
       },
       {
         path: "/formal-shirt",

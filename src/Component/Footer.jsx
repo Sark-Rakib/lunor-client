@@ -39,6 +39,11 @@ const Footer = () => {
                   Contact
                 </span>
               </Link>
+              <Link to="/blog">
+                <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
+                  Blog
+                </span>
+              </Link>
               <Link to="/privacy-policy">
                 <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
                   Privacy Policy

@@ -7,6 +7,7 @@ import CustomerReview from "./CustomerReview";
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 import ImageCarousel from "./ImageCarousel";
+import UseRole from "../Hooks/useRole";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const { user } = useAuth();
+  const { role } = UseRole();
 
   // Order form modal state
   const [showOrderForm, setShowOrderForm] = useState(false);
@@ -73,17 +75,15 @@ const ProductDetails = () => {
       };
       await axiosSecure.post("/orders", orderData);
       Swal.fire({
-        // title: "Order Placed!",
+        title: "Order Placed!",
         text: "Your order at LUNOR has been placed successfully 🎉",
-        // icon: "success",
-        // confirmButtonText: "Ok",
-        // confirmButtonColor: "#10B981", // green
-        backdrop: `
-    rgba(0,0,0,0.4)
-    url("https://i.gifer.com/7efs.gif")
-    center top
-    no-repeat
-  `,
+        icon: "success",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#10B981", // green
+        timer: 3000,
+        toast: true,
+        position: "center",
+        showConfirmButton: false,
       });
       setShowOrderForm(false);
       setFormData({ name: "", email: "", phone: "", district: "", street: "" });
@@ -109,7 +109,7 @@ const ProductDetails = () => {
         {/* Back Button */}
         <Link
           to="/all-products"
-          className="flex items-center gap-2 mb-6 text-gray-400 hover:text-gray-200 font-medium transition-all"
+          className="flex w-40 items-center gap-2 mb-6 text-gray-400 hover:text-gray-200 font-medium transition-all"
         >
           <IoMdArrowRoundBack className="text-2xl" />
           Back to Products
@@ -136,7 +136,7 @@ const ProductDetails = () => {
                   <span className="text-red-400 line-through font-medium text-lg">
                     ৳{tuition.price}
                   </span>
-                  <span className="text-blue-200 font-bold text-2xl">
+                  <span className=" font-bold text-2xl">
                     ৳{tuition.discountPrice}
                   </span>
                 </>
@@ -148,17 +148,19 @@ const ProductDetails = () => {
             {/* Quantity */}
             <div className="flex items-center gap-4 mt-4">
               <span className="font-medium">Quantity :</span>
-              <div className="flex items-center border rounded-lg overflow-hidden">
+              <div className="flex items-center  overflow-hidden">
                 <button
                   onClick={() => handleQuantityChange("decrement")}
-                  className="px-4 py-2 bg-gray-400 hover:bg-gray-300 transition-all"
+                  className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                 >
                   -
                 </button>
-                <span className="px-6 py-2">{quantity}</span>
+                <span className="px-6 py-2 bg-white text-gray-900 font-semibold">
+                  {quantity}
+                </span>
                 <button
                   onClick={() => handleQuantityChange("increment")}
-                  className="px-4 py-2 bg-gray-400 hover:bg-gray-300 transition-all"
+                  className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                 >
                   +
                 </button>
@@ -172,11 +174,20 @@ const ProductDetails = () => {
             </div>
 
             {/* Total Price */}
-            <div className="mt-2 text-lg">
-              <span className="font-medium">Total Price: </span>
-              <span className="text-blue-300 font-bold text-xl">
-                ৳{totalPrice}
-              </span>
+            <div className="flex justify-between items-center">
+              <div className="mt-2 text-lg ">
+                <span className="font-medium">Total Price: </span>
+                <span className="font-bold text-xl">৳{totalPrice}</span>
+              </div>
+
+              {role === "admin" && (
+                <Link
+                  to={`/dashboard/tuition/${id}/edit`}
+                  className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors"
+                >
+                  Edit Product
+                </Link>
+              )}
             </div>
 
             {/* Order Now Button */}
@@ -245,7 +256,7 @@ const ProductDetails = () => {
               />
               <label>Your Phone Number</label>
               <input
-                type="text"
+                type="number"
                 name="phone"
                 placeholder="Phone Number"
                 required

@@ -98,7 +98,7 @@ const Products = () => {
                   <div className="flex flex-wrap items-center justify-between mt-1">
                     {item.discountPrice ? (
                       <>
-                        <span className="text-sm">
+                        <span className="text-sm text-black">
                           Price : ৳{item.discountPrice}
                         </span>
                         <span className="text-red-400 line-through text-sm">
@@ -113,13 +113,13 @@ const Products = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm line-clamp-2">
+                  <p className="text-sm line-clamp-2 text-gray-600">
                     {item.description || "Premium quality sweet product"}
                   </p>
                 </div>
 
                 {/* Button – always bottom */}
-                <Link to={`/products-details/${item._id}`} className="mt-4">
+                <Link to={`/products-details/${item._id}`} className="mt-2">
                   <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
                     View Details
                   </button>

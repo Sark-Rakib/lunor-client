@@ -99,7 +99,7 @@ const Navbar = ({ theme, setTheme }) => {
 
   return (
     <div className="navbar sticky top-0 px-5 sm:px-12 lg:px-20 z-50 bg-gray-400 text-white shadow-md h-10">
-      <div className="navbar-start flex items-center gap-8 sm:gap-50">
+      <div className="navbar-start w-11/12 mx-auto flex items-center gap-8 sm:gap-50">
         {/* Mobile Hamburger */}
         <div className="lg:hidden">
           <button

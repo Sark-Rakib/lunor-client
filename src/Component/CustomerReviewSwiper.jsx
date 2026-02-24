@@ -5,6 +5,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/autoplay";
 import useAxiosSecure from "../Hooks/useAxios";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
+import { CiStar } from "react-icons/ci";
 
 // CustomerReview Swiper component
 const CustomerReviewSwiper = () => {
@@ -75,6 +76,11 @@ const CustomerReviewSwiper = () => {
             <SwiperSlide key={idx}>
               <div className="bg-indigo-50 p-6 rounded-xl">
                 <p className="italic text-black mb-4">"{item.message}"</p>
+                <p className="italic text-black mb-4 flex gap-1">
+                  {Array.from({ length: item.rating }, (_, i) => (
+                    <CiStar key={i} className="" />
+                  ))}
+                </p>
                 <p className="font-semibold text-black">{item.name}</p>
               </div>
             </SwiperSlide>
