@@ -98,10 +98,10 @@ const Navbar = ({ theme, setTheme }) => {
   );
 
   return (
-    <div className="navbar sticky top-0 px-5 sm:px-12 lg:px-20 z-50 bg-gray-400 text-white shadow-md h-10">
+    <div className="navbar sticky top-0 px-2 sm:px-7 lg:px-5 z-50 bg-gray-400 text-white shadow-md h-10">
       <div className="navbar-start w-11/12 mx-auto flex items-center gap-8 sm:gap-50">
         {/* Mobile Hamburger */}
-        <div className="lg:hidden">
+        <div className="lg:hidden -ml-3">
           <button
             onClick={() => setOpen(true)}
             className="btn btn-ghost border-none hover:bg-gray-600"
@@ -166,7 +166,7 @@ const Navbar = ({ theme, setTheme }) => {
 
         {/* <img className="h-12 ml-3" alt="E-Tuition BD Logo" src={Logo} /> */}
 
-        <img src={navLogo} alt="" className="w-50 h-20 mb-5" />
+        <img src={navLogo} alt="" className="w-50 h-20 mb-5 md:-ml-14" />
       </div>
 
       {/* Desktop Menu  */}
@@ -183,7 +183,7 @@ const Navbar = ({ theme, setTheme }) => {
       </div>
 
       <div className="navbar-end">
-        <div className="flex items-center gap-3 mr-2">
+        <div className="flex items-center gap-3 mr-2 ">
           <label className="swap swap-rotate">
             <input
               type="checkbox"

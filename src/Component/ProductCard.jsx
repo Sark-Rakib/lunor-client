@@ -30,13 +30,16 @@ const ProductCard = ({ tuition }) => {
     description?.slice(0, 45) + (description?.length > 45 ? "..." : "");
 
   return (
-    <div className="bg-white rounded shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 overflow-hidden flex flex-col">
+    <Link
+      to={`/products-details/${_id}`}
+      className="transition-all duration-300 overflow-hidden flex flex-col h-full"
+    >
       {/* Image */}
-      <div className="relative h-full">
+      <div className="relative">
         <img
           src={images[0] || "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"}
           alt={studentName || name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
         />
         {/* Status Badge */}
         <div
@@ -48,11 +51,9 @@ const ProductCard = ({ tuition }) => {
       </div>
 
       {/* Card Body */}
-      <div className="p-2 flex-1 flex flex-col justify-between">
+      <div className="mt-1 flex-1 flex flex-col justify-between">
         <div>
-          <h2 className="text-sm md:text-base font-bold text-gray-800">
-            {name}
-          </h2>
+          <h2 className="text-sm md:text-base font-bold">{name}</h2>
           {/* <div className="flex flex-wrap justify-between text-sm">
             <h1 className="text-black">Category :</h1>
             <h2 className=" text-gray-800">{category}</h2>
@@ -67,24 +68,24 @@ const ProductCard = ({ tuition }) => {
                 </span>
               </>
             ) : (
-              <span className="text-black text-sm">Price : ৳{price}</span>
+              <span className="text-sm">Price : ৳{price}</span>
             )}
           </div>
-          <p className="text-gray-600 text-sm mt-2">{shortDescription}</p>
+          <p className="text-sm">{shortDescription}</p>
         </div>
 
-        <Link
+        {/* <Link
           to={`/products-details/${_id}`}
           className="mt-4 block text-center bg-gray-600 hover:bg-gray-400 text-white py-2 rounded font-semibold transition-all"
         >
           View Details
-        </Link>
+        </Link> */}
       </div>
 
       {/* <div className="p-2 text-right text-xs text-gray-400">
         Posted: {formatDate(postedAt)}
       </div> */}
-    </div>
+    </Link>
   );
 };
 

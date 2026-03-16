@@ -147,7 +147,7 @@ const DashboardLayout = () => {
                 {/* add products */}
                 <li>
                   <Link
-                    to="/add-tuition"
+                    to="/dashboard/add-tuition"
                     className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Add Product"
                   >
@@ -157,6 +157,17 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
+            {/* add hero photo */}
+            <li>
+              <Link
+                to="/dashboard/add-hero-photo"
+                className="btn bg-[#aba65e] shadow-[#aba65e] text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Add Hero Photo"
+              >
+                <FaPlusSquare />
+                <span className="is-drawer-close:hidden">Add Hero Photo</span>
+              </Link>
+            </li>
             {/* payment history */}
             {/* <li>
               <Link

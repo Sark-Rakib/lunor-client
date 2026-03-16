@@ -30,6 +30,7 @@ import CasualShirt from "../Pages/CasualShirt";
 import Pant from "../Pages/Pant";
 import Panjabi from "../Pages/Panjabi";
 import BlogPage from "../Component/BlogPage";
+import AddHeroPhoto from "../Pages/Dashboard/AddHeroPhoto";
 
 export const router = createBrowserRouter([
   {
@@ -77,12 +78,6 @@ export const router = createBrowserRouter([
         path: "/panjabi",
         Component: Panjabi,
       },
-
-      {
-        path: "/add-tuition",
-        Component: AddProducts,
-      },
-
       {
         path: "/terms-service",
         Component: TermService,
@@ -156,6 +151,14 @@ export const router = createBrowserRouter([
       //   path: "/dashboard/my-application",
       //   Component: MyApplication,
       // },
+      {
+        path: "/dashboard/add-tuition",
+        Component: AddProducts,
+      },
+      {
+        path: "/dashboard/add-hero-photo",
+        Component: AddHeroPhoto,
+      },
       {
         path: "/dashboard/profile",
         Component: MyProfile,

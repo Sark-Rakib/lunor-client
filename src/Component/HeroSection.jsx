@@ -12,7 +12,7 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await axiosSecure.get("/allimage");
+        const res = await axiosSecure.get("/photos");
         // তোমার API route বসাও
 
         // সব product এর first image নিচ্ছি
@@ -38,9 +38,9 @@ const HeroSection = () => {
   }, [images]);
 
   return (
-    <section className="relative w-full h-[75vh] overflow-hidden">
+    <section className="relative w-full h-[45vh] md:h-[90vh] overflow-hidden">
       {/* Carousel */}
-      <div className="relative w-full h-full opacity-70">
+      <div className="relative w-full h-full">
         {images.map((img, index) => (
           <motion.img
             key={index}
@@ -55,13 +55,14 @@ const HeroSection = () => {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute"></div>
+      {/* inset-0 bg-black/40 */}
 
       {/* Text + Button */}
       <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center px-6">
         <h1 className="text-4xl md:text-5xl font-bold">
-          EID COLLECTION / 2026 <br />
-          <span className="text-gray-900">LUNOR</span>
+          LUNOR COLLECTION
+          <br />
         </h1>
 
         <Link to="/all-products">

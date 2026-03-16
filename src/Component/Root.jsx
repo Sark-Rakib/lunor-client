@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import TopNavbar from "./TopNavbar";
 
 const Root = () => {
   const [theme, setTheme] = useState(
@@ -15,6 +16,7 @@ const Root = () => {
 
   return (
     <>
+      <TopNavbar></TopNavbar>
       <Navbar theme={theme} setTheme={setTheme} />
       <Outlet />
       <Footer />

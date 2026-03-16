@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 import ImageCarousel from "./ImageCarousel";
 import UseRole from "../Hooks/useRole";
+import CustomerReviewSwiper from "./CustomerReviewSwiper";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -117,7 +118,7 @@ const ProductDetails = () => {
 
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Product Image */}
-          <div className="w-full lg:w-1/2 p-2 mx-auto rounded shadow">
+          <div className="w-full lg:w-1/2 p-2 mx-auto rounded">
             <ImageCarousel images={tuition.images} />
           </div>
 
@@ -306,6 +307,8 @@ const ProductDetails = () => {
 
       <hr className="text-gray-400" />
       <CustomerReview />
+      <hr />
+      <CustomerReviewSwiper></CustomerReviewSwiper>
     </div>
   );
 };

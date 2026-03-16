@@ -49,7 +49,7 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto px-1 py-10 min-h-screen">
+    <div className="px-4 sm:px-9 md:px-6 py-10 min-h-screen">
       <title>Lunor | All Products</title>
       <h1 className="text-4xl md:text-5xl font-bold text-center mb-8">
         Available <span className="text-gray-400">Products</span>
@@ -60,7 +60,7 @@ const AllProducts = () => {
         <input
           type="text"
           placeholder="Search by Category (formal shirt, pant, panjabi...)"
-          className="input input-bordered border-gray-300 outline-none flex-1 p-3"
+          className="input input-bordered border-gray-300 outline-none flex-1 p-3 w-full"
           value={searchCategory}
           onChange={(e) => {
             setSearchCategory(e.target.value);
