@@ -1,246 +1,286 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router";
+import { NavLink, Link } from "react-router"; // ← fixed import (react-router → react-router-dom)
 import "./Navbar.css";
-import userAuth from "../Hooks/useAuth";
-import { FaChevronDown } from "react-icons/fa";
+import useAuth from "../Hooks/useAuth"; // assuming this is the correct path
+import { FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 import { CiLogin, CiUser } from "react-icons/ci";
 import navLogo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
 
 const Navbar = ({ theme, setTheme }) => {
-  const { user } = userAuth();
-  const [open, setOpen] = useState(false);
+  const { user } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
 
   const handleThemeToggle = (e) => {
     setTheme(e.target.checked ? "dark" : "light");
   };
 
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    setCategoryOpen(false); // optional: close submenu too
+  };
+
   const menuItems = (
     <>
-      <NavLink to="/" className="block py-2 px-4 hover:bg-gray-600 rounded">
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `block py-2.5 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+        }
+        onClick={closeMobileMenu}
+      >
         Home
       </NavLink>
+
       <NavLink
         to="/all-products"
-        className="block py-2 px-4 hover:bg-gray-600 rounded"
+        className={({ isActive }) =>
+          `block py-2.5 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+        }
+        onClick={closeMobileMenu}
       >
         All Products
       </NavLink>
 
-      <li className="list-none">
-        {/* Category button */}
+      {/* Category Dropdown */}
+      <div className="relative">
         <button
           onClick={() => setCategoryOpen(!categoryOpen)}
-          className="flex items-center gap-2 w-full py-2 px-4 font-medium hover:bg-gray-600 rounded"
+          className="flex items-center justify-between w-full py-2.5 px-4 font-medium hover:bg-gray-600 rounded"
         >
           Category
           <FaChevronDown
-            className={`transition ml-auto ${categoryOpen ? "rotate-180" : ""}`}
+            className={`transition-transform duration-200 ${categoryOpen ? "rotate-180" : ""}`}
           />
         </button>
 
-        {/* Inline routes (hidden by default) */}
         {categoryOpen && (
-          <ul className="ml-4 mt-2 space-y-1">
-            {/* <NavLink
-              to="/shirt"
-              className="block py-2 px-4 hover:bg-amber-300 rounded"
-            >
-              Shirt
-            </NavLink> */}
+          <ul className="ml-5 mt-1 space-y-1 border-l-2 border-gray-600 pl-3">
             <NavLink
               to="/formal-shirt"
-              className="block py-2 px-4 hover:bg-gray-600 rounded"
+              className={({ isActive }) =>
+                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+              }
+              onClick={closeMobileMenu}
             >
               Formal Shirt
             </NavLink>
-
             <NavLink
               to="/casual-shirt"
-              className="block py-2 px-4 hover:bg-gray-600 rounded"
+              className={({ isActive }) =>
+                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+              }
+              onClick={closeMobileMenu}
             >
               Casual Shirt
             </NavLink>
-
             <NavLink
               to="/pant"
-              className="block py-2 px-4 hover:bg-gray-600 rounded"
+              className={({ isActive }) =>
+                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+              }
+              onClick={closeMobileMenu}
             >
               Pant
             </NavLink>
             <NavLink
               to="/panjabi"
-              className="block py-2 px-4 hover:bg-gray-600 rounded"
+              className={({ isActive }) =>
+                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+              }
+              onClick={closeMobileMenu}
             >
               Panjabi
             </NavLink>
           </ul>
         )}
-      </li>
-
-      {/* {user && (
-        <>
-          <Link
-            to="/add-tuition"
-            className="block py-2 px-4 btn btn-primary btn-sm mt-2"
-          >
-            Add Tuition
-          </Link>
-          <Link
-            to="/add-tutors"
-            className="block py-2 px-4 btn btn-primary btn-sm mt-2"
-          >
-            Add Tutors
-          </Link>
-        </>
-      )} */}
+      </div>
     </>
   );
 
   return (
-    <div className="navbar sticky top-0 px-2 sm:px-7 lg:px-5 z-50 bg-gray-400 text-white shadow-md h-10">
-      <div className="navbar-start w-11/12 mx-auto flex items-center gap-8 sm:gap-50">
-        {/* Mobile Hamburger */}
-        <div className="lg:hidden -ml-3">
-          <button
-            onClick={() => setOpen(true)}
-            className="btn btn-ghost border-none hover:bg-gray-600"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Slide Menu */}
-        <div
-          className={`fixed inset-0 z-50 transition-all duration-300 ${
-            open ? "visible" : "invisible"
-          }`}
-        >
-          {/* Overlay */}
-          <div
-            onClick={() => setOpen(false)}
-            className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
-              open ? "opacity-100" : "opacity-0"
-            }`}
-          ></div>
-
-          {/* Drawer */}
-          <div
-            className={`absolute left-0 top-0 h-full w-60 text-white bg-gray-500 shadow-xl transform transition-transform duration-300 ${
-              open ? "translate-x-0" : "-translate-x-full"
-            }`}
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b">
-              <h2 className="text-xl font-bold">Menu</h2>
+    <>
+      {/* Main Navbar */}
+      <nav className="sticky top-0 z-50 bg-gray-400 text-white shadow-lg">
+        <div className="px-3 sm:px-8 md:px-6 lg:px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Left - Logo + Mobile Hamburger */}
+            <div className="flex items-center gap-4">
+              {/* Mobile Hamburger */}
               <button
-                onClick={() => setOpen(false)}
-                className="btn btn-sm btn-ghost hover:bg-gray-600 border-none"
+                className="lg:hidden text-2xl focus:outline-none"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle menu"
               >
-                ✕
+                {mobileOpen ? <FaTimes /> : <FaBars />}
               </button>
+
+              {/* Logo */}
+              <Link to="/" className="flex items-center">
+                <img
+                  src={navLogo}
+                  alt="Logo"
+                  className="h-22 w-full object-contain mb-6 ml-13 sm:-ml-8 md:-ml-8 lg:-ml-8"
+                />
+              </Link>
             </div>
 
-            {/* Menu Items */}
-            <ul
-              // onClick={() => setOpen(false)}
-              className="menu p-5 text-base font-medium space-y-1"
-            >
-              {menuItems}
-            </ul>
+            {/* Center - Desktop Menu */}
+            <div className="hidden lg:flex items-center gap-8">
+              <ul className="flex items-center gap-6 text-sm font-medium">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "text-gray-900" : "hover:text-gray-900"
+                  }
+                >
+                  Home
+                </NavLink>
+                <NavLink
+                  to="/all-products"
+                  className={({ isActive }) =>
+                    isActive ? "text-gray-900" : "hover:text-gray-900"
+                  }
+                >
+                  All Products
+                </NavLink>
+
+                {/* Desktop Category Dropdown */}
+                <div className="relative group">
+                  <button className="flex items-center gap-1 hover:text-gray-900">
+                    Category
+                    <FaChevronDown className="text-xs" />
+                  </button>
+                  <div className="absolute left-0 top-full pt-2 hidden group-hover:block w-48">
+                    <div className="bg-gray-800 shadow-xl rounded-md py-2 border border-gray-700">
+                      <NavLink
+                        to="/formal-shirt"
+                        className={({ isActive }) =>
+                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                        }
+                      >
+                        Formal Shirt
+                      </NavLink>
+                      <NavLink
+                        to="/casual-shirt"
+                        className={({ isActive }) =>
+                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                        }
+                      >
+                        Casual Shirt
+                      </NavLink>
+                      <NavLink
+                        to="/pant"
+                        className={({ isActive }) =>
+                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                        }
+                      >
+                        Pant
+                      </NavLink>
+                      <NavLink
+                        to="/panjabi"
+                        className={({ isActive }) =>
+                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                        }
+                      >
+                        Panjabi
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </ul>
+            </div>
+
+            {/* Right - Theme + Auth */}
+            <div className="flex items-center gap-4">
+              {/* Theme Toggle */}
+              <label className="swap swap-rotate">
+                <input
+                  type="checkbox"
+                  onChange={handleThemeToggle}
+                  checked={theme === "dark"}
+                />
+
+                {/* Sun icon - visible in DARK mode (swap-on = checked) */}
+                <svg
+                  className="swap-on fill-current w-6 h-6 text-yellow-300"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M5.64 17l-.71.71a1 1 0 001.41 1.41l.71-.71a1 1 0 10-1.41-1.41zM12 4a1 1 0 100 2 1 1 0 000-2zm7.05 1.64a1 1 0 00-1.41 0l-.71.71a1 1 0 101.41 1.41l.71-.71a1 1 0 000-1.41zM4 12a1 1 0 100 2 1 1 0 000-2zm8 8a1 1 0 100-2 1 1 0 000 2zm6.36-2.64a1 1 0 10-1.41-1.41l-.71.71a1 1 0 101.41 1.41l.71-.71zM20 12a1 1 0 100 2 1 1 0 000-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                </svg>
+
+                {/* Moon icon - visible in LIGHT mode (swap-off = unchecked) */}
+                <svg
+                  className="swap-off fill-current w-6 h-6 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M21.64 13.65A9 9 0 1112 3a7 7 0 009.64 10.65z" />
+                </svg>
+              </label>
+
+              {/* Auth Icon */}
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="text-2xl hover:bg-gray-700 rounded-full transition"
+                  title="Dashboard"
+                >
+                  <CiUser />
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-2xl hover:bg-gray-700 rounded-full transition"
+                  title="Login"
+                >
+                  <CiLogin />
+                </Link>
+              )}
+            </div>
           </div>
         </div>
+      </nav>
 
-        {/* <img className="h-12 ml-3" alt="E-Tuition BD Logo" src={Logo} /> */}
+      {/* Mobile Sidebar Drawer */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ${
+          mobileOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
+        {/* Overlay */}
+        <div
+          className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${
+            mobileOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={closeMobileMenu}
+        />
 
-        <img src={navLogo} alt="" className="w-50 h-20 mb-5 md:-ml-14" />
-      </div>
-
-      {/* Desktop Menu  */}
-      <div className="navbar-center hidden md:flex">
-        <ul className="menu menu-horizontal px-1 gap-8">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/all-products">All Products</NavLink>
-          {/* <NavLink to="/shirt">Shirt</NavLink> */}
-          <NavLink to="/formal-shirt">Formal Shirt</NavLink>
-          <NavLink to="/casual-shirt">Casual Shirt</NavLink>
-          <NavLink to="/pant">Pant</NavLink>
-          <NavLink to="/panjabi">Panjabi</NavLink>
-        </ul>
-      </div>
-
-      <div className="navbar-end">
-        <div className="flex items-center gap-3 mr-2 ">
-          <label className="swap swap-rotate">
-            <input
-              type="checkbox"
-              onChange={handleThemeToggle}
-              checked={theme === "dark"}
-            />
-
-            {/* sun icon */}
-            <svg
-              className="swap-on fill-current w-6 h-6 text-yellow-200"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
+        {/* Drawer Panel */}
+        <div
+          className={`absolute top-0 left-0 h-full w-72 bg-gray-400 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between p-5 border-b border-gray-800">
+            <h2 className="text-xl font-bold">Menu</h2>
+            <button
+              onClick={closeMobileMenu}
+              className="text-2xl focus:outline-none hover:text-gray-400"
             >
-              <path d="M5.64 17l-.71.71a.996.996 0 101.41 1.41l.71-.71A.996.996 0 105.64 17zM12 4a1 1 0 100 2 1 1 0 000-2zm7.05 1.64a.996.996 0 00-1.41 0l-.71.71a.996.996 0 101.41 1.41l.71-.71a.996.996 0 000-1.41zM4 12a1 1 0 100 2 1 1 0 000-2zm8 8a1 1 0 100-2 1 1 0 000 2zm6.36-2.64a.996.996 0 10-1.41-1.41l-.71.71a.996.996 0 101.41 1.41l.71-.71zM20 12a1 1 0 100 2 1 1 0 000-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-            </svg>
+              <FaTimes />
+            </button>
+          </div>
 
-            {/* moon icon */}
-            <svg
-              className="swap-off fill-current w-6 h-6 text-grya-200"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path d="M21.64 13.65A9 9 0 1112 3a7 7 0 009.64 10.65z" />
-            </svg>
-          </label>
+          <div className="p-5">
+            <div className="flex flex-col space-y-1 text-base font-medium">
+              {menuItems}
+            </div>
+          </div>
         </div>
-        <div className="hidden lg:flex gap-2">
-          {/* {user && (
-            <Link className="btn btn-primary" to="/add-tuition">
-              Add Tuition
-            </Link>
-          )} */}
-          {/* {user && (
-            <Link className="btn btn-primary" to="/add-tutors">
-              Add Tutors
-            </Link>
-          )} */}
-        </div>
-
-        {/* Dashboard / Login */}
-        {user ? (
-          <Link
-            className="text-xl text-white shadow-none ml-2 hover:bg-gray-600 rounded p-1"
-            to="/dashboard"
-          >
-            <CiUser />
-          </Link>
-        ) : (
-          <Link
-            to="/login"
-            className="text-xl  text-white shadow-none ml-2 mb-1 hover:bg-gray-600 rounded p-1"
-          >
-            <CiLogin />
-          </Link>
-        )}
       </div>
-    </div>
+    </>
   );
 };
 

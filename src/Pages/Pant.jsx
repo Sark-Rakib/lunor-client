@@ -63,7 +63,7 @@ const Pant = () => {
                 className="transition-all overflow-hidden flex flex-col h-full"
               >
                 {/* Image */}
-                <div className="relative h-full">
+                <div className="relative">
                   <img
                     src={
                       item.images[0]?.url ||
@@ -71,7 +71,7 @@ const Pant = () => {
                       "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"
                     }
                     alt={item.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
                   />
 
                   <span className="absolute top-3 right-3 bg-gray-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
