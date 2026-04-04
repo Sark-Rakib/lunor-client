@@ -46,6 +46,7 @@ const OrderCard = ({ order, onDelete }) => {
       <p>Customer Phone: {order.phone}</p>
       <p>Customer District: {order.district}</p>
       <p>Customer Street: {order.street}</p>
+      <p>Payment Method: {order.paymentMethod}</p>
 
       <p className="mt-2 font-semibold">
         Status:{" "}

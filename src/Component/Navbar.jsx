@@ -75,6 +75,15 @@ const Navbar = ({ theme, setTheme }) => {
               Casual Shirt
             </NavLink>
             <NavLink
+              to="/t-shirt"
+              className={({ isActive }) =>
+                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
+              }
+              onClick={closeMobileMenu}
+            >
+              T-Shirt
+            </NavLink>
+            <NavLink
               to="/pant"
               className={({ isActive }) =>
                 `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
@@ -108,7 +117,7 @@ const Navbar = ({ theme, setTheme }) => {
             <div className="flex items-center gap-4">
               {/* Mobile Hamburger */}
               <button
-                className="lg:hidden text-2xl focus:outline-none"
+                className="lg:hidden text-xl focus:outline-none"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
               >
@@ -120,7 +129,7 @@ const Navbar = ({ theme, setTheme }) => {
                 <img
                   src={navLogo}
                   alt="Logo"
-                  className="h-22 w-full object-contain mb-6 ml-13 sm:-ml-8 md:-ml-8 lg:-ml-8"
+                  className="h-22 w-full object-contain mb-6 ml-13 sm:-ml-5 md:-ml-8 lg:-ml-8"
                 />
               </Link>
             </div>
@@ -168,6 +177,14 @@ const Navbar = ({ theme, setTheme }) => {
                         }
                       >
                         Casual Shirt
+                      </NavLink>
+                      <NavLink
+                        to="/t-shirt"
+                        className={({ isActive }) =>
+                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                        }
+                      >
+                        T-Shirt
                       </NavLink>
                       <NavLink
                         to="/pant"
@@ -267,7 +284,7 @@ const Navbar = ({ theme, setTheme }) => {
             <h2 className="text-xl font-bold">Menu</h2>
             <button
               onClick={closeMobileMenu}
-              className="text-2xl focus:outline-none hover:text-gray-400"
+              className="text-lg focus:outline-none hover:text-gray-600"
             >
               <FaTimes />
             </button>

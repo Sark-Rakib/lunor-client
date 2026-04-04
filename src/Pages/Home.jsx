@@ -12,6 +12,7 @@ import formal from "../assets/Gemini_Generated_Image_7vcew17vcew17vce.png";
 import casual from "../assets/Gemini_Generated_Image_hcqsmshcqsmshcqs.png";
 import pant from "../assets/Gemini_Generated_Image_u1qvtyu1qvtyu1qv.png";
 import { Link } from "react-router";
+import TrandingCategory from "../Component/TrandingCategory";
 
 const HomePage = () => {
   const axiosSecure = useAxiosSecure();
@@ -39,7 +40,7 @@ const HomePage = () => {
   return (
     <div className="">
       <HeroSection></HeroSection>
-
+      <TrandingCategory></TrandingCategory>
       <div className="mt-10 relative">
         <img
           src={formal}

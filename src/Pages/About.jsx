@@ -3,7 +3,7 @@ import aboutImg from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removeb
 
 const About = () => {
   return (
-    <section className="bg-amber-50 py-20">
+    <section className="py-20">
       <title>Lunor | About</title>
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

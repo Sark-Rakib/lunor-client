@@ -1,6 +1,7 @@
 import React from "react";
-import { FaPhone, FaEnvelope } from "react-icons/fa"; // Changed FaMailBulk → FaEnvelope (more standard)
-import { Link } from "react-router"; // corrected import
+import { PiPhoneCallThin } from "react-icons/pi";
+import { CiMail } from "react-icons/ci";
+import { Link } from "react-router";
 
 const TopNavbar = () => {
   return (
@@ -11,32 +12,32 @@ const TopNavbar = () => {
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             <a
               href="tel:+8801745762857"
-              className="flex items-center gap-2 hover:text-amber-300 transition-colors"
+              className="flex items-center gap-1 hover:text-amber-300 transition-colors text-[10px] sm:text-xs md:text-sm xs:flex"
             >
-              <FaPhone className="" />
+              <PiPhoneCallThin className="text-[10px] sm:text-xs md:text-sm" />
               01745-762857
             </a>
 
             <a
               href="mailto:lunorr@info.com"
-              className="flex items-center gap-2 hover:text-amber-300 transition-colors xs:flex"
+              className="flex items-center gap-1 hover:text-amber-300 transition-colors text-[10px] sm:text-xs md:text-sm xs:flex"
             >
-              <FaEnvelope className="" />
+              <CiMail className="text-[10px] sm:text-xs md:text-sm" />
               lunorr@info.com
             </a>
           </div>
 
           {/* Right - Links */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             <Link
               to="/about"
-              className="px-3 py-1.5 rounded-md hover:bg-gray-800 hover:text-amber-300 transition-colors"
+              className="py-1.5 rounded-md hover:bg-gray-800 hover:text-amber-300 transition-colors text-[10px] sm:text-xs md:text-sm"
             >
               About
             </Link>
             <Link
               to="/contact"
-              className="px-3 py-1.5 rounded-md hover:bg-gray-800 hover:text-amber-300 transition-colors"
+              className="py-1.5 rounded-md hover:bg-gray-800 hover:text-amber-300 transition-colors text-[10px] sm:text-xs md:text-sm"
             >
               Contact
             </Link>

@@ -31,6 +31,7 @@ import Pant from "../Pages/Pant";
 import Panjabi from "../Pages/Panjabi";
 import BlogPage from "../Component/BlogPage";
 import AddHeroPhoto from "../Pages/Dashboard/AddHeroPhoto";
+import TShirt from "../Pages/TShirt";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: "/panjabi",
         Component: Panjabi,
+      },
+      {
+        path: "/t-shirt",
+        Component: TShirt,
       },
       {
         path: "/terms-service",

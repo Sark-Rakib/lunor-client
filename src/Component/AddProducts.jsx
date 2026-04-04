@@ -157,6 +157,7 @@ const AddProducts = () => {
               {[
                 "Formal Shirt",
                 "Casual Shirt",
+                "T-Shirt",
                 "Pant",
                 "Panjabi",
                 "Other...",

@@ -41,7 +41,7 @@ const Products = () => {
       <div className="px-3 md:px-6">
         {/* Title */}
         <div className="text-center mb-12 flex items-center justify-between">
-          <h2 className="text-2xl md:text-4xl font-bold">Feature Products</h2>
+          <h2 className="text-xl md:text-2xl font-bold">Feature Products</h2>
           <Link
             to="/all-products"
             className="border-b cursor-pointer mt-1 flex items-center gap-2"

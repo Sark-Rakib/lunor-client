@@ -35,7 +35,7 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="rounded py-20 bg-linear-to-r from-gray-50 to-gray-100">
+    <section className="rounded py-20 ">
       <title>Lunor | Contact</title>
       <div className="w-11/12 mx-auto px-1 sm:px-6 lg:px-8">
         {/* Heading */}
@@ -44,7 +44,7 @@ const ContactUs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl md:text-4xl font-bold mb-4">
             Get in Touch <span className="text-gray-400">With Us</span>
           </h2>
           <p className="text-l text-gray-600 max-w-2xl mx-auto">
@@ -55,14 +55,12 @@ const ContactUs = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -15 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-3xl shadow-xl p-8 lg:p-10 border border-indigo-100"
+            className="rounded-3xl shadow-xl p-8 lg:p-10 border border-indigo-100"
           >
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
-              Send us a Message
-            </h3>
+            <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
@@ -70,7 +68,7 @@ const ContactUs = () => {
                   type="text"
                   placeholder="Your Full Name"
                   {...register("name", { required: "Name is required" })}
-                  className="w-full px-5 py-4 text-black rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none"
+                  className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none"
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm mt-1">
@@ -87,7 +85,7 @@ const ContactUs = () => {
                     required: "Email is required",
                     pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
                   })}
-                  className="w-full px-5 py-4 text-black rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none"
+                  className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
@@ -106,7 +104,7 @@ const ContactUs = () => {
                     message: "Number must be 11 digits",
                   },
                 })}
-                className="w-full px-5 py-4 text-black rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none"
+                className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none"
               />
 
               <div>
@@ -114,7 +112,7 @@ const ContactUs = () => {
                   rows="5"
                   placeholder="Write your message here..."
                   {...register("message", { required: "Message is required" })}
-                  className="w-full px-5 py-4 text-black rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none resize-none"
+                  className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 transition-all outline-none resize-none"
                 />
                 {errors.message && (
                   <p className="text-red-500 text-sm mt-1">
@@ -134,7 +132,7 @@ const ContactUs = () => {
 
           {/* Contact Info & Map */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 15 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="space-y-8"
@@ -168,15 +166,13 @@ const ContactUs = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-lg p-6 flex items-start gap-5 border border-indigo-100 hover:shadow-xl transition-all"
+                className="rounded-2xl shadow-lg p-6 flex items-start gap-5 border border-indigo-100 hover:shadow-xl transition-all"
               >
                 <div className="text-indigo-600 bg-indigo-100 p-2 rounded-full">
                   <item.icon size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-800 text-lg">
-                    {item.title}
-                  </h4>
+                  <h4 className="font-bold text-lg">{item.title}</h4>
                   <p className="text-l font-semibold text-gray-400 mt-1">
                     {item.info}
                   </p>
@@ -186,7 +182,7 @@ const ContactUs = () => {
             ))}
 
             {/* Social Links */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-indigo-100">
+            <div className="rounded-2xl shadow-lg p-6 border border-indigo-100">
               <h4 className="font-bold text-xl mb-4">Follow Us</h4>
               <div className="flex gap-4">
                 <a
