@@ -1,16 +1,100 @@
-# React + Vite
+# 🛒 LUNOR - E-commerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LUNOR is a modern and responsive e-commerce web application where users can browse products, add items to cart, and place orders seamlessly.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+🔗 https://lunorr.netlify.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🛍️ Browse products with clean UI
+- 🛒 Add to cart functionality
+- 🔐 User authentication (Login / Register)
+- 📦 Order management system
+- 📱 Fully responsive design
+- ⚡ Fast and smooth user experience
+
+---
+
+## 🧑‍💻 Tech Stack
+
+### Frontend:
+
+- ⚛️ React / Next.js
+- 🎨 Tailwind CSS
+- 🎬 Framer Motion
+
+### Backend:
+
+- 🟢 Node.js
+- 🚂 Express.js
+- 🗄️ MongoDB
+
+### Others:
+
+- 🔥 Firebase (Auth)
+- 🌐 REST API
+
+---
+
+## 📸 Screenshots
+
+![Home Page](./src/assets/Screenshot%20from%202026-04-06%2000-37-58.png)
+![Product Page](./src/assets/Screenshot%20from%202026-04-06%2000-38-25.png)
+![Product Details Page](./src/assets/Screenshot%20from%202026-04-06%2000-38-50.png)
+
+---
+
+## 📦 Installation & Setup
+
+```bash id="o4u3y9"
+# Clone the repository
+git clone https://github.com/Sark-Rakib/lunor-client.git
+
+# Go to project folder
+cd projects
+
+# Install client dependencies
+cd lunor-client
+npm install
+
+# Install server dependencies
+cd ../lunor-server
+npm install
+
+# Run client
+npm run dev
+
+# Run server
+nodemon index.js
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file and add:
+
+```env id="j5p8mz"
+MONGODB_URI=your_mongodb_uri
+FIREBASE_API_KEY=your_key
+```
+
+---
+
+## 🤝 Connect with Me
+
+- 📧 Email: [mdrakibsarkar1@gmail.com](mailto:mdrakibsarkar1@gmail.com)
+- 💼 LinkedIn: https://www.linkedin.com/in/rakib-sarker-
+- 💻 GitHub: https://github.com/Sark-Rakib
+
+---
+
+## ⭐ Support
+
+If you like this project, please give it a ⭐ on GitHub!
