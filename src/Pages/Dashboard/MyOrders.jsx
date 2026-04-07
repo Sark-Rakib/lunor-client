@@ -87,8 +87,11 @@ const MyOrders = () => {
 
                 <p>Quantity: {order.quantity}</p>
                 <p>Size: {order.size}</p>
-                <p>Total Price: ৳ {order.totalPrice}</p>
+                {/* <p>Total Price: ৳ {order.totalPrice}</p> */}
                 <p>Payment: {order.paymentMethod}</p>
+                {order.transactionId && (
+                  <p>Transaction ID: {order.transactionId}</p>
+                )}
 
                 <p className="text-sm">
                   Status:{" "}

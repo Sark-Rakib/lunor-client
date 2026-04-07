@@ -4,8 +4,8 @@ import useAxiosSecure from "../Hooks/useAxios";
 import Loading from "./Loading";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import CustomerReview from "./CustomerReview";
-import Swal from "sweetalert2";
-import useAuth from "../Hooks/useAuth";
+// import Swal from "sweetalert2";
+// import useAuth from "../Hooks/useAuth";
 import ImageCarousel from "./ImageCarousel";
 import UseRole from "../Hooks/useRole";
 import CustomerReviewSwiper from "./CustomerReviewSwiper";
@@ -16,19 +16,20 @@ const ProductDetails = () => {
   const [tuition, setTuition] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const { user } = useAuth();
+  const [selectedSize, setSelectedSize] = useState("");
+  // const { user } = useAuth();
   const { role } = UseRole();
 
   // Order form modal state
-  const [showOrderForm, setShowOrderForm] = useState(false);
+  // const [showOrderForm, setShowOrderForm] = useState(false);
 
   // Form state
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    district: "",
-    street: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   phone: "",
+  //   district: "",
+  //   street: "",
+  // });
 
   useEffect(() => {
     const fetchTuition = async () => {
@@ -56,43 +57,43 @@ const ProductDetails = () => {
     if (type === "decrement" && quantity > 1) setQuantity((prev) => prev - 1);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
-  const handleOrderSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const orderData = {
-        productId: tuition._id,
-        productName: tuition.name,
-        productImage: tuition.images[0],
-        quantity,
-        totalPrice,
-        size: tuition.size || "Not specified",
-        email: user?.email || formData.email,
-        ...formData,
-      };
-      await axiosSecure.post("/orders", orderData);
-      Swal.fire({
-        title: "Order Placed!",
-        text: "Your order at LUNOR has been placed successfully 🎉",
-        icon: "success",
-        confirmButtonText: "Ok",
-        confirmButtonColor: "#10B981", // green
-        timer: 3000,
-        toast: true,
-        position: "center",
-        showConfirmButton: false,
-      });
-      setShowOrderForm(false);
-      setFormData({ name: "", email: "", phone: "", district: "", street: "" });
-    } catch (err) {
-      console.error(err);
-      alert("Failed to place order. Try again.");
-    }
-  };
+  // const handleOrderSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const orderData = {
+  //       productId: tuition._id,
+  //       productName: tuition.name,
+  //       productImage: tuition.images[0],
+  //       quantity,
+  //       totalPrice,
+  //       size: tuition.size || "Not specified",
+  //       email: user?.email || formData.email,
+  //       ...formData,
+  //     };
+  //     await axiosSecure.post("/orders", orderData);
+  //     Swal.fire({
+  //       title: "Order Placed!",
+  //       text: "Your order at LUNOR has been placed successfully 🎉",
+  //       icon: "success",
+  //       confirmButtonText: "Ok",
+  //       confirmButtonColor: "#10B981", // green
+  //       timer: 3000,
+  //       toast: true,
+  //       position: "center",
+  //       showConfirmButton: false,
+  //     });
+  //     setShowOrderForm(false);
+  //     setFormData({ name: "", email: "", phone: "", district: "", street: "" });
+  //   } catch (err) {
+  //     console.error(err);
+  //     alert("Failed to place order. Try again.");
+  //   }
+  // };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -125,13 +126,13 @@ const ProductDetails = () => {
           {/* Product Info */}
           <div className="flex-1 flex flex-col gap-4">
             <h1 className="text-2xl md:text-3xl">{tuition.name}</h1>
-            <h1 className="bg-gray-400 rounded-full w-max px-3">
+            <h1 className="text-sm bg-gray-400 rounded-full w-max px-3">
               {tuition.ability}
             </h1>
             <p className="text-s sm:text-l md:text-lg">{tuition.description}</p>
 
             {/* Price */}
-            <div className="flex items-center gap-4 mt-2">
+            <div className="flex items-center gap-4">
               {tuition.discountPrice ? (
                 <>
                   <span className="text-red-400 line-through font-medium md:text-lg">
@@ -168,15 +169,46 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* products size */}
+            {/* Size Selector with Selection */}
             <div className="mt-1">
-              <span>Size : </span>
-              <span>{tuition.size || "N/A"}</span>
+              <p className="text-s mb-3">Select Size</p>
+
+              <div className="flex flex-wrap gap-4">
+                {["S", "M", "L", "XL", "2XL"].map((size) => {
+                  const isAvailable = tuition?.sizes?.includes(size);
+                  const isSelected = selectedSize === size;
+
+                  return (
+                    <button
+                      key={size}
+                      type="button"
+                      disabled={!isAvailable}
+                      onClick={() => isAvailable && setSelectedSize(size)}
+                      className={`w-8 h-8 rounded border-2 text-sm font-medium transition-all flex items-center justify-center
+            ${
+              !isAvailable
+                ? "border-dashed border-gray-300 text-gray-400 line-through cursor-not-allowed"
+                : isSelected
+                  ? "border-black bg-black text-white"
+                  : "border-gray-400 hover:border-black hover:bg-gray-100"
+            }`}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {!selectedSize && (
+                <p className="text-red-500 text-[12px] mt-2">
+                  Please select a size *
+                </p>
+              )}
             </div>
 
             {/* Total Price */}
             <div className="flex justify-between items-center">
-              <div className="text-lg">
+              <div className="text-base">
                 <span>Total Price : </span>
                 <span className="">৳{totalPrice}</span>
               </div>
@@ -192,13 +224,29 @@ const ProductDetails = () => {
             </div>
 
             {/* Order Now Button */}
-            <div className="mt-6">
-              <button
-                onClick={() => setShowOrderForm(true)}
-                className="w-full md:w-1/2 py-4 px-6 bg-gray-400 text-white text-l md:text-lg rounded-xl shadow-lg hover:bg-gray-500 hover:shadow-2xl transition-all"
+            <div className="mt-2">
+              <Link
+                to="/order-place"
+                state={{
+                  product: tuition,
+                  quantity,
+                  totalPrice,
+                  selectedSize: selectedSize,
+                }}
               >
-                Order Now
-              </button>
+                <button
+                  disabled={!selectedSize}
+                  className={`w-full md:w-1/2 py-4 px-6 text-baserounded-xl shadow-lg transition-all rounded-xl
+        ${
+          selectedSize
+            ? "bg-black hover:bg-gray-800 text-white"
+            : "bg-gray-400 text-gray-200 cursor-not-allowed"
+        }
+      `}
+                >
+                  {selectedSize ? "Order Now" : "Select Size First"}
+                </button>
+              </Link>
             </div>
             {/* WhatsApps Order Button */}
             <div className="mt-4">
@@ -222,7 +270,7 @@ const ProductDetails = () => {
       </div>
 
       {/* Order Form Modal */}
-      {showOrderForm && (
+      {/* {showOrderForm && (
         <div className="fixed p-4 inset-0 z-50 flex items-center justify-center bg-black/40 overflow-scroll">
           <div className="bg-gray-200 p-6 rounded-xl max-w-md w-full relative">
             <h2 className="text-2xl text-black font-bold mb-4 text-center">
@@ -315,7 +363,7 @@ const ProductDetails = () => {
             </form>
           </div>
         </div>
-      )}
+      )} */}
 
       <hr className="text-gray-400" />
       <CustomerReview />

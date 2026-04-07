@@ -32,6 +32,8 @@ import Panjabi from "../Pages/Panjabi";
 import BlogPage from "../Component/BlogPage";
 import AddHeroPhoto from "../Pages/Dashboard/AddHeroPhoto";
 import TShirt from "../Pages/TShirt";
+import OrderPlace from "../Component/OrderPlace";
+import OrderSuccess from "../Component/OrderSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +52,14 @@ export const router = createBrowserRouter([
         path: "/products-details/:id",
         Component: ProductDetails,
       },
-
+      {
+        path: "/order-place",
+        Component: OrderPlace,
+      },
+      {
+        path: "/order-success",
+        Component: OrderSuccess,
+      },
       {
         path: "/about",
         Component: About,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -6,14 +6,18 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxios";
 import Loading from "./Loading";
 
+const sizesList = ["S", "M", "L", "XL", "2XL"];
+
 const EditProduct = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
+  const [selectedSizes, setSelectedSizes] = useState([]);
+
   const { register, handleSubmit, reset } = useForm();
 
-  // fetch tuition/project data
+  // 🔥 Fetch data
   const { data: tuition, isLoading } = useQuery({
     queryKey: ["tuition", id],
     queryFn: async () => {
@@ -22,7 +26,14 @@ const EditProduct = () => {
     },
   });
 
-  // auto-fill form once tuition data is fetched
+  // ✅ set sizes from DB
+  useEffect(() => {
+    if (tuition?.sizes) {
+      setSelectedSizes(tuition.sizes);
+    }
+  }, [tuition]);
+
+  // ✅ set other form data
   useEffect(() => {
     if (tuition) {
       reset({
@@ -31,19 +42,34 @@ const EditProduct = () => {
         ability: tuition.ability || "",
         price: tuition.price || "",
         discountPrice: tuition.discountPrice || "",
-        size: tuition.size || "",
         description: tuition.description || "",
         image: tuition.image || "",
       });
     }
   }, [tuition, reset]);
 
+  // 🔥 toggle size
+  const toggleSize = (size) => {
+    if (selectedSizes.includes(size)) {
+      setSelectedSizes(selectedSizes.filter((s) => s !== size));
+    } else {
+      setSelectedSizes([...selectedSizes, size]);
+    }
+  };
+
+  // 🔥 submit
   const onSubmit = async (data) => {
     try {
-      const res = await axiosSecure.put(`/tuitions/${id}`, data);
+      const updatedData = {
+        ...data,
+        sizes: selectedSizes,
+      };
+
+      const res = await axiosSecure.put(`/tuitions/${id}`, updatedData);
+
       if (res.data.success) {
-        Swal.fire("Updated!", "Tuition updated successfully.", "success");
-        navigate(`/products-details/${id}`); // back to products page
+        Swal.fire("Updated!", "Product updated successfully.", "success");
+        navigate(`/products-details/${id}`);
       }
     } catch (err) {
       console.error(err);
@@ -59,98 +85,98 @@ const EditProduct = () => {
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Update Prod<span className="text-amber-500">uct Details</span>
         </h1>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Name */}
           <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">Name</label>
+            <label className="font-medium text-gray-700 mb-1">Name</label>
             <input
               {...register("name")}
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Name"
+              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
             />
           </div>
 
+          {/* Category */}
           <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">
-              Category
-            </label>
+            <label className="font-medium text-gray-700 mb-1">Category</label>
             <input
               {...register("category")}
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Category"
+              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
             />
           </div>
 
+          {/* Ability */}
           <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">
-              Ability
-            </label>
+            <label className="font-medium text-gray-700 mb-1">Ability</label>
             <input
               {...register("ability")}
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Ability"
+              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
             />
           </div>
 
+          {/* Price */}
           <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">
-              Price
-            </label>
+            <label className="font-medium text-gray-700 mb-1">Price</label>
             <input
-              {...register("price")}
               type="number"
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Price"
+              {...register("price")}
+              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
             />
           </div>
 
+          {/* Discount */}
           <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">
+            <label className="font-medium text-gray-700 mb-1">
               Discount Price
             </label>
             <input
-              {...register("discountPrice")}
               type="number"
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Discount Price"
+              {...register("discountPrice")}
+              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
             />
           </div>
 
-          <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">Size</label>
-            <input
-              {...register("size")}
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Size"
-            />
+          {/* Sizes */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-3">
+              Available Sizes
+            </label>
+
+            <div className="flex flex-wrap gap-3">
+              {sizesList.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => toggleSize(size)}
+                  className={`w-10 h-10 rounded-2xl border-2 font-medium transition-all ${
+                    selectedSizes.includes(size)
+                      ? "border-black bg-black text-white"
+                      : "border-gray-300 hover:border-gray-400"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
 
+          {/* Description */}
           <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">
+            <label className="font-medium text-gray-700 mb-1">
               Description
             </label>
             <textarea
               {...register("description")}
-              className="textarea w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Description"
+              className="textarea w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
             />
           </div>
 
-          {/* <div className="flex flex-col">
-            <label className="label font-medium text-gray-700 mb-1">
-              Image URL
-            </label>
-            <input
-              {...register("image")}
-              className="input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-              placeholder="Image URL"
-            />
-          </div> */}
-
+          {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-amber-500 text-white font-semibold py-2 rounded-md hover:bg-amber-600 transition-all"
+            className="w-full bg-amber-500 text-white py-2 rounded-md hover:bg-amber-600 transition-all"
           >
-            Update Products Details
+            Update Product Details
           </button>
         </form>
       </div>

@@ -155,19 +155,22 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">Add Product</span>
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/dashboard/add-hero-photo"
+                    className="btn bg-[#aba65e] shadow-[#aba65e] text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Hero Photo"
+                  >
+                    <FaPlusSquare />
+                    <span className="is-drawer-close:hidden">
+                      Add Hero Photo
+                    </span>
+                  </Link>
+                </li>
               </>
             )}
             {/* add hero photo */}
-            <li>
-              <Link
-                to="/dashboard/add-hero-photo"
-                className="btn bg-[#aba65e] shadow-[#aba65e] text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add Hero Photo"
-              >
-                <FaPlusSquare />
-                <span className="is-drawer-close:hidden">Add Hero Photo</span>
-              </Link>
-            </li>
+
             {/* payment history */}
             {/* <li>
               <Link

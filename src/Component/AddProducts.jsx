@@ -1,28 +1,15 @@
-// src/pages/dashboard/student/AddTuitionForm.jsx
+// src/pages/dashboard/student/AddProducts.jsx
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
-// Validation rules
-const tuitionSchema = {
-  name: { required: "Name is required" },
-  category: { required: "Please select your product category" },
-  price: { required: "Price is required" },
-  // discountPrice: { required: "Discount is required" },
-  ability: { required: "Ability is required" },
-  size: { required: "Size is required" },
-  image1: { required: "Image 1 is required" },
-  image2: { required: "Image 2 is required" },
-  image3: { required: "Image 3 is required" },
-  image4: { required: "Image 4 is required" },
-  description: { required: "Description is required" },
-};
-
 const AddProducts = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [previewImages, setPreviewImages] = useState({
     image1: null,
     image2: null,
@@ -37,7 +24,17 @@ const AddProducts = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // helper to upload a single image
+  const sizesList = ["S", "M", "L", "XL", "2XL"];
+
+  const toggleSize = (size) => {
+    if (selectedSizes.includes(size)) {
+      setSelectedSizes(selectedSizes.filter((s) => s !== size));
+    } else {
+      setSelectedSizes([...selectedSizes, size]);
+    }
+  };
+
+  // Image Upload Helper
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
@@ -52,8 +49,15 @@ const AddProducts = () => {
   };
 
   const onSubmit = async (data) => {
+    if (selectedSizes.length === 0) {
+      Swal.fire({
+        icon: "warning",
+        title: "Please select at least one size",
+      });
+      return;
+    }
+
     try {
-      // upload all 4 images
       const image1 = await uploadImage(data.image1[0]);
       const image2 = await uploadImage(data.image2[0]);
       const image3 = await uploadImage(data.image3[0]);
@@ -63,10 +67,10 @@ const AddProducts = () => {
         name: data.name,
         category: data.category,
         price: Number(data.price),
-        discountPrice: Number(data.discountPrice),
+        discountPrice: Number(data.discountPrice || 0),
         description: data.description,
         ability: data.ability,
-        size: data.size,
+        sizes: selectedSizes,
         images: [image1, image2, image3, image4],
         status: "Pending",
         postedAt: new Date().toISOString(),
@@ -82,6 +86,7 @@ const AddProducts = () => {
       });
 
       reset();
+      setSelectedSizes(["S", "M", "L"]);
       setPreviewImages({
         image1: null,
         image2: null,
@@ -99,7 +104,6 @@ const AddProducts = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 lg:p-10">
-      <title>Lunor | Add Product</title>
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold">
           Post a <span className="text-gray-400">New Product</span>
@@ -110,20 +114,18 @@ const AddProducts = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-gray-50 rounded-3xl text-black shadow-xl p-8 border border-gray-200 space-y-7"
       >
-        {/* Student info */}
+        {/* User Info */}
         <div className="flex flex-col items-center gap-4 md:gap-6 md:flex-row bg-gray-100 p-6 md:p-8 rounded-2xl shadow-lg">
           <img
             src={user?.photoURL}
-            alt={user?.displayName || "User Photo"}
+            alt={user?.displayName}
             className="w-24 h-24 md:w-28 md:h-28 rounded-full ring-4 ring-gray-300 object-cover"
           />
           <div className="text-center">
             <h3 className="text-xl md:text-2xl font-bold text-gray-800">
-              {user?.displayName || "No Name"}
+              {user?.displayName}
             </h3>
-            <p className="text-gray-600 text-sm md:text-base">
-              {user?.email || "No Email"}
-            </p>
+            <p className="text-gray-600">{user?.email}</p>
           </div>
         </div>
 
@@ -135,7 +137,7 @@ const AddProducts = () => {
           <input
             type="text"
             placeholder="e.g. Formal Shirt"
-            {...register("name", tuitionSchema.name)}
+            {...register("name", { required: "Name is required" })}
             className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
           />
           {errors.name && (
@@ -147,10 +149,10 @@ const AddProducts = () => {
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <label className="block text-lg font-semibold text-gray-700 mb-2">
-              Product Category <span className="text-red-500">*</span>
+              Category <span className="text-red-500">*</span>
             </label>
             <select
-              {...register("category", tuitionSchema.category)}
+              {...register("category", { required: "Category is required" })}
               className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200"
             >
               <option value="">Select Category</option>
@@ -173,14 +175,15 @@ const AddProducts = () => {
               </p>
             )}
           </div>
+
           <div>
             <label className="block text-lg font-semibold text-gray-700 mb-2">
               Price <span className="text-red-500">*</span>
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="e.g. 250"
-              {...register("price", tuitionSchema.price)}
+              {...register("price", { required: "Price is required" })}
               className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
             />
             {errors.price && (
@@ -195,28 +198,24 @@ const AddProducts = () => {
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <label className="block text-lg font-semibold text-gray-700 mb-2">
-              Discount Price <span className="text-red-500">*</span>
+              Discount Price
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="e.g. 150"
               {...register("discountPrice")}
               className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
             />
-            {/* {errors.discountPrice && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.discountPrice.message}
-              </p>
-            )} */}
           </div>
+
           <div>
             <label className="block text-lg font-semibold text-gray-700 mb-2">
-              Product Ability <span className="text-red-500">*</span>
+              Ability <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
-              placeholder="e.g. Sale or Sold Out"
-              {...register("ability", tuitionSchema.ability)}
+              placeholder="e.g. In Stock / Limited"
+              {...register("ability", { required: "Ability is required" })}
               className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
             />
             {errors.ability && (
@@ -227,20 +226,30 @@ const AddProducts = () => {
           </div>
         </div>
 
-        {/* Size */}
+        {/* Size Selector */}
         <div>
-          <label className="block text-lg font-semibold text-gray-700 mb-2">
-            Product Size <span className="text-red-500">*</span>
+          <label className="block text-lg font-semibold text-gray-700 mb-3">
+            Available Sizes <span className="text-red-500">*</span>
           </label>
-          <input
-            type="text"
-            placeholder="e.g. Small, Medium, Large"
-            {...register("size", tuitionSchema.size)}
-            className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
-          />
-          {errors.size && (
-            <p className="text-red-500 text-sm mt-1">{errors.size.message}</p>
-          )}
+          <div className="flex flex-wrap gap-3">
+            {sizesList.map((size) => (
+              <button
+                key={size}
+                type="button"
+                onClick={() => toggleSize(size)}
+                className={`w-10 h-10 rounded-2xl border-2 font-medium transition-all ${
+                  selectedSizes.includes(size)
+                    ? "border-black bg-black text-white"
+                    : "border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500 mt-2">
+            Click to select / deselect sizes
+          </p>
         </div>
 
         {/* Images */}
@@ -252,7 +261,7 @@ const AddProducts = () => {
             <input
               type="file"
               accept="image/*"
-              {...register(img, tuitionSchema[img])}
+              {...register(img, { required: `Image ${i + 1} is required` })}
               onChange={(e) =>
                 setPreviewImages((prev) => ({
                   ...prev,
@@ -261,25 +270,23 @@ const AddProducts = () => {
                     : null,
                 }))
               }
-              className="w-full px-5 py-4 rounded-xl border border-gray-300 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-600 file:text-white hover:file:bg-gray-700 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+              className="w-full px-5 py-4 rounded-xl border border-gray-300 file:py-3 file:px-6 file:rounded-xl file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-800"
             />
             {errors[img] && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors[img]?.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors[img].message}</p>
             )}
           </div>
         ))}
 
-        {/* Preview */}
-        <div className="flex gap-4 mt-2">
+        {/* Preview Images */}
+        <div className="flex gap-4 flex-wrap">
           {Object.values(previewImages).map(
             (img, i) =>
               img && (
                 <img
                   key={i}
                   src={img}
-                  className="w-20 h-20 object-cover rounded"
+                  className="w-20 h-20 object-cover rounded-xl"
                 />
               ),
           )}
@@ -292,8 +299,10 @@ const AddProducts = () => {
           </label>
           <textarea
             rows="5"
-            placeholder="Describe product..."
-            {...register("description", tuitionSchema.description)}
+            placeholder="Describe your product..."
+            {...register("description", {
+              required: "Description is required",
+            })}
             className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none resize-none"
           />
           {errors.description && (
@@ -303,17 +312,18 @@ const AddProducts = () => {
           )}
         </div>
 
-        {/* Submit */}
+        {/* Submit Button */}
         <div className="text-center pt-6">
           <button
             type="submit"
-            className={`px-12 py-5 rounded-xl text-white font-bold text-lg transition-all transform hover:scale-105 ${
+            disabled={isSubmitting}
+            className={`px-12 py-5 rounded-2xl text-white font-bold text-lg transition-all ${
               isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-linear-to-r from-gray-600 to-purple-300 hover:shadow-2xl"
+                : "bg-black hover:bg-gray-800"
             }`}
           >
-            Post Product
+            {isSubmitting ? "Posting..." : "Post Product"}
           </button>
         </div>
       </form>

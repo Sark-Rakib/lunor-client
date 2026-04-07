@@ -35,18 +35,22 @@ const OrderCard = ({ order, onDelete }) => {
       <img
         src={order.productImage}
         alt={order.productName}
-        className="w-full  object-cover rounded-lg"
+        className="w-full h-60 object-cover rounded-lg"
       />
       <h2 className="font-semibold mt-2">Product Name: {order.productName}</h2>
-      <p>Quantity: {order.quantity}</p>
-      <p>Total Price: ৳{order.totalPrice}</p>
+      <p>Quantity : {order.quantity}</p>
+      <p>Products Price : ৳{order.totalPrice}</p>
+      <p>Delivery Charge : ৳{order.deliveryCharge}</p>
+      <p>Total Price : ৳{order.grandTotal}</p>
       {order.size ? <p>Size: {order.size}</p> : <p>Weight: Not set</p>}
-      <p>Customer Name: {order.name}</p>
-      <p>Customer Email: {order.email}</p>
-      <p>Customer Phone: {order.phone}</p>
-      <p>Customer District: {order.district}</p>
-      <p>Customer Street: {order.street}</p>
+      <hr />
+      <p>Customer Name : {order.name}</p>
+      <p>Customer Email : {order.email}</p>
+      <p>Customer Phone : {order.phone}</p>
+      <p>Customer District : {order.district}</p>
+      <p>Customer Street : {order.street}</p>
       <p>Payment Method: {order.paymentMethod}</p>
+      <p>Transaction ID : {order.transactionId}</p>
 
       <p className="mt-2 font-semibold">
         Status:{" "}
