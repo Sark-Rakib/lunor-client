@@ -21,6 +21,20 @@ LUNOR is a modern and responsive e-commerce web application where users can brow
 
 ---
 
+## 💳 Payment System
+
+This project includes a simple manual payment system for order processing.
+
+- Users can choose between **Cash on Delivery** or **Online Payment**
+- When **Online Payment** is selected:
+  - Bkash and Nagad payment numbers are displayed
+  - Users must complete the payment externally
+  - Then provide the **Transaction ID** to confirm the order
+
+⚠️ Note: This is not an integrated payment gateway. It is a manual payment verification system.
+
+---
+
 ## 🧑‍💻 Tech Stack
 
 ### Frontend:
