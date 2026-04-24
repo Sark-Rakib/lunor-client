@@ -1,4 +1,9 @@
-import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 import { SiX } from "react-icons/si"; // This is the official NEW X icon (not old Twitter)
 import { Link } from "react-router";
 import logo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
@@ -62,7 +67,9 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-3 text-sm text-gray-100">
               <li className="flex items-center gap-2">
-                <span className="font-medium">Email : lunor2026@gmail.com</span>
+                <span className="font-medium">
+                  Email : wear.lunor@gmail.com
+                </span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="font-medium">Phone : +880 1745762857</span>
@@ -80,13 +87,23 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
             <div className="flex gap-4">
               <a
-                href="https://www.facebook.com/profile.php?id=61587197698698#"
+                href="https://www.facebook.com/profile.php?id=61560576206601"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 backdrop-blur-sm p-3 rounded-full hover:bg-indigo-600 transition-all duration-300 hover:scale-110"
               >
                 <FaFacebookF size={20} />
               </a>
+
+              <a
+                href="https://www.instagram.com/wear.lunor/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/10 backdrop-blur-sm p-3 rounded-full hover:bg-indigo-600 transition-all duration-300 hover:scale-110"
+              >
+                <FaInstagram size={20} />
+              </a>
+
               <a
                 href="https://x.com/Cap_tain01"
                 target="_blank"

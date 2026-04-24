@@ -148,7 +148,7 @@ const ContactUs = () => {
               {
                 icon: FaEnvelope,
                 title: "Email Us",
-                info: "lunor2026@gmail.com",
+                info: "wear.lunor@gmail.com",
                 sub: "We reply within 2 hours",
               },
               {
@@ -186,7 +186,7 @@ const ContactUs = () => {
               <h4 className="font-bold text-xl mb-4">Follow Us</h4>
               <div className="flex gap-4">
                 <a
-                  href="https://www.facebook.com/profile.php?id=61587197698698#"
+                  href="https://www.facebook.com/profile.php?id=61560576206601"
                   className="bg-indigo-600 text-white p-4 rounded-full hover:bg-indigo-700 transition"
                 >
                   <FaFacebook size={24} />
