@@ -19,11 +19,11 @@ const TopNavbar = () => {
             </a>
 
             <a
-              href="mailto:lunorr@info.com"
+              href="mailto:wear.lunor@gmail.com"
               className="flex items-center gap-1 hover:text-amber-300 transition-colors text-[10px] sm:text-xs md:text-sm xs:flex"
             >
               <CiMail className="text-[10px] sm:text-xs md:text-sm" />
-              lunorr@info.com
+              wear.lunor@gmail.com
             </a>
           </div>
 
