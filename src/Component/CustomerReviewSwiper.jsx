@@ -22,7 +22,10 @@ const CustomerReviewSwiper = () => {
         const data = Array.isArray(res.data)
           ? res.data
           : res.data?.reviews || [];
-        setReviews(data.slice(0, 10)); // Show only latest 10 reviews
+        const sorted = [...data].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+        setReviews(sorted.slice(0, 10)); // Show only latest 10 reviews
       } catch (error) {
         console.error("Review fetch error:", error);
       } finally {

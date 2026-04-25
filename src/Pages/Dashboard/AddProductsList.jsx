@@ -42,7 +42,7 @@ const AddProductsList = () => {
         } catch (err) {
           console.log(err);
         }
-        Swal.fire("Deleted!", "Your tuition has been deleted.", "success");
+        Swal.fire("Deleted!", "Your product has been deleted.", "success");
       }
     });
   };

@@ -6,8 +6,6 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxios";
 import Loading from "./Loading";
 
-const sizesList = ["S", "M", "L", "XL", "2XL"];
-
 const EditProduct = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
@@ -15,9 +13,12 @@ const EditProduct = () => {
 
   const [selectedSizes, setSelectedSizes] = useState([]);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, watch } = useForm();
 
-  // 🔥 Fetch data
+  // watch category
+  const watchedCategory = watch("category");
+
+  // Fetch data
   const { data: tuition, isLoading } = useQuery({
     queryKey: ["tuition", id],
     queryFn: async () => {
@@ -26,14 +27,23 @@ const EditProduct = () => {
     },
   });
 
-  // ✅ set sizes from DB
+  // final category (watch + fallback)
+  const selectedCategory = watchedCategory || tuition?.category;
+
+  // ynamic sizes
+  const sizesList =
+    selectedCategory === "Pant"
+      ? ["28", "30", "32", "34", "36"]
+      : ["S", "M", "L", "XL", "2XL"];
+
+  // set sizes from DB
   useEffect(() => {
     if (tuition?.sizes) {
       setSelectedSizes(tuition.sizes);
     }
   }, [tuition]);
 
-  // ✅ set other form data
+  //  set form values
   useEffect(() => {
     if (tuition) {
       reset({
@@ -43,12 +53,16 @@ const EditProduct = () => {
         price: tuition.price || "",
         discountPrice: tuition.discountPrice || "",
         description: tuition.description || "",
-        image: tuition.image || "",
       });
     }
   }, [tuition, reset]);
 
-  // 🔥 toggle size
+  // reset sizes when category changes
+  useEffect(() => {
+    setSelectedSizes([]);
+  }, [watchedCategory]);
+
+  //  toggle size
   const toggleSize = (size) => {
     if (selectedSizes.includes(size)) {
       setSelectedSizes(selectedSizes.filter((s) => s !== size));
@@ -57,7 +71,7 @@ const EditProduct = () => {
     }
   };
 
-  // 🔥 submit
+  //  submit
   const onSubmit = async (data) => {
     try {
       const updatedData = {
@@ -88,70 +102,40 @@ const EditProduct = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Name */}
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700 mb-1">Name</label>
-            <input
-              {...register("name")}
-              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
-            />
+          <div>
+            <label className="font-medium">Name</label>
+            <input {...register("name")} className="input w-full border p-2" />
           </div>
 
           {/* Category */}
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700 mb-1">Category</label>
-            <input
+          <div>
+            <label className="font-medium">Category</label>
+            <select
               {...register("category")}
-              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
-            />
-          </div>
-
-          {/* Ability */}
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700 mb-1">Ability</label>
-            <input
-              {...register("ability")}
-              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
-            />
-          </div>
-
-          {/* Price */}
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700 mb-1">Price</label>
-            <input
-              type="number"
-              {...register("price")}
-              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
-            />
-          </div>
-
-          {/* Discount */}
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700 mb-1">
-              Discount Price
-            </label>
-            <input
-              type="number"
-              {...register("discountPrice")}
-              className="input w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
-            />
+              className="input w-full border p-2"
+            >
+              <option value="">Select Category</option>
+              <option value="Formal Shirt">Formal Shirt</option>
+              <option value="Casual Shirt">Casual Shirt</option>
+              <option value="T-Shirt">T-Shirt</option>
+              <option value="Pant">Pant</option>
+              <option value="Panjabi">Panjabi</option>
+            </select>
           </div>
 
           {/* Sizes */}
           <div>
-            <label className="block text-lg font-semibold text-gray-700 mb-3">
-              Available Sizes
-            </label>
-
+            <label className="font-semibold mb-2 block">Available Sizes</label>
             <div className="flex flex-wrap gap-3">
               {sizesList.map((size) => (
                 <button
                   key={size}
                   type="button"
                   onClick={() => toggleSize(size)}
-                  className={`w-10 h-10 rounded-2xl border-2 font-medium transition-all ${
+                  className={`w-10 h-10 rounded border-2 ${
                     selectedSizes.includes(size)
-                      ? "border-black bg-black text-white"
-                      : "border-gray-300 hover:border-gray-400"
+                      ? "bg-black text-white border-black"
+                      : "border-gray-300"
                   }`}
                 >
                   {size}
@@ -160,23 +144,50 @@ const EditProduct = () => {
             </div>
           </div>
 
+          {/* Ability */}
+          <div>
+            <label className="font-medium">Ability</label>
+            <input
+              {...register("ability")}
+              className="input w-full border p-2"
+            />
+          </div>
+
+          {/* Price */}
+          <div>
+            <label className="font-medium">Price</label>
+            <input
+              type="number"
+              {...register("price")}
+              className="input w-full border p-2"
+            />
+          </div>
+
+          {/* Discount */}
+          <div>
+            <label className="font-medium">Discount Price</label>
+            <input
+              type="number"
+              {...register("discountPrice")}
+              className="input w-full border p-2"
+            />
+          </div>
+
           {/* Description */}
-          <div className="flex flex-col">
-            <label className="font-medium text-gray-700 mb-1">
-              Description
-            </label>
+          <div>
+            <label className="font-medium">Description</label>
             <textarea
               {...register("description")}
-              className="textarea w-full border px-3 py-2 rounded-md focus:ring-2 focus:ring-amber-400"
+              className="textarea w-full border p-2"
             />
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-amber-500 text-white py-2 rounded-md hover:bg-amber-600 transition-all"
+            className="w-full bg-amber-500 text-white py-2 rounded hover:bg-amber-600"
           >
-            Update Product Details
+            Update Product
           </button>
         </form>
       </div>

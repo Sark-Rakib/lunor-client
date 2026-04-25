@@ -48,7 +48,7 @@ const OrderPlace = () => {
 
     if (!product) return;
 
-    const deliveryCharge = 120;
+    // const deliveryCharge = 120;
     const finalTotal = Number(totalPrice) + deliveryCharge;
 
     try {
@@ -85,6 +85,7 @@ const OrderPlace = () => {
             product,
             quantity,
             totalPrice,
+            deliveryCharge,
             formData,
             selectedSize: selectedSize || "Not specified",
             paymentMethod: formData.paymentMethod,
@@ -118,6 +119,67 @@ const OrderPlace = () => {
   if (!product) {
     return <h2 className="text-center mt-10">Product not found!</h2>;
   }
+
+  const districts = [
+    "Bogura",
+    "Dhaka",
+    "Chattogram",
+    "Khulna",
+    "Rajshahi",
+    "Rangpur",
+    "Sylhet",
+    "Barishal",
+    "Mymensingh",
+    "Narayanganj",
+    "Gazipur",
+    "Comilla",
+    "Noakhali",
+    "Jessore",
+    "Cox's Bazar",
+    "Pabna",
+    "Dinajpur",
+    "Tangail",
+    "Faridpur",
+    "Kushtia",
+    "Brahmanbaria",
+    "Munshiganj",
+    "Narsingdi",
+    "Manikganj",
+    "Shariatpur",
+    "Madaripur",
+    "Lakshmipur",
+    "Feni",
+    "Habiganj",
+    "Moulvibazar",
+    "Sunamganj",
+    "Patuakhali",
+    "Bhola",
+    "Jhalokati",
+    "Pirojpur",
+    "Bagerhat",
+    "Satkhira",
+    "Chuadanga",
+    "Meherpur",
+    "Jhenaidah",
+    "Magura",
+    "Narail",
+    "Sherpur",
+    "Jamalpur",
+    "Netrokona",
+    "Kishoreganj",
+    "Rajbari",
+    "Gopalganj",
+    "Natore",
+    "Sirajganj",
+    "Joypurhat",
+    "Naogaon",
+    "Chapainawabganj",
+    "Thakurgaon",
+    "Panchagarh",
+  ];
+  const deliveryCharge =
+    formData.district?.toLowerCase() === "bogura" ? 80 : 140;
+  // const finalTotal = Number(totalPrice) + deliveryCharge;
 
   return (
     <div className="py-10">
@@ -226,15 +288,20 @@ const OrderPlace = () => {
                   <label className="block text-sm font-medium mb-1.5">
                     District
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="district"
-                    placeholder="Dhaka"
                     required
                     value={formData.district}
                     onChange={handleInputChange}
                     className="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 p-4 rounded-2xl outline-none transition"
-                  />
+                  >
+                    <option value="">Select</option>
+                    {districts.map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5">
@@ -305,12 +372,16 @@ const OrderPlace = () => {
                 </div>
                 <div className="flex justify-between text-sm mb-2">
                   <span className="text-gray-600">Delivery Charge</span>
-                  <span className="font-medium text-green-600">+ ৳120</span>
+                  <span className="font-medium text-green-600">
+                    + ৳{deliveryCharge}
+                  </span>
                 </div>
                 <div className="border-t border-gray-200 my-3"></div>
                 <div className="flex justify-between text-lg font-bold">
                   <span className="text-black">Total Amount</span>
-                  <span className="text-green-600">৳{totalPrice + 120}</span>
+                  <span className="text-green-600">
+                    ৳ ৳{totalPrice + deliveryCharge}
+                  </span>
                 </div>
               </div>
 

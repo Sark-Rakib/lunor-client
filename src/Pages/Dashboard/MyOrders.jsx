@@ -33,7 +33,6 @@ const MyOrders = () => {
       cancelButtonColor: "#6b7280",
       confirmButtonText: "Yes, cancel it!",
     });
-
     if (result.isConfirmed) {
       try {
         const res = await axiosSecure.delete(`/orders/${id}`);

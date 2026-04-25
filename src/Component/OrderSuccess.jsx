@@ -13,6 +13,7 @@ const OrderSuccess = () => {
     totalPrice,
     formData,
     paymentMethod,
+    deliveryCharge,
     selectedSize,
   } = location.state || {};
 
@@ -22,8 +23,8 @@ const OrderSuccess = () => {
     }
   }, [product, formData, navigate]);
 
-  const deliveryCharge = 120;
-  const grandTotal = totalPrice + deliveryCharge;
+  const delivery = deliveryCharge;
+  const grandTotal = totalPrice + delivery;
 
   // Fake Order ID
   const finalOrderId = orderId;
@@ -140,7 +141,7 @@ const OrderSuccess = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Delivery Charge</span>
-                <span className="text-black">৳{deliveryCharge}</span>
+                <span className="text-black">৳{delivery}</span>
               </div>
               <div className="border-t border-black pt-3 flex justify-between text-lg font-bold">
                 <span className="text-black">Total Paid</span>

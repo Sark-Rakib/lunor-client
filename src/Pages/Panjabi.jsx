@@ -74,7 +74,7 @@ const Panjabi = () => {
                     className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
                   />
 
-                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-[8px] font-semibold px-1.5 py-0.5 rounded-full">
                     {item.ability}
                   </span>
                 </div>
@@ -82,7 +82,7 @@ const Panjabi = () => {
                 {/* Content */}
                 <div className="mt-1 flex flex-col flex-1">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-sm md:text-base line-clamp-2">
+                    <h3 className="text-sm md:text-base line-clamp-1 uppercase">
                       {item.name}
                     </h3>
 
@@ -95,21 +95,23 @@ const Panjabi = () => {
                     <div className="flex flex-wrap items-center justify-between mt-1">
                       {item.discountPrice ? (
                         <>
-                          <span className=" text-sm">
+                          <span className=" text-sm uppercase">
                             Price : ৳{item.discountPrice}
                           </span>
-                          <span className="text-red-400 line-through text-sm">
+                          <span className="text-red-400 line-through text-sm uppercase">
                             ৳{item.price}
                           </span>
                         </>
                       ) : (
-                        <span className="text-sm">Price : ৳{item.price}</span>
+                        <span className="text-sm uppercase">
+                          Price : ৳{item.price}
+                        </span>
                       )}
                     </div>
 
-                    <p className="text-sm line-clamp-2">
+                    {/* <p className="text-sm line-clamp-2 uppercase">
                       {item.description || "Premium quality product"}
-                    </p>
+                    </p> */}
                   </div>
 
                   {/* Button */}

@@ -1,9 +1,9 @@
 // src/pages/dashboard/student/AddProducts.jsx
-import { useForm } from "react-hook-form";
+import { useForm, Watch } from "react-hook-form";
 import useAxiosSecure from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AddProducts = () => {
   const { user } = useAuth();
@@ -21,10 +21,15 @@ const AddProducts = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm();
+  const selectedCategory = watch("category");
 
-  const sizesList = ["S", "M", "L", "XL", "2XL"];
+  const sizesList =
+    selectedCategory === "Pant"
+      ? ["28", "30", "32", "34", "36"]
+      : ["S", "M", "L", "XL", "2XL"];
 
   const toggleSize = (size) => {
     if (selectedSizes.includes(size)) {
@@ -101,6 +106,10 @@ const AddProducts = () => {
       });
     }
   };
+
+  useEffect(() => {
+    setSelectedSizes([]);
+  }, [selectedCategory]);
 
   return (
     <div className="max-w-4xl mx-auto p-6 lg:p-10">

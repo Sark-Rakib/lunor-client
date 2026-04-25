@@ -11,7 +11,7 @@ const ProductCard = ({ tuition }) => {
     images,
     discountPrice,
     ability,
-    description,
+    // description,
     studentName,
     // postedAt,
     // status = "Pending",
@@ -26,8 +26,8 @@ const ProductCard = ({ tuition }) => {
   //     });
   //   };
 
-  const shortDescription =
-    description?.slice(0, 45) + (description?.length > 45 ? "..." : "");
+  // const shortDescription =
+  //   description?.slice(0, 45) + (description?.length > 45 ? "..." : "");
 
   return (
     <Link
@@ -43,7 +43,7 @@ const ProductCard = ({ tuition }) => {
         />
         {/* Status Badge */}
         <div
-          className="absolute top-3 right-3 px-3 py-1 rounded-full text-white text-xs font-semibold
+          className="absolute top-3 right-3 px-1.5 py-0.5 rounded-full text-white text-[8px] uppercase
             bg-gray-600"
         >
           {ability}
@@ -53,7 +53,9 @@ const ProductCard = ({ tuition }) => {
       {/* Card Body */}
       <div className="mt-1 flex-1 flex flex-col justify-between">
         <div>
-          <h2 className="text-sm md:text-base font-bold">{name}</h2>
+          <h2 className="text-sm md:text-base line-clamp-1 uppercase">
+            {name}
+          </h2>
           {/* <div className="flex flex-wrap justify-between text-sm">
             <h1 className="text-black">Category :</h1>
             <h2 className=" text-gray-800">{category}</h2>
@@ -62,16 +64,20 @@ const ProductCard = ({ tuition }) => {
           <div className="flex flex-wrap items-center justify-between mt-1">
             {discountPrice ? (
               <>
-                <span className="text-sm">Price : ৳{discountPrice}</span>
-                <span className="text-red-400 line-through text-sm">
+                <span className="text-sm uppercase">
+                  Price : ৳{discountPrice}
+                </span>
+                <span className="text-red-400 line-through text-sm uppercase">
                   ৳{price}
                 </span>
               </>
             ) : (
-              <span className="text-sm">Price : ৳{price}</span>
+              <span className="text-sm uppercase">Price : ৳{price}</span>
             )}
           </div>
-          <p className="text-sm">{shortDescription}</p>
+          {/* <p className="text-sm uppercase">
+            {shortDescription}
+          </p> */}
         </div>
 
         {/* <Link
