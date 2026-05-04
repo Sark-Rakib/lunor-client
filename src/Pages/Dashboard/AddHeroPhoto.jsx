@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxios";
+import imageCompression from "browser-image-compression";
 
 const AddHeroPhoto = () => {
   const axiosSecure = useAxiosSecure();
@@ -17,8 +18,14 @@ const AddHeroPhoto = () => {
 
   // upload helper
   const uploadImage = async (file) => {
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 1, //  max 1MB
+      maxWidthOrHeight: 1200,
+      useWebWorker: true,
+    });
+
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", compressedFile);
     const res = await fetch(
       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`,
       { method: "POST", body: formData },

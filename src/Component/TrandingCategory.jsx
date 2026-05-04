@@ -21,7 +21,7 @@ const TrandingCategory = () => {
           loop={true}
           autoplay={{ delay: 4000, disableOnInteraction: false }}
           modules={[Autoplay]}
-          // 🔥 responsive part
+          //  responsive part
           breakpoints={{
             0: { slidesPerView: 2 },
             640: { slidesPerView: 2 },
@@ -37,7 +37,7 @@ const TrandingCategory = () => {
             />
             <Link
               to="/formal-shirt"
-              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm md:text-base rounded"
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm text-black md:text-base rounded"
             >
               FOR MEN
             </Link>
@@ -50,7 +50,7 @@ const TrandingCategory = () => {
             />
             <Link
               to="/pant"
-              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm md:text-base rounded"
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm text-black md:text-base rounded"
             >
               FOR MEN
             </Link>
@@ -63,7 +63,7 @@ const TrandingCategory = () => {
             />
             <Link
               to="/t-shirt"
-              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm md:text-base rounded"
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm text-black md:text-base rounded"
             >
               FOR MEN
             </Link>
@@ -76,7 +76,7 @@ const TrandingCategory = () => {
             />
             <Link
               to="/casual-shirt"
-              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm md:text-base rounded"
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm text-black md:text-base rounded"
             >
               FOR MEN
             </Link>
@@ -89,7 +89,7 @@ const TrandingCategory = () => {
             />
             <Link
               to="/panjabi"
-              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm md:text-base rounded"
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm text-black md:text-base rounded"
             >
               FOR MEN
             </Link>

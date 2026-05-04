@@ -4,6 +4,7 @@ import useAxiosSecure from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import imageCompression from "browser-image-compression";
 
 const AddProducts = () => {
   const { user } = useAuth();
@@ -13,8 +14,8 @@ const AddProducts = () => {
   const [previewImages, setPreviewImages] = useState({
     image1: null,
     image2: null,
-    image3: null,
-    image4: null,
+    // image3: null,
+    // image4: null,
   });
 
   const {
@@ -41,8 +42,14 @@ const AddProducts = () => {
 
   // Image Upload Helper
   const uploadImage = async (file) => {
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 1, // 👈 max 1MB
+      maxWidthOrHeight: 1200,
+      useWebWorker: true,
+    });
+
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", compressedFile);
 
     const res = await fetch(
       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`,
@@ -65,8 +72,8 @@ const AddProducts = () => {
     try {
       const image1 = await uploadImage(data.image1[0]);
       const image2 = await uploadImage(data.image2[0]);
-      const image3 = await uploadImage(data.image3[0]);
-      const image4 = await uploadImage(data.image4[0]);
+      // const image3 = await uploadImage(data.image3[0]);
+      // const image4 = await uploadImage(data.image4[0]);
 
       const productData = {
         name: data.name,
@@ -76,7 +83,7 @@ const AddProducts = () => {
         description: data.description,
         ability: data.ability,
         sizes: selectedSizes,
-        images: [image1, image2, image3, image4],
+        images: [image1, image2],
         status: "Pending",
         postedAt: new Date().toISOString(),
       };
@@ -95,8 +102,8 @@ const AddProducts = () => {
       setPreviewImages({
         image1: null,
         image2: null,
-        image3: null,
-        image4: null,
+        // image3: null,
+        // image4: null,
       });
     } catch (error) {
       console.error(error);
@@ -262,7 +269,7 @@ const AddProducts = () => {
         </div>
 
         {/* Images */}
-        {["image1", "image2", "image3", "image4"].map((img, i) => (
+        {["image1", "image2"].map((img, i) => (
           <div key={img}>
             <label className="block text-lg font-semibold text-gray-700 mb-2">
               Product Image {i + 1} <span className="text-red-500">*</span>

@@ -10,6 +10,19 @@ const Navbar = ({ theme, setTheme }) => {
   const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
+  const [catOpen, setCatOpen] = useState(false);
+  const timeoutRef = React.useRef(null);
+
+  const handleEnter = () => {
+    clearTimeout(timeoutRef.current);
+    setCatOpen(true);
+  };
+
+  const handleLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setCatOpen(false);
+    }, 150); // 👈 small delay (magic fix)
+  };
 
   const handleThemeToggle = (e) => {
     setTheme(e.target.checked ? "dark" : "light");
@@ -22,86 +35,172 @@ const Navbar = ({ theme, setTheme }) => {
 
   const menuItems = (
     <>
+      {/* HOME */}
       <NavLink
         to="/"
-        className={({ isActive }) =>
-          `block py-2.5 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-        }
+        className="block py-2 px-4 text-xs"
         onClick={closeMobileMenu}
       >
-        Home
+        HOME
       </NavLink>
 
+      {/* ALL PRODUCTS */}
       <NavLink
         to="/all-products"
-        className={({ isActive }) =>
-          `block py-2.5 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-        }
+        className="block py-2 px-4 text-xs"
         onClick={closeMobileMenu}
       >
-        All Products
+        ALL PRODUCTS
       </NavLink>
 
-      {/* Category Dropdown */}
-      <div className="relative">
+      {/* CATEGORY */}
+      <div className="border-t mt-2 pt-2">
         <button
           onClick={() => setCategoryOpen(!categoryOpen)}
-          className="flex items-center justify-between w-full py-2.5 px-4 font-medium hover:bg-gray-600 rounded"
+          className="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold"
         >
-          Category
+          CATEGORY
           <FaChevronDown
-            className={`transition-transform duration-200 ${categoryOpen ? "rotate-180" : ""}`}
+            className={`transition-transform ${
+              categoryOpen ? "rotate-180" : ""
+            }`}
           />
         </button>
 
         {categoryOpen && (
-          <ul className="ml-5 mt-1 space-y-1 border-l-2 border-gray-600 pl-3">
-            <NavLink
-              to="/formal-shirt"
-              className={({ isActive }) =>
-                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-              }
-              onClick={closeMobileMenu}
-            >
-              Formal Shirt
-            </NavLink>
-            <NavLink
-              to="/casual-shirt"
-              className={({ isActive }) =>
-                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-              }
-              onClick={closeMobileMenu}
-            >
-              Casual Shirt
-            </NavLink>
-            <NavLink
-              to="/t-shirt"
-              className={({ isActive }) =>
-                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-              }
-              onClick={closeMobileMenu}
-            >
-              T-Shirt
-            </NavLink>
-            <NavLink
-              to="/pant"
-              className={({ isActive }) =>
-                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-              }
-              onClick={closeMobileMenu}
-            >
-              Pant
-            </NavLink>
-            <NavLink
-              to="/panjabi"
-              className={({ isActive }) =>
-                `block py-2 px-4 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-600"}`
-              }
-              onClick={closeMobileMenu}
-            >
-              Panjabi
-            </NavLink>
-          </ul>
+          <div className="pl-4 border-l ml-4 space-y-3">
+            {/* BASIC WEAR */}
+            <div>
+              <p className="text-[10px] opacity-60 mb-1">
+                BASIC WEAR
+                <hr />
+              </p>
+
+              <NavLink
+                to="/formal-shirt"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                FORMAL SHIRT
+              </NavLink>
+              <NavLink
+                to="/casual-shirt"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                CASUAL SHIRT
+              </NavLink>
+              <NavLink
+                to="/t-shirt"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                T-SHIRT
+              </NavLink>
+              <NavLink
+                to="/pant"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                PANT
+              </NavLink>
+              <NavLink
+                to="/panjabi"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                PANJABI
+              </NavLink>
+            </div>
+
+            {/* CASUAL WEAR */}
+            <div>
+              <p className="text-[10px] opacity-60 mb-1">
+                CASUAL WEAR
+                <hr />
+              </p>
+
+              <NavLink
+                to="/jeans"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                JEANS
+              </NavLink>
+              <NavLink
+                to="/hoodie"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                HOODIE
+              </NavLink>
+              <NavLink
+                to="/jacket"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                JACKET
+              </NavLink>
+              <NavLink
+                to="/sweater"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                SWEATER
+              </NavLink>
+              <NavLink
+                to="/shorts"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                SHORTS
+              </NavLink>
+            </div>
+
+            {/* ACCESSORIES */}
+            <div>
+              <p className="text-[10px] opacity-60 mb-1">
+                ACCESSORIES
+                <hr />
+              </p>
+
+              <NavLink
+                to="/shoes"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                SHOES
+              </NavLink>
+              <NavLink
+                to="/belt"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                BELT
+              </NavLink>
+              <NavLink
+                to="/watch"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                WATCH
+              </NavLink>
+              <NavLink
+                to="/cap"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                CAP
+              </NavLink>
+              <NavLink
+                to="/sunglasses"
+                onClick={closeMobileMenu}
+                className="block text-xs py-1"
+              >
+                SUNGLASSES
+              </NavLink>
+            </div>
+          </div>
         )}
       </div>
     </>
@@ -110,7 +209,10 @@ const Navbar = ({ theme, setTheme }) => {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="sticky top-0 z-50 bg-gray-400 text-white shadow-lg">
+      <nav
+        className={` sticky top-0 z-50 transition-all duration-300 backdrop-blur-md
+  ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}`}
+      >
         <div className="px-3 sm:px-8 md:px-6 lg:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Left - Logo + Mobile Hamburger */}
@@ -136,74 +238,186 @@ const Navbar = ({ theme, setTheme }) => {
 
             {/* Center - Desktop Menu */}
             <div className="hidden lg:flex items-center gap-8">
-              <ul className="flex items-center gap-6 text-sm font-medium">
+              <ul className="flex items-center gap-6 text-xs font-medium">
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    isActive ? "text-gray-900" : "hover:text-gray-900"
+                    isActive ? "underline" : "hover:opacity-80"
                   }
                 >
-                  Home
+                  HOME
                 </NavLink>
                 <NavLink
                   to="/all-products"
                   className={({ isActive }) =>
-                    isActive ? "text-gray-900" : "hover:text-gray-900"
+                    isActive ? "underline" : "hover:opacity-80"
                   }
                 >
-                  All Products
+                  ALL PRODUCTS
                 </NavLink>
-
                 {/* Desktop Category Dropdown */}
-                <div className="relative group">
+                {/* <div className="relative group">
                   <button className="flex items-center gap-1 hover:text-gray-900">
-                    Category
+                    CATEGORY
                     <FaChevronDown className="text-xs" />
                   </button>
-                  <div className="absolute left-0 top-full pt-2 hidden group-hover:block w-48">
-                    <div className="bg-gray-800 shadow-xl rounded-md py-2 border border-gray-700">
+                  <div className="absolute left-0 top-full pt-6 hidden group-hover:block w-48">
+                    <div className="shadow-xl rounded-md py-2 border border-gray-700">
                       <NavLink
                         to="/formal-shirt"
                         className={({ isActive }) =>
-                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
                         }
                       >
-                        Formal Shirt
+                        FORMAL SHIRT
                       </NavLink>
                       <NavLink
                         to="/casual-shirt"
                         className={({ isActive }) =>
-                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
                         }
                       >
-                        Casual Shirt
+                        CASUAL SHIRT
                       </NavLink>
                       <NavLink
                         to="/t-shirt"
                         className={({ isActive }) =>
-                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
                         }
                       >
-                        T-Shirt
+                        T-SHIRT
                       </NavLink>
                       <NavLink
                         to="/pant"
                         className={({ isActive }) =>
-                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
                         }
                       >
-                        Pant
+                        PANT
                       </NavLink>
                       <NavLink
                         to="/panjabi"
                         className={({ isActive }) =>
-                          `block px-4 py-2 text-sm hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
+                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
                         }
                       >
-                        Panjabi
+                        PANJABI
                       </NavLink>
                     </div>
                   </div>
+                </div> */}
+
+                {/* new */}
+
+                <div
+                  className="relative"
+                  onMouseEnter={handleEnter}
+                  onMouseLeave={handleLeave}
+                >
+                  {/* BUTTON */}
+                  <button className="flex items-center gap-1 hover:opacity-80">
+                    CATEGORY
+                    <FaChevronDown className="text-xs" />
+                  </button>
+
+                  {/* DROPDOWN */}
+                  {catOpen && (
+                    <div className="fixed left-0 top-16 w-full z-50">
+                      {/* IMPORTANT: this is the hover bridge */}
+                      <div className="w-full" />
+
+                      <div
+                        className={`border-t shadow-xl ${
+                          theme === "dark"
+                            ? "bg-gray-900 text-white border-gray-700"
+                            : "bg-white text-black border-gray-200"
+                        }`}
+                      >
+                        <div className="max-w-6xl mx-auto px-6 py-8">
+                          <div className="grid grid-cols-3 gap-12">
+                            {/* COLUMN 1 */}
+                            <div className="space-y-2">
+                              <p className="text-xs opacity-60 mb-2">
+                                BASIC WEAR
+                                <hr />
+                              </p>
+
+                              <NavLink
+                                to="/formal-shirt"
+                                className="block text-xs"
+                              >
+                                FORMAL SHIRT
+                              </NavLink>
+                              <NavLink
+                                to="/casual-shirt"
+                                className="block text-sx"
+                              >
+                                CASUAL SHIRT
+                              </NavLink>
+                              <NavLink to="/t-shirt" className="block text-xs">
+                                T-SHIRT
+                              </NavLink>
+                              <NavLink to="/pant" className="block text-xs">
+                                PANT
+                              </NavLink>
+                              <NavLink to="/panjabi" className="block text-xs">
+                                PANJABI
+                              </NavLink>
+                            </div>
+
+                            {/* COLUMN 2 */}
+                            <div className="space-y-2">
+                              <p className="text-xs opacity-60 mb-2">
+                                CASUAL WEAR
+                                <hr />
+                              </p>
+                              <NavLink to="/jeans" className="block text-xs">
+                                JEANS
+                              </NavLink>
+                              <NavLink to="/hoodie" className="block text-xs">
+                                HOODIE
+                              </NavLink>
+                              <NavLink to="/jacket" className="block text-xs">
+                                JACKET
+                              </NavLink>
+                              <NavLink to="/sweater" className="block text-xs">
+                                SWEATER
+                              </NavLink>
+                              <NavLink to="/shorts" className="block text-xs">
+                                SHORTS
+                              </NavLink>
+                            </div>
+
+                            {/* COLUMN 3 */}
+                            <div className="space-y-2">
+                              <p className="text-xs opacity-60 mb-2">
+                                ACCESSORIES
+                                <hr />
+                              </p>
+                              <NavLink to="/shoes" className="block text-xs">
+                                SHOES
+                              </NavLink>
+                              <NavLink to="/belt" className="block text-xs">
+                                BELT
+                              </NavLink>
+                              <NavLink to="/watch" className="block text-xs">
+                                WATCH
+                              </NavLink>
+                              <NavLink to="/cap" className="block text-xs">
+                                CAP
+                              </NavLink>
+                              <NavLink
+                                to="/sunglasses"
+                                className="block text-xs"
+                              >
+                                SUNGLASSES
+                              </NavLink>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </ul>
             </div>
@@ -220,7 +434,7 @@ const Navbar = ({ theme, setTheme }) => {
 
                 {/* Sun icon - visible in DARK mode (swap-on = checked) */}
                 <svg
-                  className="swap-on fill-current w-6 h-6 text-yellow-300"
+                  className="swap-on fill-current w-6 h-6 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                 >
@@ -229,7 +443,7 @@ const Navbar = ({ theme, setTheme }) => {
 
                 {/* Moon icon - visible in LIGHT mode (swap-off = unchecked) */}
                 <svg
-                  className="swap-off fill-current w-6 h-6 text-white"
+                  className="swap-off fill-current w-6 h-6 text-black"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                 >
