@@ -23,7 +23,7 @@ const TopNavbar = () => {
               className="flex items-center gap-1 hover:text-amber-300 transition-colors font-extralight text-[10px] sm:text-xs md:text-xs"
             >
               <CiMail className="text-[10px] sm:text-xs md:text-xs" />
-              <p className="mb-1">wear.lunor@gmail.com</p>
+              <p className="sm:mb-1 md:mb-1">wear.lunor@gmail.com</p>
             </a>
           </div>
 

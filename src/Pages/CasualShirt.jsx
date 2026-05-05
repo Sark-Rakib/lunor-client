@@ -19,8 +19,12 @@ const CasualShirt = () => {
           ? res.data
           : res.data?.products || [];
 
+        const sorted = [...data].sort(
+          (a, b) => new Date(b.postedAt) - new Date(a.postedAt),
+        );
+
         // approved only (same as Products page)
-        const approved = data.filter((item) => item.status === "Approved");
+        const approved = sorted.filter((item) => item.status === "Approved");
 
         setSweets(approved);
       } catch (error) {
@@ -127,7 +131,7 @@ const CasualShirt = () => {
 
         {sweets.length === 0 && (
           <p className="text-center text-gray-500 mt-10">
-            No casual shirt items found 😢
+            No Casual-Shirt items found
           </p>
         )}
       </div>

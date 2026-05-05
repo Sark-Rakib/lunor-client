@@ -34,6 +34,16 @@ import AddHeroPhoto from "../Pages/Dashboard/AddHeroPhoto";
 import TShirt from "../Pages/TShirt";
 import OrderPlace from "../Component/OrderPlace";
 import OrderSuccess from "../Component/OrderSuccess";
+import Jeans from "../Pages/Jeans";
+import Hoodie from "../Pages/Hoodie";
+import Jacket from "../Pages/Jacket";
+import Sweater from "../Pages/Sweater";
+import Shorts from "../Pages/Shorts";
+import Shoes from "../Pages/Shoes";
+import Belt from "../Pages/Belt";
+import Watch from "../Pages/Watch";
+import Cap from "../Pages/Cap";
+import Sunglass from "../Pages/Sunglass";
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +97,46 @@ export const router = createBrowserRouter([
       {
         path: "/panjabi",
         Component: Panjabi,
+      },
+      {
+        path: "/jeans",
+        Component: Jeans,
+      },
+      {
+        path: "/hoodie",
+        Component: Hoodie,
+      },
+      {
+        path: "/jacket",
+        Component: Jacket,
+      },
+      {
+        path: "/sweater",
+        Component: Sweater,
+      },
+      {
+        path: "/shorts",
+        Component: Shorts,
+      },
+      {
+        path: "/shoes",
+        Component: Shoes,
+      },
+      {
+        path: "/belt",
+        Component: Belt,
+      },
+      {
+        path: "/watch",
+        Component: Watch,
+      },
+      {
+        path: "/cap",
+        Component: Cap,
+      },
+      {
+        path: "/sunglasses",
+        Component: Sunglass,
       },
       {
         path: "/t-shirt",

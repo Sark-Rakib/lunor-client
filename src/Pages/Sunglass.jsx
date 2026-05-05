@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
 
-const Pant = () => {
+const Sunglass = () => {
   const [sweets, setSweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
@@ -12,7 +12,7 @@ const Pant = () => {
   useEffect(() => {
     const fetchSweetProducts = async () => {
       try {
-        const res = await axiosSecure.get("/products?category=pant");
+        const res = await axiosSecure.get("/products?category=sunglass");
 
         // backend theke array or object dui ta handle
         const data = Array.isArray(res.data)
@@ -47,14 +47,14 @@ const Pant = () => {
 
   return (
     <section className="py-10 ">
-      <title>Lunor | Pant</title>
+      <title>Lunor | Sunglass</title>
       <div className="px-4 sm:px-7 md:px-6">
         {/* Title */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-black">
-            All <span className="text-gray-400">Pants</span>
+            All <span className="text-gray-400">Sunglasses</span>
           </h2>
-          <p className="text-gray-600 mt-2">Pant Collection</p>
+          <p className="text-gray-600 mt-2">Sunglass Collection</p>
         </div>
 
         {/* Grid */}
@@ -131,11 +131,13 @@ const Pant = () => {
         </div>
 
         {sweets.length === 0 && (
-          <p className="text-center text-gray-500 mt-10">No Pant items found</p>
+          <p className="text-center text-gray-500 mt-10">
+            No Sunglass items found
+          </p>
         )}
       </div>
     </section>
   );
 };
 
-export default Pant;
+export default Sunglass;

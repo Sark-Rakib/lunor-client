@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
 
-const Pant = () => {
+const Belt = () => {
   const [sweets, setSweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
@@ -12,7 +12,7 @@ const Pant = () => {
   useEffect(() => {
     const fetchSweetProducts = async () => {
       try {
-        const res = await axiosSecure.get("/products?category=pant");
+        const res = await axiosSecure.get("/products?category=belt");
 
         // backend theke array or object dui ta handle
         const data = Array.isArray(res.data)
@@ -46,15 +46,15 @@ const Pant = () => {
   }
 
   return (
-    <section className="py-10 ">
-      <title>Lunor | Pant</title>
+    <section className="py-10">
+      <title>Lunor | Belts</title>
       <div className="px-4 sm:px-7 md:px-6">
         {/* Title */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-black">
-            All <span className="text-gray-400">Pants</span>
+            All <span className="text-gray-400">Belts</span>
           </h2>
-          <p className="text-gray-600 mt-2">Pant Collection</p>
+          <p className="text-gray-600 mt-1">Belt Collection</p>
         </div>
 
         {/* Grid */}
@@ -62,7 +62,6 @@ const Pant = () => {
           {sweets.map((item) => (
             <Link to={`/products-details/${item._id}`} key={item._id}>
               <motion.div
-                key={item._id}
                 whileHover={{ y: -6 }}
                 className="transition-all overflow-hidden flex flex-col h-full"
               >
@@ -78,7 +77,7 @@ const Pant = () => {
                     className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
                   />
 
-                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-[8px] font-semibold px-1.5 py-0.5 rounded-full">
+                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-[8px] px-1.5 py-0.5 rounded-full uppercase">
                     {item.ability}
                   </span>
                 </div>
@@ -86,7 +85,7 @@ const Pant = () => {
                 {/* Content */}
                 <div className="mt-1 flex flex-col flex-1">
                   <div className="flex-1">
-                    <h3 className="text-sm md:text-base line-clamp-1 uppercase">
+                    <h3 className="uppercase text-sm md:text-base line-clamp-1">
                       {item.name}
                     </h3>
 
@@ -99,7 +98,7 @@ const Pant = () => {
                     <div className="flex flex-wrap items-center justify-between mt-1">
                       {item.discountPrice ? (
                         <>
-                          <span className="text-sm uppercase">
+                          <span className=" text-sm uppercase">
                             Price : ৳{item.discountPrice}
                           </span>
                           <span className="text-red-400 line-through text-sm uppercase">
@@ -107,7 +106,7 @@ const Pant = () => {
                           </span>
                         </>
                       ) : (
-                        <span className="text-sm uppercase">
+                        <span className=" text-sm uppercase">
                           Price : ৳{item.price}
                         </span>
                       )}
@@ -120,10 +119,10 @@ const Pant = () => {
 
                   {/* Button */}
                   {/* <Link to={`/products-details/${item._id}`} className="mt-4">
-                  <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
-                    View Details
-                  </button>
-                </Link> */}
+                    <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
+                      View Details
+                    </button>
+                  </Link> */}
                 </div>
               </motion.div>
             </Link>
@@ -131,11 +130,11 @@ const Pant = () => {
         </div>
 
         {sweets.length === 0 && (
-          <p className="text-center text-gray-500 mt-10">No Pant items found</p>
+          <p className="text-center text-gray-500 mt-10">No Belt items found</p>
         )}
       </div>
     </section>
   );
 };
 
-export default Pant;
+export default Belt;
