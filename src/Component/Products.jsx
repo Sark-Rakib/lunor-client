@@ -68,6 +68,7 @@ const Products = () => {
                 {/* Image */}
                 <div className="relative">
                   <img
+                    loading="lazy"
                     src={
                       item.images[0] ||
                       "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"

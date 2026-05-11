@@ -25,7 +25,7 @@ const CustomerReviewSwiper = () => {
         const sorted = [...data].sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        setReviews(sorted.slice(0, 10)); // Show only latest 10 reviews
+        setReviews(sorted.slice(0, 5)); // Show only latest 10 reviews
       } catch (error) {
         console.error("Review fetch error:", error);
       } finally {
@@ -92,7 +92,7 @@ const CustomerReviewSwiper = () => {
     //     </div>
     //   </Swiper>
     // </section>
-    <div className="max-w-3xl px-5 py-20">
+    <div className="max-w-3xl px-5 py-10">
       {reviews.map((item, idx) => (
         <div key={idx} className="bg-white shadow p-6 rounded mb-4">
           <p className="italic text-black mb-4">{item.message}</p>

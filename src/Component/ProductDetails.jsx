@@ -10,6 +10,7 @@ import ImageCarousel from "./ImageCarousel";
 import UseRole from "../Hooks/useRole";
 import CustomerReviewSwiper from "./CustomerReviewSwiper";
 import ProductImages from "./ProductImages";
+import RelatedProducts from "./RelatedProducts";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -19,6 +20,8 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [showSizeChart, setShowSizeChart] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [opens, setOpens] = useState(false);
   // const [activeImage, setActiveImage] = useState(0);
   // const { user } = useAuth();
   const { role } = UseRole();
@@ -131,17 +134,17 @@ const ProductDetails = () => {
             <ImageCarousel images={tuition.images} />
           </div> */}
 
-          <ProductImages images={tuition.images} />
+          <ProductImages images={tuition.images} loading="lazy" />
 
           {/* Product Info */}
           <div className="flex-1 flex flex-col gap-2">
-            <h1 className="text-2xl md:text-3xl uppercase">{tuition.name}</h1>
-            <h1 className="text-[13px] bg-gray-400 rounded-full w-max px-3 uppercase">
+            <h1 className="text-2xl uppercase">{tuition.name}</h1>
+            <h1 className="text-[12px] bg-gray-400 rounded-full w-max px-3 uppercase">
               {tuition.ability}
             </h1>
-            <p className="text-[13px] sm:text-l md:text-lg uppercase">
+            {/* <p className="text-[13px] sm:text-l md:text-lg uppercase">
               {tuition.description}
-            </p>
+            </p> */}
 
             {/* Price */}
             <div className="flex items-center gap-4">
@@ -496,9 +499,46 @@ const ProductDetails = () => {
       )} */}
 
       <hr className="text-gray-400" />
-      <CustomerReview />
-      <hr />
-      <CustomerReviewSwiper></CustomerReviewSwiper>
+
+      <div className="p-4">
+        <button
+          onClick={() => setOpens(!opens)}
+          className="w-50 text-left font-medium flex justify-between items-center underline"
+        >
+          <span className="font-extralight">PRODUCTS DESCRIPTION</span>
+        </button>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ${
+            opens ? "max-h-40 mt-3" : "max-h-0"
+          }`}
+        >
+          <p className="uppercase text-sm">{tuition.description}</p>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <button
+          onClick={() => setOpen(!open)}
+          className="font-extralight underline px-4"
+        >
+          {open ? "HIDE REVIEWS" : "SHOW REVIEWS"}
+        </button>
+
+        <div
+          className={`overflow-hidden transition-all duration-500 ${
+            open ? "opacity-100 mt-3" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="text-[13px]">
+            <CustomerReview />
+            <hr />
+            <CustomerReviewSwiper />
+          </div>
+        </div>
+        <hr className="mt-5 text-gray-400" />
+        <RelatedProducts currentProduct={tuition} />
+      </div>
     </div>
   );
 };

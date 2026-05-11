@@ -37,6 +37,7 @@ const ProductCard = ({ tuition }) => {
       {/* Image */}
       <div className="relative">
         <img
+          loading="lazy"
           src={images[0] || "https://i.ibb.co/4p0jH0Z/default-avatar.jpg"}
           alt={studentName || name}
           className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
