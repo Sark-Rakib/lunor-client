@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
+import { FiTruck } from "react-icons/fi";
+import { MdPayment } from "react-icons/md";
 
 const OrderPlace = () => {
   const location = useLocation();
@@ -10,46 +12,158 @@ const OrderPlace = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  // const [locations, setLocations] = useState({});
+  const handleDistrictChange = (e) => {
+    const value = e.target.value;
+
+    setSelectedDistrict(value);
+
+    setFormData((prev) => ({
+      ...prev,
+      district: value,
+      street: "", // reset area
+    }));
+  };
   const { product, quantity, totalPrice, selectedSize } = location.state || {};
 
-  // যদি product না পাওয়া যায় তাহলে Redirect
   useEffect(() => {
-    if (!product) {
-      navigate("/");
-    }
+    if (!product) navigate("/");
   }, [product, navigate]);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    paymentMethod: "",
+    phone: "+880",
     district: "",
-    street: "",
-    totalPrice: totalPrice,
+    address: "",
+    paymentMethod: "",
+    paymentType: "",
     transactionId: "",
   });
 
-  // Auto fill email if user is logged in
   useEffect(() => {
     if (user?.email) {
-      setFormData((prev) => ({ ...prev, email: user.email }));
+      setFormData((prev) => ({
+        ...prev,
+        email: user.email,
+        name: user.name || "",
+      }));
     }
   }, [user]);
 
-  // Handle Input Change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const districts = [
+    "Bagerhat",
+    "Bandarban",
+    "Barguna",
+    "Barishal",
+    "Bhola",
+    "Bogura",
+    "Brahmanbaria",
+    "Chandpur",
+    "Chattogram",
+    "Chuadanga",
+    "Comilla",
+    "Cox's Bazar",
+    "Dhaka",
+    "Dinajpur",
+    "Faridpur",
+    "Feni",
+    "Gaibandha",
+    "Gazipur",
+    "Gopalganj",
+    "Habiganj",
+    "Jamalpur",
+    "Jashore",
+    "Jhalokati",
+    "Jhenaidah",
+    "Joypurhat",
+    "Khagrachari",
+    "Khulna",
+    "Kishoreganj",
+    "Kurigram",
+    "Kushtia",
+    "Lakshmipur",
+    "Lalmonirhat",
+    "Madaripur",
+    "Magura",
+    "Manikganj",
+    "Meherpur",
+    "Moulvibazar",
+    "Munshiganj",
+    "Mymensingh",
+    "Naogaon",
+    "Narail",
+    "Narayanganj",
+    "Narsingdi",
+    "Natore",
+    "Netrokona",
+    "Nilphamari",
+    "Noakhali",
+    "Pabna",
+    "Panchagarh",
+    "Patuakhali",
+    "Pirojpur",
+    "Rajbari",
+    "Rajshahi",
+    "Rangamati",
+    "Rangpur",
+    "Satkhira",
+    "Shariatpur",
+    "Sherpur",
+    "Sirajganj",
+    "Sunamganj",
+    "Sylhet",
+    "Tangail",
+    "Thakurgaon",
+  ];
+
+  const deliveryCharge =
+    formData.district?.toLowerCase() === "bogura"
+      ? 80
+      : formData.district?.toLowerCase() === "sirajganj"
+        ? 110
+        : 150;
+
+  const subtotal = Number(totalPrice) || 0;
+  const grandTotal = subtotal + deliveryCharge;
+
+  const isOnlinePayment = formData.paymentMethod === "onlinePayment";
+
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
 
-    if (!product) return;
+    if (!product) {
+      Swal.fire({
+        title: "Error",
+        text: "Product information missing",
+        icon: "error",
+      });
+      return;
+    }
 
-    // const deliveryCharge = 120;
-    const finalTotal = Number(totalPrice) + deliveryCharge;
+    if (!formData.paymentMethod) {
+      Swal.fire({
+        title: "Payment Required",
+        text: "Please select a payment method",
+        icon: "warning",
+      });
+      return;
+    }
+
+    if (isOnlinePayment && !formData.transactionId) {
+      Swal.fire({
+        title: "Required",
+        text: "Please enter Transaction ID",
+        icon: "warning",
+      });
+      return;
+    }
 
     try {
       const orderData = {
@@ -57,12 +171,15 @@ const OrderPlace = () => {
         productName: product.name,
         productImage: product.images?.[0] || "",
         quantity,
-        totalPrice,
+        totalPrice: subtotal,
         deliveryCharge,
-        grandTotal: finalTotal,
+        grandTotal,
         size: selectedSize || "Not specified",
         email: user?.email || formData.email,
         ...formData,
+        postedAt: new Date().toLocaleString("en-BD", {
+          timeZone: "Asia/Dhaka",
+        }),
       };
 
       const res = await axiosSecure.post("/orders", orderData);
@@ -72,8 +189,6 @@ const OrderPlace = () => {
           title: "Order Placed!",
           text: "Your order at LUNOR has been placed successfully 🎉",
           icon: "success",
-          confirmButtonText: "Ok",
-          confirmButtonColor: "#10B981",
           timer: 3000,
           toast: true,
           position: "center",
@@ -81,347 +196,323 @@ const OrderPlace = () => {
         });
         navigate("/order-success", {
           state: {
-            orderId: res.data?.orderId || null, // ব্যাকএন্ড থেকে আসলে ভালো
+            orderId: res?.data?.orderId || `LUNOR-${Date.now()}`,
             product,
             quantity,
-            totalPrice,
-            deliveryCharge,
+            totalPrice: subtotal,
             formData,
-            selectedSize: selectedSize || "Not specified",
             paymentMethod: formData.paymentMethod,
+            deliveryCharge,
+            selectedSize,
+            postedAt: new Date().toLocaleString("en-BD", {
+              timeZone: "Asia/Dhaka",
+            }),
           },
         });
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          paymentMethod: "",
-          district: "",
-          street: "",
-          transactionId: "",
-        });
-
-        // Optional: Redirect to order success page
-        // navigate("/order-success");
       }
     } catch (err) {
-      console.error(err);
       Swal.fire({
         title: "Failed!",
-        text: "Failed to place order. Please try again.",
+        text: err?.response?.data?.message || "Failed to place order.",
         icon: "error",
       });
     }
   };
 
   if (!product) {
-    return <h2 className="text-center mt-10">Product not found!</h2>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h2>Loading order details...</h2>
+      </div>
+    );
   }
 
-  const districts = [
-    "Bogura",
-    "Dhaka",
-    "Chattogram",
-    "Khulna",
-    "Rajshahi",
-    "Rangpur",
-    "Sylhet",
-    "Barishal",
-    "Mymensingh",
-    "Narayanganj",
-    "Gazipur",
-    "Comilla",
-    "Noakhali",
-    "Jessore",
-    "Cox's Bazar",
-    "Pabna",
-    "Dinajpur",
-    "Tangail",
-    "Faridpur",
-    "Kushtia",
-    "Brahmanbaria",
-    "Munshiganj",
-    "Narsingdi",
-    "Manikganj",
-    "Shariatpur",
-    "Madaripur",
-    "Lakshmipur",
-    "Feni",
-    "Habiganj",
-    "Moulvibazar",
-    "Sunamganj",
-    "Patuakhali",
-    "Bhola",
-    "Jhalokati",
-    "Pirojpur",
-    "Bagerhat",
-    "Satkhira",
-    "Chuadanga",
-    "Meherpur",
-    "Jhenaidah",
-    "Magura",
-    "Narail",
-    "Sherpur",
-    "Jamalpur",
-    "Netrokona",
-    "Kishoreganj",
-    "Rajbari",
-    "Gopalganj",
-    "Natore",
-    "Sirajganj",
-    "Joypurhat",
-    "Naogaon",
-    "Chapainawabganj",
-    "Thakurgaon",
-    "Panchagarh",
-  ];
-  const deliveryCharge =
-    formData.district?.toLowerCase() === "bogura" ? 80 : 140;
-  // const finalTotal = Number(totalPrice) + deliveryCharge;
-
   return (
-    <div className="py-10">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8">
-          Place Your Order
-        </h1>
-
-        {/* Order Summary */}
-        <div className="p-6 rounded-xl shadow mb-8">
-          <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-          <div className="flex gap-6 items-center">
-            {product.images?.[0] && (
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="w-24 h-24 object-cover rounded-lg"
-              />
-            )}
-            <div>
-              <p className="text-lg font-medium">{product.name}</p>
-              <p>
-                Quantity: <span className="font-medium">{quantity}</span>
-              </p>
-              <p>
-                Size: <span className="font-medium">{selectedSize}</span>
-              </p>
-              <p className="font-medium text-green-600">Total: ৳{totalPrice}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Order Form */}
-
-        <div className="inset-0 flex items-center justify-center p-4 overflow-auto">
-          <div className="p-8 rounded-3xl">
-            <h2 className="text-3xl font-bold text-center mb-2">
-              Place Your Order
+    <div className="min-h-screen py-10">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10">
+          {/* LEFT - SHIPPING ADDRESS */}
+          <div className="p-4 border border-gray-300">
+            <h2 className="text-l font-semibold mb-8 border-b pb-4">
+              SHIPPING ADDRESS
             </h2>
-            <p className="text-center text-gray-500 mb-8">
-              LUNOR • Secure Checkout
-            </p>
 
-            <form onSubmit={handleOrderSubmit} className="space-y-6">
-              {/* Name */}
-              <div>
-                <label className="block text-sm font-medium mb-1.5">
-                  Your Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your full name"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 p-4 rounded-2xl outline-none transition"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="block text-sm font-medium mb-1.5">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="your@email.com"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  disabled={!!user}
-                  className={`w-full border p-4 rounded-2xl outline-none transition ${
-                    user
-                      ? "bg-gray-100 border-gray-300 text-gray-600 cursor-not-allowed"
-                      : "border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200"
-                  }`}
-                />
-                {user && (
-                  <p className="text-xs text-green-600 mt-1">
-                    Logged in as: <strong>{user.email}</strong>
-                  </p>
-                )}
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label className="block text-sm font-medium mb-1.5">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="01XXXXXXXXX"
-                  required
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 p-4 rounded-2xl outline-none transition"
-                />
-              </div>
-
-              {/* District & Street */}
-              <div className="grid grid-cols-2 gap-4">
+            <form
+              onSubmit={handleOrderSubmit}
+              id="orderForm"
+              className="space-y-6"
+            >
+              {/* ... Form ... */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium mb-1.5">
-                    District
+                    Full name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full border border-gray-300 p-2 focus:border-black outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">
+                    Phone number *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full border border-gray-300 p-2 focus:border-black outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    disabled={!!user}
+                    className="w-full border border-gray-300 p-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">
+                    District *
                   </label>
                   <select
                     name="district"
-                    required
                     value={formData.district}
-                    onChange={handleInputChange}
-                    className="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 p-4 rounded-2xl outline-none transition"
+                    onChange={handleDistrictChange}
+                    required
+                    className="w-full border text-gray-500 border-gray-300 p-2 outline-none"
                   >
-                    <option value="">Select</option>
-                    {districts.map((d) => (
-                      <option key={d} value={d}>
-                        {d}
+                    <option value="">Select District</option>
+                    {districts.map((district) => (
+                      <option key={district} value={district}>
+                        {district}
                       </option>
                     ))}
                   </select>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1.5">
-                    Area / Street
-                  </label>
-                  <input
-                    type="text"
-                    name="street"
-                    placeholder="House, Road, Area"
-                    required
-                    value={formData.street}
-                    onChange={handleInputChange}
-                    className="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 p-4 rounded-2xl outline-none transition"
-                  />
+              </div>
+
+              {/* <div>
+                <label className="block text-sm font-medium mb-1.5">
+                  Area *
+                </label>
+                <select
+                  name="street"
+                  value={formData.street}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full border border-gray-300 p-2 focus:border-black outline-none"
+                >
+                  <option value="">Please select</option>
+                  {selectedDistrict &&
+                    districts[selectedDistrict]?.map((area) => (
+                      <option key={area} value={area}>
+                        {area}
+                      </option>
+                    ))}
+                </select>
+              </div> */}
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5">
+                  Address *
+                </label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  required
+                  rows={3}
+                  className="w-full border border-gray-300 p-2 focus:border-black outline-none resize-y"
+                  placeholder="Address Details"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  className="w-3 h-3 accent-red-600"
+                />
+                <span className="text-xs">
+                  Billing Address Same As Shipping Address
+                </span>
+              </div>
+            </form>
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className="space-y-6">
+            {/* Review Cart */}
+            <div className="p-4 border border-gray-300">
+              <h2 className="text-l font-semibold mb-6">REVIEW CART</h2>
+              <div className="flex gap-4">
+                <img
+                  src={product.images?.[0] || "/placeholder.jpg"}
+                  alt={product.name}
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+                <div className="flex-1">
+                  <p className="font-semibold uppercase">{product.name}</p>
+                  <p className="text-sm text-gray-600">
+                    {selectedSize} | {quantity} pcs
+                  </p>
+                  <p className="font-semibold mt-2">৳{subtotal}</p>
                 </div>
               </div>
+            </div>
+
+            {/* Summary */}
+            <div className="border border-gray-300 p-4">
+              <div>
+                <h3 className="font-semibold mb-5">SUMMARY</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span>৳{subtotal}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Shipping Charge</span>
+                    <span>৳{deliveryCharge}</span>
+                  </div>
+                  <hr className="my-2" />
+                  <div className="flex justify-between text-l font-bold">
+                    <span>Grand Total</span>
+                    <span>৳{grandTotal}</span>
+                  </div>
+                </div>
+              </div>
+
+              <hr className="mt-6 text-gray-300" />
 
               {/* Payment Method */}
               <div>
-                <label className="block text-sm font-medium mb-1.5">
-                  Payment Method
-                </label>
-                <select
-                  name="paymentMethod"
-                  required
-                  value={formData.paymentMethod}
-                  onChange={handleInputChange}
-                  className="w-full border border-gray-300 focus:border-green-500 focus:ring-1 focus:ring-green-200 p-3 rounded-2xl outline-none transition"
-                >
-                  <option value="" className="text-black">
-                    Select Payment Method
-                  </option>
-                  <option value="cashOnDelivery" className="text-black">
-                    Cash on Delivery (COD)
-                  </option>
-                  <option value="onlinePayment" className="text-black">
-                    Online Payment (bKash / Nagad)
-                  </option>
-                </select>
-              </div>
-
-              {/* Transaction ID - Only for Online Payment */}
-              {formData.paymentMethod === "onlinePayment" && (
-                <div>
-                  <label className="block text-sm font-medium mb-1.5">
-                    Transaction ID <span className="text-red-500">*</span>
+                <h3 className="font-semibold mt-4 mb-4">
+                  Select Payment Method
+                </h3>
+                <div className="flex gap-6">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      required
+                      value="cod"
+                      onChange={handleInputChange}
+                    />
+                    <FiTruck /> <span className="text-sm">C.O Delivery</span>
                   </label>
-                  <input
-                    type="text"
-                    name="transactionId"
-                    placeholder="Enter your bKash/Nagad Transaction ID"
-                    required
-                    value={formData.transactionId || ""}
-                    onChange={handleInputChange}
-                    className="w-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 p-4 rounded-2xl outline-none transition"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Provide the Transaction ID after completing the payment.
-                  </p>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="onlinePayment"
+                      required
+                      onChange={handleInputChange}
+                    />
+                    <MdPayment />{" "}
+                    <span className="text-sm">Online Payment</span>
+                  </label>
                 </div>
-              )}
 
-              {/* Price Breakdown */}
-              <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600">Product Price</span>
-                  <span className="font-medium text-black">৳{totalPrice}</span>
-                </div>
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600">Delivery Charge</span>
-                  <span className="font-medium text-green-600">
-                    + ৳{deliveryCharge}
-                  </span>
-                </div>
-                <div className="border-t border-gray-200 my-3"></div>
-                <div className="flex justify-between text-lg font-bold">
-                  <span className="text-black">Total Amount</span>
-                  <span className="text-green-600">
-                    ৳ ৳{totalPrice + deliveryCharge}
-                  </span>
-                </div>
+                {isOnlinePayment && (
+                  <div className="mt-6 space-y-4">
+                    <div className="flex gap-3">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setFormData((p) => ({
+                            ...p,
+                            paymentType: "bKash",
+                          }))
+                        }
+                        className={`flex-1 py-2 border rounded ${formData.paymentType === "bKash" ? "border-red-500 bg-red-50" : ""}`}
+                      >
+                        bKash
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setFormData((p) => ({ ...p, paymentType: "Nagad" }))
+                        }
+                        className={`flex-1 py-2 border rounded ${formData.paymentType === "Nagad" ? "border-red-500 bg-red-50" : ""}`}
+                      >
+                        Nagad
+                      </button>
+                    </div>
+
+                    <div>
+                      bkash/nagad number:{" "}
+                      <span className="font-semibold">01745762857</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Transaction ID <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="transactionId"
+                        value={formData.transactionId}
+                        onChange={handleInputChange}
+                        placeholder="Enter Transaction ID"
+                        className="w-full border border-gray-300 p-3"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Online Payment Info */}
-              {formData.paymentMethod === "onlinePayment" && (
-                <div className="bg-emerald-50 border border-emerald-100 p-5 rounded-2xl text-sm">
-                  <p className="font-semibold text-emerald-700 mb-3">
-                    Send Payment to:
-                  </p>
-                  <div className="space-y-2 text-emerald-800">
-                    <p>
-                      <strong>bKash:</strong> 01745762857 (personal)
-                    </p>
-                    <p>
-                      <strong>Nagad:</strong> 01745762857 (personal)
-                    </p>
-                  </div>
-                  <p className="text-xs text-emerald-600 mt-3">
-                    Enter the Transaction ID above after completing the payment.
-                  </p>
-                </div>
-              )}
+              {/* delivary charge */}
+              <div className="bg-gray-50 p-2 text-sm space-y-1 mt-4 rounded text-black">
+                <p className="font-semibold">Delivery Charge :</p>
 
-              {/* Buttons */}
-              <div className="flex gap-4 pt-4">
+                <p className="border-b border-dotted">
+                  Inside Bogura City — 80 Tk
+                </p>
+
+                <p className="border-b border-dotted">
+                  Sirajganj (nearby district of Bogura) — 110 Tk
+                </p>
+
+                <p className="border-b border-dotted">
+                  Outside Bogura — 150 Tk
+                </p>
+
+                <p className="border-b border-dotted">
+                  Express delivery (only inside Bogura city) — 100 Tk
+                </p>
+              </div>
+              {/* ORDER NOW BUTTON */}
+
+              <div className="flex flex-col-reverse md:flex-row-reverse gap-3 mt-5">
                 <button
                   type="button"
-                  onClick={() => navigate(-1)}
-                  className="flex-1 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-pointer font-semibold rounded-2xl transition"
+                  onClick={() =>
+                    document.getElementById("orderForm").requestSubmit()
+                  }
+                  className="w-full bg-black hover:bg-gray-800 text-white py-3 text-sm font-semibold  transition"
                 >
-                  Cancel
+                  ORDER NOW — ৳{grandTotal}
                 </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-2 py-4 bg-green-600 hover:bg-green-700 cursor-pointer text-white font-semibold rounded-2xl transition shadow-lg shadow-green-500/30"
-                >
-                  Confirm Order
+                <button className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3 text-sm font-semibold  transition">
+                  CONTINUE SHOPING
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

@@ -43,9 +43,10 @@ const AddProducts = () => {
   // Image Upload Helper
   const uploadImage = async (file) => {
     const compressedFile = await imageCompression(file, {
-      maxSizeMB: 1, // 👈 max 1MB
-      maxWidthOrHeight: 1200,
+      maxSizeMB: 0.3,
+      maxWidthOrHeight: 800,
       useWebWorker: true,
+      fileType: "image/webp",
     });
 
     const formData = new FormData();
@@ -57,7 +58,10 @@ const AddProducts = () => {
     );
 
     const data = await res.json();
-    return data.data.url;
+    return {
+      url: data.data.display_url,
+      deleteUrl: data.data.delete_url,
+    };
   };
 
   const onSubmit = async (data) => {
@@ -72,6 +76,7 @@ const AddProducts = () => {
     try {
       const image1 = await uploadImage(data.image1[0]);
       const image2 = await uploadImage(data.image2[0]);
+
       // const image3 = await uploadImage(data.image3[0]);
       // const image4 = await uploadImage(data.image4[0]);
 
@@ -83,7 +88,16 @@ const AddProducts = () => {
         description: data.description,
         ability: data.ability,
         sizes: selectedSizes,
-        images: [image1, image2],
+        images: [
+          {
+            url: image1.url,
+            deleteUrl: image1.deleteUrl,
+          },
+          {
+            url: image2.url,
+            deleteUrl: image2.deleteUrl,
+          },
+        ],
         status: "Pending",
         postedAt: new Date().toISOString(),
       };
@@ -178,6 +192,7 @@ const AddProducts = () => {
                 "T-Shirt",
                 "Pant",
                 "Panjabi",
+                "Jeans",
                 "Other...",
               ].map((c) => (
                 <option key={c} value={c}>

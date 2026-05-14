@@ -19,9 +19,10 @@ const AddHeroPhoto = () => {
   // upload helper
   const uploadImage = async (file) => {
     const compressedFile = await imageCompression(file, {
-      maxSizeMB: 1, //  max 1MB
+      maxSizeMB: 0.3,
       maxWidthOrHeight: 1200,
       useWebWorker: true,
+      fileType: "image/webp",
     });
 
     const formData = new FormData();
@@ -31,7 +32,10 @@ const AddHeroPhoto = () => {
       { method: "POST", body: formData },
     );
     const data = await res.json();
-    return data.data.url;
+    return {
+      url: data.data.display_url,
+      deleteUrl: data.data.delete_url,
+    };
   };
 
   // fetch existing hero photos

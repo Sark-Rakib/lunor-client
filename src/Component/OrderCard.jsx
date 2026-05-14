@@ -44,13 +44,21 @@ const OrderCard = ({ order, onDelete }) => {
       <p>Total Price : ৳{order.grandTotal}</p>
       {order.size ? <p>Size: {order.size}</p> : <p>Weight: Not set</p>}
       <hr />
+      <p className="text-center mt-2">Customer Details</p>
       <p>Customer Name : {order.name}</p>
       <p>Customer Email : {order.email}</p>
       <p>Customer Phone : {order.phone}</p>
       <p>Customer District : {order.district}</p>
-      <p>Customer Street : {order.street}</p>
-      <p>Payment Method: {order.paymentMethod}</p>
+      <p>Customer Address : {order.address}</p>
+      <p>
+        Payment Method:{" "}
+        {order.paymentMethod === "cod" ? "Cash on Delivery" : "Online Payment"}
+      </p>
       <p>Transaction ID : {order.transactionId}</p>
+      <p>
+        Order At :{" "}
+        {order.postedAt ? new Date(order.postedAt).toLocaleString() : "N/A"}
+      </p>
 
       <p className="mt-2 font-semibold">
         Status:{" "}
