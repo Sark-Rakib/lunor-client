@@ -19,7 +19,11 @@ const TrandingCategory = () => {
         <Swiper
           spaceBetween={15}
           loop={true}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+            reverseDirection: true,
+          }}
           modules={[Autoplay]}
           //  responsive part
           breakpoints={{

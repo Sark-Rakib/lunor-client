@@ -22,30 +22,44 @@ const OrderSuccess = () => {
 
   const finalOrderId = orderId || `LUNOR-${Date.now()}`;
 
+  const handlePrint = () => {
+    const printContents = document.getElementById("print-area")?.innerHTML;
+
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+
+    window.location.reload();
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4">
+    <div className="min-h-screen  py-10 px-4">
       <div className="max-w-2xl mx-auto">
         {/* HEADER */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
-            <span className="text-5xl">🎉</span>
+            <span className="text-4xl">🎉</span>
           </div>
-          <h1 className="text-4xl font-bold text-green-600">
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-green-600">
             Order Confirmed!
           </h1>
-          <p className="text-gray-600 mt-2 text-lg">
+          <p className="text-gray-600 mt-2 text-sm md:text-lg">
             Thank you for shopping with LUNOR
           </p>
         </div>
 
         {/* CARD */}
-        <div className="bg-white rounded-3xl overflow-hidden">
+        <div id="print-area" className=" rounded overflow-hidden">
           {/* TOP */}
           <div className="bg-green-600 text-white p-6">
             <div className="flex justify-between">
               <div>
                 <p className="text-sm opacity-75">Order ID</p>
-                <p className="text-xl font-bold">{finalOrderId}</p>
+                <p className=" md:text-xl font-bold">{finalOrderId}</p>
               </div>
               <div className="text-right">
                 <p className="text-sm opacity-75">Date</p>
@@ -60,19 +74,22 @@ const OrderSuccess = () => {
               <img
                 src={product?.images?.[0] || "/placeholder.jpg"}
                 alt={product?.name || "Product"}
-                className="w-24 h-24 object-cover rounded-xl"
+                className="w-24 h-24 object-cover rounded"
               />
 
               <div className="flex-1">
-                <p className="font-semibold text-lg">
+                <p className="font-semibold text-sm uppercase">
                   {product?.name || "Product"}
                 </p>
-                <p className="text-gray-600">Qty: {quantity || 0}</p>
-                <p>Size: {selectedSize || "N/A"}</p>
+                <p className="text-gray-600 text-sm">
+                  Quantity: {quantity || 0}
+                </p>
+                <p className="text-sm">Size: {selectedSize || "N/A"}</p>
               </div>
 
-              <div className="text-right font-bold text-green-600">
-                ৳{safeTotal}
+              <div className="text-right">
+                <span className="font-bold text-green-600">৳{safeTotal}</span>{" "}
+                BDT
               </div>
             </div>
           </div>
@@ -103,7 +120,7 @@ const OrderSuccess = () => {
           </div>
 
           {/* PRICE */}
-          <div className="p-6 bg-gray-50">
+          <div className="p-6">
             <div className="flex justify-between">
               <span>Subtotal</span>
               <span>৳{safeTotal}</span>
@@ -130,21 +147,21 @@ const OrderSuccess = () => {
         <div className="flex flex-col sm:flex-row gap-4 mt-6">
           <button
             onClick={() => navigate("/")}
-            className="flex-1 bg-gray-800 text-white py-3 rounded-xl"
+            className="flex-1 bg-gray-800 text-white py-3 rounded"
           >
             Back Home
           </button>
 
           <button
-            onClick={() => window.print()}
-            className="flex-1 bg-green-600 text-white py-3 rounded-xl"
+            onClick={handlePrint}
+            className="flex-1 bg-green-600 text-white py-3 rounded"
           >
             Print Order
           </button>
 
           <button
             onClick={() => navigate("/dashboard/my-orders")}
-            className="flex-1 border py-3 rounded-xl"
+            className="flex-1 border py-3 rounded"
           >
             My Orders
           </button>

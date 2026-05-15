@@ -31,7 +31,7 @@ const OrderCard = ({ order, onDelete }) => {
   };
 
   return (
-    <div className="border border-gray-400 rounded-xl p-4 m-2">
+    <div className="border border-gray-400 rounded p-4 m-2">
       <img
         src={order.productImage}
         alt={order.productName}
@@ -44,18 +44,22 @@ const OrderCard = ({ order, onDelete }) => {
       <p>Total Price : ৳{order.grandTotal}</p>
       {order.size ? <p>Size: {order.size}</p> : <p>Weight: Not set</p>}
       <hr />
-      <p className="text-center mt-2">Customer Details</p>
+      <p className="text-center mt-2 border-b border-dotted w-full">
+        Customer Details
+      </p>
       <p>Customer Name : {order.name}</p>
       <p>Customer Email : {order.email}</p>
       <p>Customer Phone : {order.phone}</p>
+      <hr className="py-1 mt-2" />
       <p>Customer District : {order.district}</p>
       <p>Customer Address : {order.address}</p>
+      <hr className="py-1 mt-2" />
       <p>
         Payment Method:{" "}
         {order.paymentMethod === "cod" ? "Cash on Delivery" : "Online Payment"}
       </p>
       <p>Transaction ID : {order.transactionId}</p>
-      <p>
+      <p className="border border-dotted p-2 text-center mt-2">
         Order At :{" "}
         {order.postedAt ? new Date(order.postedAt).toLocaleString() : "N/A"}
       </p>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router"; // ← fixed import (react-router → react-router-dom)
 import "./Navbar.css";
 import useAuth from "../Hooks/useAuth"; // assuming this is the correct path
@@ -21,7 +21,7 @@ const Navbar = ({ theme, setTheme }) => {
   const handleLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setCatOpen(false);
-    }, 150); // 👈 small delay (magic fix)
+    }, 150);
   };
 
   const handleThemeToggle = (e) => {
@@ -32,6 +32,18 @@ const Navbar = ({ theme, setTheme }) => {
     setMobileOpen(false);
     setCategoryOpen(false); // optional: close submenu too
   };
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   const menuItems = (
     <>
@@ -475,26 +487,29 @@ const Navbar = ({ theme, setTheme }) => {
       </nav>
 
       {/* Mobile Sidebar Drawer */}
+      {/* Mobile Sidebar Drawer */}
       <div
-        className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-100 lg:hidden transition-all duration-300 ${
           mobileOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
         {/* Overlay */}
         <div
-          className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${
+          className={`absolute inset-0 transition-opacity duration-300 ${
             mobileOpen ? "opacity-100" : "opacity-0"
-          }`}
+          } bg-black/50`}
           onClick={closeMobileMenu}
         />
 
         {/* Drawer Panel */}
         <div
-          className={`absolute top-0 left-0 h-full w-72 bg-gray-400 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+          className={`absolute top-0 left-0 h-full w-72 shadow-2xl transform transition-transform duration-300 ease-in-out ${
             mobileOpen ? "translate-x-0" : "-translate-x-full"
+          } ${
+            theme === "dark" ? "bg-black text-white" : "bg-white text-black"
           }`}
         >
-          <div className="flex items-center justify-between p-5 border-b border-gray-800">
+          <div className="flex items-center justify-between p-5 border-b border-gray-200">
             <h2 className="text-xl font-bold">Menu</h2>
             <button
               onClick={closeMobileMenu}

@@ -4,6 +4,8 @@ import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/autoplay";
 
 const HeroSection = () => {
   const [images, setImages] = useState([]);
@@ -54,15 +56,20 @@ const HeroSection = () => {
           ))} */}
 
           <Swiper
+            key={images.length}
             slidesPerView={1}
             loop={true}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
             modules={[Autoplay]}
             className="absolute w-full h-full"
           >
             {images.map((img, index) => (
               <SwiperSlide key={index} className="relative flex justify-center">
-                <img src={img} alt="Hero" className="w-full h-full" />
+                <img
+                  src={img?.url || "/placeholder.jpg"}
+                  alt="Hero"
+                  className="w-full h-full"
+                />
                 {/* Text + Button */}
                 <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center px-6 mb-10">
                   {/* <h1 className="text-3xl md:text-5xl font-bold">

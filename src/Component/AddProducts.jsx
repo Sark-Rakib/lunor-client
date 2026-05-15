@@ -88,16 +88,7 @@ const AddProducts = () => {
         description: data.description,
         ability: data.ability,
         sizes: selectedSizes,
-        images: [
-          {
-            url: image1.url,
-            deleteUrl: image1.deleteUrl,
-          },
-          {
-            url: image2.url,
-            deleteUrl: image2.deleteUrl,
-          },
-        ],
+        images: [image1.url, image2.url],
         status: "Pending",
         postedAt: new Date().toISOString(),
       };

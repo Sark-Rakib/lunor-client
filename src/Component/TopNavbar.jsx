@@ -31,13 +31,13 @@ const TopNavbar = () => {
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             <Link
               to="/about"
-              className="py-1.5 rounded-md hover:bg-gray-800 hover:text-amber-300 transition-colors font-extralight text-[10px] sm:text-xs md:text-xs"
+              className="py-1.5 rounded-md  hover:text-amber-300 transition-colors font-extralight text-[10px] sm:text-xs md:text-xs"
             >
               About
             </Link>
             <Link
               to="/contact"
-              className="py-1.5 rounded-md hover:bg-gray-800 hover:text-amber-300 transition-colors font-extralight text-[10px] sm:text-xs md:text-xs"
+              className="py-1.5 rounded-md hover:text-amber-300 transition-colors font-extralight text-[10px] sm:text-xs md:text-xs"
             >
               Contact
             </Link>

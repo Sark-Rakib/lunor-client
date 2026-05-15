@@ -34,7 +34,6 @@ const AddHeroPhoto = () => {
     const data = await res.json();
     return {
       url: data.data.display_url,
-      deleteUrl: data.data.delete_url,
     };
   };
 
@@ -156,7 +155,7 @@ const AddHeroPhoto = () => {
             className="relative border rounded-lg overflow-hidden"
           >
             <img
-              src={photo.images[0]}
+              src={photo.images?.[0]?.url || "/placeholder.jpg"}
               alt="Hero"
               className="w-full h-60 object-cover"
             />

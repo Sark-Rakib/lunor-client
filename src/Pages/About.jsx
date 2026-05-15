@@ -16,12 +16,12 @@ const About = () => {
           className="flex flex-col gap-6"
         >
           {/* Section Title */}
-          <h2 className="text-4xl font-bold text-amber-700">
+          <h2 className="text-4xl">
             About <span className="text-amber-900">Lunor</span>
           </h2>
 
           {/* Brand Story */}
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-lg leading-relaxed">
             <span className="font-semibold">Lunor</span> is a modern fashion
             brand dedicated to bringing timeless style and everyday comfort
             together. We specialize in premium shirts, stylish pants, and
@@ -29,7 +29,7 @@ const About = () => {
             individuality.
           </p>
 
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-lg leading-relaxed">
             At Lunor, we believe clothing is more than just fabric — it's a
             statement of personality. Whether you're dressing for work, a
             celebration, or a casual outing, our collections are designed to
@@ -38,10 +38,8 @@ const About = () => {
 
           {/* Mission */}
           <div className=" mt-4">
-            <h3 className="text-xl font-semibold text-amber-800 mb-2">
-              Our Mission
-            </h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl mb-2">Our Mission</h3>
+            <p>
               To provide high-quality, affordable fashion that blends modern
               trends with cultural elegance.
             </p>

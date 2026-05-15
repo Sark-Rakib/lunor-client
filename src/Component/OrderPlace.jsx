@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
@@ -508,9 +508,12 @@ const OrderPlace = () => {
                 >
                   ORDER NOW — ৳{grandTotal}
                 </button>
-                <button className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3 text-sm font-semibold  transition">
+                <Link
+                  to="/all-products"
+                  className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3 text-sm font-semibold  transition"
+                >
                   CONTINUE SHOPING
-                </button>
+                </Link>
               </div>
             </div>
           </div>
