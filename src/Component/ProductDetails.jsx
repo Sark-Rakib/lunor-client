@@ -58,10 +58,13 @@ const ProductDetails = () => {
   const price = tuition.discountPrice || tuition.price;
   const totalPrice = quantity * price;
 
-  const sizeOptions =
-    tuition?.category === "Pant"
-      ? ["28", "30", "32", "34", "36"]
-      : ["S", "M", "L", "XL", "2XL"];
+  const pantCategories = ["trousers", "baggy", "jeans", "chino"];
+
+  const sizeOptions = pantCategories.includes(
+    (tuition?.category || "").toLowerCase(),
+  )
+    ? ["28", "30", "32", "34", "36"]
+    : ["S", "M", "L", "XL", "2XL"];
 
   const handleQuantityChange = (type) => {
     if (type === "increment") setQuantity((prev) => prev + 1);

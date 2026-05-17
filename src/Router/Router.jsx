@@ -44,6 +44,11 @@ import Belt from "../Pages/Belt";
 import Watch from "../Pages/Watch";
 import Cap from "../Pages/Cap";
 import Sunglass from "../Pages/Sunglass";
+import HalfSleeve from "../Pages/HalfSleeve";
+import PoloShirt from "../Pages/PoloShirt";
+import Trouser from "../Pages/Trouser";
+import Chino from "../Pages/Chino";
+import Baggy from "../Pages/Baggy";
 
 export const router = createBrowserRouter([
   {
@@ -91,17 +96,38 @@ export const router = createBrowserRouter([
         Component: CasualShirt,
       },
       {
-        path: "/pant",
-        Component: Pant,
+        path: "/half-sleeve",
+        Component: HalfSleeve,
       },
       {
-        path: "/panjabi",
-        Component: Panjabi,
+        path: "/t-shirt",
+        Component: TShirt,
+      },
+      {
+        path: "/polo-shirt",
+        Component: PoloShirt,
+      },
+      {
+        path: "/trousers",
+        Component: Trouser,
+      },
+      {
+        path: "/baggy",
+        Component: Baggy,
       },
       {
         path: "/jeans",
         Component: Jeans,
       },
+      {
+        path: "/chino",
+        Component: Chino,
+      },
+      {
+        path: "/panjabi",
+        Component: Panjabi,
+      },
+
       {
         path: "/hoodie",
         Component: Hoodie,
@@ -138,10 +164,7 @@ export const router = createBrowserRouter([
         path: "/sunglasses",
         Component: Sunglass,
       },
-      {
-        path: "/t-shirt",
-        Component: TShirt,
-      },
+
       {
         path: "/terms-service",
         Component: TermService,

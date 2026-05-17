@@ -10,6 +10,10 @@ const Navbar = ({ theme, setTheme }) => {
   const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
+  const [openFormal, setOpenFormal] = useState(false);
+  const [openCasual, setOpenCasual] = useState(false);
+  const [openTshirt, setOpenTshirt] = useState(false);
+  const [openPant, setOpenPant] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const timeoutRef = React.useRef(null);
 
@@ -88,34 +92,171 @@ const Navbar = ({ theme, setTheme }) => {
                 <hr />
               </p>
 
-              <NavLink
-                to="/formal-shirt"
-                onClick={closeMobileMenu}
-                className="block text-xs py-1"
-              >
-                FORMAL SHIRT
-              </NavLink>
-              <NavLink
-                to="/casual-shirt"
-                onClick={closeMobileMenu}
-                className="block text-xs py-1"
-              >
-                CASUAL SHIRT
-              </NavLink>
-              <NavLink
-                to="/t-shirt"
-                onClick={closeMobileMenu}
-                className="block text-xs py-1"
-              >
-                T-SHIRT
-              </NavLink>
-              <NavLink
-                to="/pant"
-                onClick={closeMobileMenu}
-                className="block text-xs py-1"
-              >
-                PANT
-              </NavLink>
+              <li className="list-none">
+                {/* Parent Menu */}
+                <button
+                  onClick={() => {
+                    setOpenFormal(!openFormal);
+                    setOpenCasual(false);
+                    setOpenTshirt(false);
+                    setOpenPant(false);
+                  }}
+                  className="flex items-center justify-between w-full text-xs py-1"
+                >
+                  <span>FORMAL SHIRT</span>
+
+                  <span>{openFormal ? "-" : "+"}</span>
+                </button>
+
+                {/* Dropdown */}
+                {openFormal && (
+                  <div className="pl-4 mt-1 space-y-1">
+                    <NavLink
+                      to="/formal-shirt"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      FULL SLEEVE
+                    </NavLink>
+
+                    <NavLink
+                      to="half-sleeve"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      HALF SLEEVE
+                    </NavLink>
+                  </div>
+                )}
+              </li>
+
+              <li className="list-none">
+                {/* Parent Menu */}
+                <button
+                  onClick={() => {
+                    setOpenCasual(!openCasual);
+                    setOpenFormal(false);
+                    setOpenTshirt(false);
+                    setOpenPant(false);
+                  }}
+                  className="flex items-center justify-between w-full text-xs py-1"
+                >
+                  <span>CASUAL SHIRT</span>
+
+                  <span>{openCasual ? "-" : "+"}</span>
+                </button>
+
+                {/* Dropdown */}
+                {openCasual && (
+                  <div className="pl-4 mt-1 space-y-1">
+                    <NavLink
+                      to="/casual-shirt"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      FULL SLEEVE
+                    </NavLink>
+
+                    <NavLink
+                      to="/half-sleeve"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      HALF SLEEVE
+                    </NavLink>
+                  </div>
+                )}
+              </li>
+              <li className="list-none">
+                {/* Parent Menu */}
+                <button
+                  onClick={() => {
+                    setOpenTshirt(!openTshirt);
+                    setOpenFormal(false);
+                    setOpenCasual(false);
+                    setOpenPant(false);
+                  }}
+                  className="flex items-center justify-between w-full text-xs py-1"
+                >
+                  <span>T-SHIRT</span>
+
+                  <span>{openTshirt ? "-" : "+"}</span>
+                </button>
+
+                {/* Dropdown */}
+                {openTshirt && (
+                  <div className="pl-4 mt-1 space-y-1">
+                    <NavLink
+                      to="/t-shirt"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      T-SHIRT
+                    </NavLink>
+
+                    <NavLink
+                      to="/polo-shirt"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      POLO SHIRT
+                    </NavLink>
+                  </div>
+                )}
+              </li>
+              <li className="list-none">
+                {/* Parent Menu */}
+                <button
+                  onClick={() => {
+                    setOpenPant(!openPant);
+                    setOpenFormal(false);
+                    setOpenCasual(false);
+                    setOpenTshirt(false);
+                  }}
+                  className="flex items-center justify-between w-full text-xs py-1"
+                >
+                  <span>BOTTOM</span>
+
+                  <span>{openPant ? "-" : "+"}</span>
+                </button>
+
+                {/* Dropdown */}
+                {openPant && (
+                  <div className="pl-4 mt-1 space-y-1">
+                    <NavLink
+                      to="/trousers"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      TROUSERS
+                    </NavLink>
+
+                    <NavLink
+                      to="/baggy"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      BAGGY PANTS
+                    </NavLink>
+
+                    <NavLink
+                      to="/jeans"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      JEANS PANTS
+                    </NavLink>
+
+                    <NavLink
+                      to="/chino"
+                      onClick={closeMobileMenu}
+                      className="block text-[9px] py-1"
+                    >
+                      CHINO PANTS
+                    </NavLink>
+                  </div>
+                )}
+              </li>
               <NavLink
                 to="/panjabi"
                 onClick={closeMobileMenu}
@@ -132,13 +273,13 @@ const Navbar = ({ theme, setTheme }) => {
                 <hr />
               </p>
 
-              <NavLink
+              {/* <NavLink
                 to="/jeans"
                 onClick={closeMobileMenu}
                 className="block text-xs py-1"
               >
                 JEANS
-              </NavLink>
+              </NavLink> */}
               <NavLink
                 to="/hoodie"
                 onClick={closeMobileMenu}
@@ -268,58 +409,6 @@ const Navbar = ({ theme, setTheme }) => {
                   ALL PRODUCTS
                 </NavLink>
                 {/* Desktop Category Dropdown */}
-                {/* <div className="relative group">
-                  <button className="flex items-center gap-1 hover:text-gray-900">
-                    CATEGORY
-                    <FaChevronDown className="text-xs" />
-                  </button>
-                  <div className="absolute left-0 top-full pt-6 hidden group-hover:block w-48">
-                    <div className="shadow-xl rounded-md py-2 border border-gray-700">
-                      <NavLink
-                        to="/formal-shirt"
-                        className={({ isActive }) =>
-                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
-                        }
-                      >
-                        FORMAL SHIRT
-                      </NavLink>
-                      <NavLink
-                        to="/casual-shirt"
-                        className={({ isActive }) =>
-                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
-                        }
-                      >
-                        CASUAL SHIRT
-                      </NavLink>
-                      <NavLink
-                        to="/t-shirt"
-                        className={({ isActive }) =>
-                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
-                        }
-                      >
-                        T-SHIRT
-                      </NavLink>
-                      <NavLink
-                        to="/pant"
-                        className={({ isActive }) =>
-                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
-                        }
-                      >
-                        PANT
-                      </NavLink>
-                      <NavLink
-                        to="/panjabi"
-                        className={({ isActive }) =>
-                          `block px-4 py-2 text-xs hover:bg-gray-700 ${isActive ? "bg-gray-700" : ""}`
-                        }
-                      >
-                        PANJABI
-                      </NavLink>
-                    </div>
-                  </div>
-                </div> */}
-
-                {/* new */}
 
                 <div
                   className="relative"
@@ -360,17 +449,27 @@ const Navbar = ({ theme, setTheme }) => {
                               >
                                 FORMAL SHIRT
                               </NavLink>
+
                               <NavLink
                                 to="/casual-shirt"
                                 className="block text-sx"
                               >
                                 CASUAL SHIRT
                               </NavLink>
+                              <NavLink
+                                to="/half-sleeve"
+                                className="block text-sx"
+                              >
+                                HALF SLEEVE
+                              </NavLink>
                               <NavLink to="/t-shirt" className="block text-xs">
                                 T-SHIRT
                               </NavLink>
-                              <NavLink to="/pant" className="block text-xs">
-                                PANT
+                              <NavLink
+                                to="/polo-shirt"
+                                className="block text-xs"
+                              >
+                                POLO-SHIRT
                               </NavLink>
                               <NavLink to="/panjabi" className="block text-xs">
                                 PANJABI
@@ -384,7 +483,16 @@ const Navbar = ({ theme, setTheme }) => {
                                 <hr />
                               </p>
                               <NavLink to="/jeans" className="block text-xs">
-                                JEANS
+                                JEANS PANTS
+                              </NavLink>
+                              <NavLink to="/trousers" className="block text-xs">
+                                TROUSERS
+                              </NavLink>
+                              <NavLink to="/baggy" className="block text-xs">
+                                BAGGY PANTS
+                              </NavLink>
+                              <NavLink to="/chino" className="block text-xs">
+                                CHINO PANTS
                               </NavLink>
                               <NavLink to="/hoodie" className="block text-xs">
                                 HOODIE
@@ -503,7 +611,7 @@ const Navbar = ({ theme, setTheme }) => {
 
         {/* Drawer Panel */}
         <div
-          className={`absolute top-0 left-0 h-full w-72 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+          className={`absolute top-0 left-0 h-full w-72 shadow-2xl overflow-y-auto  transform transition-transform duration-300 ease-in-out ${
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           } ${
             theme === "dark" ? "bg-black text-white" : "bg-white text-black"

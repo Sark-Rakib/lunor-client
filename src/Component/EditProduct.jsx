@@ -15,10 +15,9 @@ const EditProduct = () => {
 
   const { register, handleSubmit, reset, watch } = useForm();
 
-  // watch category
-  const watchedCategory = watch("category");
+  const watchedCategory = watch("category") || "";
 
-  // Fetch data
+  // Fetch product
   const { data: tuition, isLoading } = useQuery({
     queryKey: ["tuition", id],
     queryFn: async () => {
@@ -27,23 +26,23 @@ const EditProduct = () => {
     },
   });
 
-  // final category (watch + fallback)
-  const selectedCategory = watchedCategory || tuition?.category;
+  // safe category
+  const selectedCategory = (
+    watchedCategory ||
+    tuition?.category ||
+    ""
+  ).toLowerCase();
 
-  // ynamic sizes
-  const sizesList =
-    selectedCategory === "Pant"
-      ? ["28", "30", "32", "34", "36"]
-      : ["S", "M", "L", "XL", "2XL"];
+  // pant categories
+  const pantCategories = ["baggy", "trousers", "jeans", "chino"];
 
-  // set sizes from DB
-  useEffect(() => {
-    if (tuition?.sizes) {
-      setSelectedSizes(tuition.sizes);
-    }
-  }, [tuition]);
+  const isPant = pantCategories.includes(selectedCategory);
 
-  //  set form values
+  const sizesList = isPant
+    ? ["28", "30", "32", "34", "36"]
+    : ["S", "M", "L", "XL", "2XL"];
+
+  // set form data
   useEffect(() => {
     if (tuition) {
       reset({
@@ -54,24 +53,28 @@ const EditProduct = () => {
         discountPrice: tuition.discountPrice || "",
         description: tuition.description || "",
       });
+
+      setSelectedSizes(tuition.sizes || []);
     }
   }, [tuition, reset]);
 
-  // reset sizes when category changes
+  // category change → clear invalid sizes only
   useEffect(() => {
-    setSelectedSizes([]);
-  }, [watchedCategory]);
+    const validSizes = sizesList;
 
-  //  toggle size
+    setSelectedSizes((prev) =>
+      prev.filter((size) => validSizes.includes(size)),
+    );
+  }, [selectedCategory]);
+
+  // toggle size
   const toggleSize = (size) => {
-    if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((s) => s !== size));
-    } else {
-      setSelectedSizes([...selectedSizes, size]);
-    }
+    setSelectedSizes((prev) =>
+      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size],
+    );
   };
 
-  //  submit
+  // submit
   const onSubmit = async (data) => {
     try {
       const updatedData = {
@@ -97,90 +100,87 @@ const EditProduct = () => {
     <div className="flex justify-center mt-5">
       <div className="w-full max-w-lg bg-pink-50 p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Update Prod<span className="text-amber-500">uct Details</span>
+          Update Product Details
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Name */}
-          <div>
-            <label className="font-medium">Name</label>
-            <input {...register("name")} className="input w-full border p-2" />
-          </div>
+          <input
+            {...register("name")}
+            className="input w-full border p-2"
+            placeholder="Name"
+          />
 
           {/* Category */}
-          <div>
-            <label className="font-medium">Category</label>
-            <select
-              {...register("category")}
-              className="input w-full border p-2"
-            >
-              <option value="">Select Category</option>
-              <option value="Formal Shirt">Formal Shirt</option>
-              <option value="Casual Shirt">Casual Shirt</option>
-              <option value="T-Shirt">T-Shirt</option>
-              <option value="Pant">Pant</option>
-              <option value="Panjabi">Panjabi</option>
-            </select>
-          </div>
+          <select {...register("category")} className="input w-full border p-2">
+            <option value="">Select Category</option>
+            <option value="Formal Shirt">Formal Shirt</option>
+            <option value="Casual Shirt">Casual Shirt</option>
+            <option value="halfsleeve">Half Sleeve</option>
+            <option value="T-Shirt">T-Shirt</option>
+            <option value="poloshirt">Polo-Shirt</option>
+            <option value="trousers">Trousers</option>
+            <option value="baggy">Baggy</option>
+            <option value="jeans">Jeans</option>
+            <option value="chino">Chino</option>
+            <option value="Panjabi">Panjabi</option>
+          </select>
 
           {/* Sizes */}
           <div>
             <label className="font-semibold mb-2 block">Available Sizes</label>
+
             <div className="flex flex-wrap gap-3">
-              {sizesList.map((size) => (
-                <button
-                  key={size}
-                  type="button"
-                  onClick={() => toggleSize(size)}
-                  className={`w-10 h-10 rounded border-2 ${
-                    selectedSizes.includes(size)
-                      ? "bg-black text-white border-black"
-                      : "border-gray-300"
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
+              {sizesList.map((size) => {
+                const isSelected = selectedSizes.includes(size);
+
+                return (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => toggleSize(size)}
+                    className={`w-10 h-10 rounded border-2 transition ${
+                      isSelected
+                        ? "bg-black text-white border-black"
+                        : "border-gray-300 bg-white"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Ability */}
-          <div>
-            <label className="font-medium">Ability</label>
-            <input
-              {...register("ability")}
-              className="input w-full border p-2"
-            />
-          </div>
+          <input
+            {...register("ability")}
+            className="input w-full border p-2"
+            placeholder="Ability"
+          />
 
           {/* Price */}
-          <div>
-            <label className="font-medium">Price</label>
-            <input
-              type="number"
-              {...register("price")}
-              className="input w-full border p-2"
-            />
-          </div>
+          <input
+            type="number"
+            {...register("price")}
+            className="input w-full border p-2"
+            placeholder="Price"
+          />
 
           {/* Discount */}
-          <div>
-            <label className="font-medium">Discount Price</label>
-            <input
-              type="number"
-              {...register("discountPrice")}
-              className="input w-full border p-2"
-            />
-          </div>
+          <input
+            type="number"
+            {...register("discountPrice")}
+            className="input w-full border p-2"
+            placeholder="Discount Price"
+          />
 
           {/* Description */}
-          <div>
-            <label className="font-medium">Description</label>
-            <textarea
-              {...register("description")}
-              className="textarea w-full border p-2"
-            />
-          </div>
+          <textarea
+            {...register("description")}
+            className="textarea w-full border p-2"
+            placeholder="Description"
+          />
 
           {/* Submit */}
           <button
