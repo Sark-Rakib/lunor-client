@@ -39,9 +39,9 @@ const FormalShirt = () => {
 
   if (loading) {
     return (
-      <p className="text-center py-20">
+      <div className="text-center py-20">
         <SkeletonLoader></SkeletonLoader>
-      </p>
+      </div>
     );
   }
 

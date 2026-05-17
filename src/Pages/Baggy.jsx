@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
@@ -61,7 +60,7 @@ const Baggy = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
           {sweets.map((item) => (
             <Link to={`/products-details/${item._id}`} key={item._id}>
-              <motion.div
+              <div
                 key={item._id}
                 whileHover={{ y: -6 }}
                 className="transition-all overflow-hidden flex flex-col h-full"
@@ -117,7 +116,6 @@ const Baggy = () => {
                       {item.description || "Premium quality product"}
                     </p> */}
                   </div>
-
                   {/* Button */}
                   {/* <Link to={`/products-details/${item._id}`} className="mt-4">
                   <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
@@ -125,7 +123,7 @@ const Baggy = () => {
                   </button>
                 </Link> */}
                 </div>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </div>

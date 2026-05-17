@@ -87,10 +87,10 @@ const Navbar = ({ theme, setTheme }) => {
           <div className="pl-4 border-l ml-4 space-y-3">
             {/* BASIC WEAR */}
             <div>
-              <p className="text-[10px] opacity-60 mb-1">
+              <div className="text-[10px] opacity-60 mb-1">
                 BASIC WEAR
                 <hr />
-              </p>
+              </div>
 
               <li className="list-none">
                 {/* Parent Menu */}
@@ -268,10 +268,10 @@ const Navbar = ({ theme, setTheme }) => {
 
             {/* CASUAL WEAR */}
             <div>
-              <p className="text-[10px] opacity-60 mb-1">
+              <div className="text-[10px] opacity-60 mb-1">
                 CASUAL WEAR
                 <hr />
-              </p>
+              </div>
 
               {/* <NavLink
                 to="/jeans"
@@ -312,10 +312,10 @@ const Navbar = ({ theme, setTheme }) => {
 
             {/* ACCESSORIES */}
             <div>
-              <p className="text-[10px] opacity-60 mb-1">
+              <div className="text-[10px] opacity-60 mb-1">
                 ACCESSORIES
                 <hr />
-              </p>
+              </div>
 
               <NavLink
                 to="/shoes"
@@ -438,10 +438,10 @@ const Navbar = ({ theme, setTheme }) => {
                           <div className="grid grid-cols-3 gap-12">
                             {/* COLUMN 1 */}
                             <div className="space-y-2">
-                              <p className="text-xs opacity-60 mb-2">
+                              <div className="text-xs opacity-60 mb-2">
                                 BASIC WEAR
                                 <hr />
-                              </p>
+                              </div>
 
                               <NavLink
                                 to="/formal-shirt"
@@ -478,10 +478,10 @@ const Navbar = ({ theme, setTheme }) => {
 
                             {/* COLUMN 2 */}
                             <div className="space-y-2">
-                              <p className="text-xs opacity-60 mb-2">
+                              <div className="text-xs opacity-60 mb-2">
                                 CASUAL WEAR
                                 <hr />
-                              </p>
+                              </div>
                               <NavLink to="/jeans" className="block text-xs">
                                 JEANS PANTS
                               </NavLink>
@@ -510,10 +510,10 @@ const Navbar = ({ theme, setTheme }) => {
 
                             {/* COLUMN 3 */}
                             <div className="space-y-2">
-                              <p className="text-xs opacity-60 mb-2">
+                              <div className="text-xs opacity-60 mb-2">
                                 ACCESSORIES
                                 <hr />
-                              </p>
+                              </div>
                               <NavLink to="/shoes" className="block text-xs">
                                 SHOES
                               </NavLink>

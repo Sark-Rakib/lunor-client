@@ -20,7 +20,7 @@ const OrderSuccess = () => {
   const safeDelivery = Number(deliveryCharge) || 0;
   const grandTotal = safeTotal + safeDelivery;
 
-  const finalOrderId = orderId || `LUNOR-${Date.now()}`;
+  const finalOrderId = orderId || `LUNOR-${Date.getTime()}`;
 
   const handlePrint = () => {
     const printContents = document.getElementById("print-area")?.innerHTML;

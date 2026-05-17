@@ -108,7 +108,7 @@ const AllProducts = () => {
             ))}
           </div>
 
-          {/* Pagination – same style as Tutors page */}
+          {/* Pagination – all products */}
           {totalPages > 1 && (
             <div className="flex flex-wrap justify-center items-center gap-2 mt-12">
               <button

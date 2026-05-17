@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "./SkeletonLoader";
@@ -52,19 +51,16 @@ const Products = () => {
 
         {/* Loading */}
         {loading && (
-          <p className="text-center text-gray-500">
+          <div className="text-center text-gray-500">
             <SkeletonLoader></SkeletonLoader>
-          </p>
+          </div>
         )}
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
           {products.map((item) => (
             <Link to={`/products-details/${item._id}`} key={item._id}>
-              <motion.div
-                whileHover={{ y: -6 }}
-                className="transition-all overflow-hidden flex flex-col h-full"
-              >
+              <div className="transition-all overflow-hidden flex flex-col h-full">
                 {/* Image */}
                 <div className="relative">
                   <img
@@ -129,7 +125,7 @@ const Products = () => {
                     </button>
                   </Link> */}
                 </div>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </div>

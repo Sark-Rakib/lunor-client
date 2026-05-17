@@ -52,19 +52,19 @@ const CustomerOrder = () => {
 
   if (isLoading) {
     return (
-      <p className="text-center py-10">
+      <div className="text-center py-10">
         <Loading></Loading>
-      </p>
+      </div>
     );
   }
 
   return (
     <div className="max-w-6xl mx-auto px-4">
       <title>Lunor | Customer Order</title>
-      <h1 className="font-bold text-xl text-center mb-5 py-5">
+      <div className="font-bold text-xl text-center mb-5 py-5">
         Customer Orders :{" "}
         <span className="text-amber-500">{orders.length}</span>
-      </h1>
+      </div>
 
       {orders.length === 0 && (
         <p className="text-center text-gray-500">No orders found</p>

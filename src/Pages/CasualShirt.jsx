@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
+import Pagination from "../Component/Pagination";
+import usePagination from "../Hooks/usePagination";
 
 const CasualShirt = () => {
   const [sweets, setSweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
+  const { currentData, currentPage, totalPages, handlePageChange } =
+    usePagination(sweets, 16);
 
   useEffect(() => {
     const fetchSweetProducts = async () => {
@@ -39,9 +42,9 @@ const CasualShirt = () => {
 
   if (loading) {
     return (
-      <p className="text-center py-20">
+      <div className="text-center py-20">
         <SkeletonLoader></SkeletonLoader>
-      </p>
+      </div>
     );
   }
 
@@ -59,12 +62,9 @@ const CasualShirt = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
-          {sweets.map((item) => (
+          {currentData.map((item) => (
             <Link to={`/products-details/${item._id}`} key={item._id}>
-              <motion.div
-                whileHover={{ y: -6 }}
-                className="transition-all overflow-hidden flex flex-col h-full"
-              >
+              <div className="transition-all overflow-hidden flex flex-col h-full">
                 {/* Image */}
                 <div className="relative">
                   <img
@@ -124,10 +124,18 @@ const CasualShirt = () => {
                     </button>
                   </Link> */}
                 </div>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </div>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={sweets.length}
+          itemsPerPage={16}
+          onPageChange={handlePageChange}
+        />
 
         {sweets.length === 0 && (
           <p className="text-center text-gray-500 mt-10">

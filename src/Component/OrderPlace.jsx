@@ -34,7 +34,7 @@ const OrderPlace = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "+880",
+    phone: "",
     district: "",
     address: "",
     paymentMethod: "",
@@ -253,6 +253,7 @@ const OrderPlace = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
+                    placeholder="jhon de"
                     required
                     className="w-full border border-gray-300 p-2 focus:border-black outline-none"
                   />
@@ -264,6 +265,7 @@ const OrderPlace = () => {
                   <input
                     type="tel"
                     name="phone"
+                    placeholder="+880"
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
@@ -280,6 +282,7 @@ const OrderPlace = () => {
                   <input
                     type="email"
                     name="email"
+                    placeholder="jhon@gmail.com"
                     value={formData.email}
                     disabled={!!user}
                     className="w-full border border-gray-300 p-2"
@@ -510,7 +513,7 @@ const OrderPlace = () => {
                 </button>
                 <Link
                   to="/all-products"
-                  className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3 text-sm font-semibold  transition"
+                  className="w-full text-center bg-gray-700 hover:bg-gray-800 text-white py-3 text-sm font-semibold  transition"
                 >
                   CONTINUE SHOPING
                 </Link>
