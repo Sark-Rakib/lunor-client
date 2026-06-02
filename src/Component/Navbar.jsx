@@ -4,7 +4,8 @@ import "./Navbar.css";
 import useAuth from "../Hooks/useAuth"; // assuming this is the correct path
 import { FaChevronDown, FaBars, FaTimes } from "react-icons/fa";
 import { CiLogin, CiUser } from "react-icons/ci";
-import navLogo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
+// import navLogo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
+import Logo from "./Logo";
 
 const Navbar = ({ theme, setTheme }) => {
   const { user } = useAuth();
@@ -380,13 +381,14 @@ const Navbar = ({ theme, setTheme }) => {
               </button>
 
               {/* Logo */}
-              <Link to="/" className="flex items-center">
+              {/* <Link to="/" className="flex items-center">
                 <img
                   src={navLogo}
                   alt="Logo"
                   className="h-22 w-full object-contain mb-6 ml-13 sm:-ml-5 md:-ml-8 lg:-ml-8"
                 />
-              </Link>
+              </Link> */}
+              <Logo></Logo>
             </div>
 
             {/* Center - Desktop Menu */}

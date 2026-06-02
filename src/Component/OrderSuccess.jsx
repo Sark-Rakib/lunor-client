@@ -1,5 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
+import { FaTruckFast } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+import OrderTruck from "./OrderTruck";
 
 const OrderSuccess = () => {
   const location = useLocation();
@@ -37,19 +40,19 @@ const OrderSuccess = () => {
   };
 
   return (
-    <div className="min-h-screen  py-10 px-4">
+    <div className="min-h-screen  py-5 px-4">
       <div className="max-w-2xl mx-auto">
         {/* HEADER */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
-            <span className="text-4xl">🎉</span>
-          </div>
-          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-green-600">
+          <h1 className="uppercase text-xl sm:text-2xl md:text-4xl font-bold text-green-600">
             Order Confirmed!
           </h1>
           <p className="text-gray-600 mt-2 text-sm md:text-lg">
             Thank you for shopping with LUNOR
           </p>
+          <div className="mt-5">
+            <OrderTruck></OrderTruck>
+          </div>
         </div>
 
         {/* CARD */}

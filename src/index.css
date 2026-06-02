@@ -19,3 +19,12 @@
   --color-warning: #facc15;
   --color-error: #ef4444;
 }
+
+@keyframes shine {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}

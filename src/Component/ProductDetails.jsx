@@ -372,7 +372,7 @@ const ProductDetails = () => {
               >
                 <button
                   disabled={!selectedSize}
-                  className={`w-full md:w-1/2 py-4 px-6 text-baserounded-xl shadow-lg transition-all rounded-xl uppercase
+                  className={`w-full md:w-1/2 py-4 px-6 text-baserounded-xl shadow-lg transition-all rounded uppercase
         ${
           selectedSize
             ? "bg-black hover:bg-gray-800 text-white"
@@ -392,7 +392,7 @@ const ProductDetails = () => {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full md:w-1/2 block py-4 px-6 bg-green-600 text-white text-l md:text-lg rounded-xl shadow-lg hover:bg-green-700 hover:shadow-2xl transition-all text-center uppercase"
+                className="w-full md:w-1/2 block py-4 px-6 bg-green-600 text-white text-l md:text-lg rounded shadow-lg hover:bg-green-700 hover:shadow-2xl transition-all text-center uppercase"
               >
                 WhatsApp
               </a>

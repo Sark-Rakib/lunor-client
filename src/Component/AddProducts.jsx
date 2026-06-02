@@ -28,7 +28,10 @@ const AddProducts = () => {
   const selectedCategory = watch("category");
 
   const sizesList =
-    selectedCategory === "Pant"
+    selectedCategory === "trousers" ||
+    selectedCategory === "baggy" ||
+    selectedCategory === "jeans" ||
+    selectedCategory === "chino"
       ? ["28", "30", "32", "34", "36"]
       : ["S", "M", "L", "XL", "2XL"];
 
@@ -188,7 +191,6 @@ const AddProducts = () => {
                 "jeans",
                 "chino",
                 "Panjabi",
-                "Jeans",
                 "Other...",
               ].map((c) => (
                 <option key={c} value={c}>

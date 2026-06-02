@@ -19,7 +19,6 @@ const AddHeroPhoto = () => {
   // upload helper
   const uploadImage = async (file) => {
     const compressedFile = await imageCompression(file, {
-      maxSizeMB: 1,
       maxWidthOrHeight: 1200,
       useWebWorker: true,
       fileType: "image/webp",

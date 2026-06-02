@@ -7,12 +7,13 @@ import HeroSection from "../Component/HeroSection";
 import CustomerReviewSwiper from "../Component/CustomerReviewSwiper";
 import WhyChooseUs from "../Component/WhyChooseUs";
 import Products from "../Component/Products";
-import panjabi from "../assets/panjabii.webp";
-import formal from "../assets/1000008641.jpg";
-import casual from "../assets/casual.webp";
-import pant from "../assets/pant.webp";
+import panjabi from "../assets/panjabiforhome.jpg";
+import formal from "../assets/formalshirtforhome.png";
+import casual from "../assets/CASUALSHIRTS.webp";
+import pant from "../assets/pantforhome.webp";
 import { Link } from "react-router";
 import TrandingCategory from "../Component/TrandingCategory";
+import OfferPopup from "../Component/OfferPopup";
 
 const HomePage = () => {
   const axiosSecure = useAxiosSecure();
@@ -39,6 +40,7 @@ const HomePage = () => {
 
   return (
     <div className="">
+      {/* <OfferPopup></OfferPopup> */}
       <HeroSection></HeroSection>
       <TrandingCategory></TrandingCategory>
 
@@ -46,15 +48,15 @@ const HomePage = () => {
         <img
           src={casual}
           alt="Hero"
-          className="w-full h-50 sm:h-80 md:h-full"
+          className="w-full h-50 sm:h-80 md:h-170 object-top object-cover"
         />
-        <div className="text-center text-white md:text-xl absolute top-1/2 right-1/4 transform translate-x-1/3 -translate-y-1/2 ">
+        <div className="text-center text-white/90 md:text-xl absolute top-1/2 right-1/4 transform translate-x-1/3 -translate-y-1/2 ">
           <p className="text-lg md:text-4xl font-semibold">
             CASUAL SHIRT COLLECTION
           </p>
           <Link
             to="/casual-shirt"
-            className="bg-white text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
+            className="bg-white/90 text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
           >
             FOR HIM
           </Link>
@@ -62,12 +64,16 @@ const HomePage = () => {
       </div>
 
       <div className="mt-5 relative">
-        <img src={pant} alt="Hero" className="w-full h-50 sm:h-80 md:h-full" />
-        <div className="text-center md:text-xl text-white absolute top-1/2 left-1/4 transform -translate-x-1/3 -translate-y-1/2 ">
+        <img
+          src={pant}
+          alt="Hero"
+          className="w-full h-50 sm:h-80 md:h-170 object-cover"
+        />
+        <div className="text-center md:text-xl text-white/90 absolute top-1/2 left-1/4 transform -translate-x-1/3 -translate-y-1/2 ">
           <p className="text-lg md:text-4xl font-semibold">PANT COLLECTION</p>
           <Link
             to="/pant"
-            className="bg-white text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
+            className="bg-white/80 text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
           >
             FOR HIM
           </Link>
@@ -78,18 +84,14 @@ const HomePage = () => {
       <Products></Products>
 
       <div className="mt-10 relative">
-        <img
-          src={formal}
-          alt="Hero"
-          className="w-full h-50 sm:h-80 md:h-full"
-        />
-        <div className="text-center md:text-xl text-white absolute top-1/2 left-1/4 transform -translate-x-1/3 -translate-y-1/2 ">
+        <img src={formal} alt="Hero" className="w-full h-50 sm:h-80 md:h-170" />
+        <div className="text-center md:text-xl text-white/90 absolute top-1/2 left-1/4 transform -translate-x-1/3 -translate-y-1/2 ">
           <p className="text-lg md:text-4xl font-semibold">
             FORMAL SHIRT COLLECTION
           </p>
           <Link
             to="/formal-shirt"
-            className="bg-white text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
+            className="bg-white/90 text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
           >
             FOR HIM
           </Link>
@@ -100,7 +102,7 @@ const HomePage = () => {
         <img
           src={panjabi}
           alt="Hero"
-          className="w-full h-50 sm:h-80 md:h-full"
+          className="w-full h-50 sm:h-80 md:h-170 object-top object-cover"
         />
         <div className="rounded py-2 px-3 text-center text-white md:text-xl absolute top-1/2 right-1/5 transform translate-x-1/3 -translate-y-1/2">
           <p className="text-lg md:text-4xl font-semibold">
@@ -108,7 +110,7 @@ const HomePage = () => {
           </p>
           <Link
             to="/panjabi"
-            className="bg-white text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
+            className="bg-white/90 text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
           >
             SHOP NOW
           </Link>

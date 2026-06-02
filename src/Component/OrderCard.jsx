@@ -37,7 +37,9 @@ const OrderCard = ({ order, onDelete }) => {
         alt={order.productName}
         className="w-full h-60 object-cover rounded-lg"
       />
-      <h2 className="font-semibold mt-2">Product Name: {order.productName}</h2>
+      <h2 className="mt-2">
+        Product Name: <span className="uppercase">{order.productName}</span>
+      </h2>
       <p>Quantity : {order.quantity}</p>
       <p>Products Price : ৳{order.totalPrice}</p>
       <p>Delivery Charge : ৳{order.deliveryCharge}</p>
