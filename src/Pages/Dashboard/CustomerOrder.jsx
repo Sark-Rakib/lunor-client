@@ -52,7 +52,7 @@ const CustomerOrder = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-10">
+      <div className="text-center">
         <Loading></Loading>
       </div>
     );

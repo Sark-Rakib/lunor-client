@@ -8,6 +8,7 @@ import {
   FaClock,
   FaFacebook,
   FaWhatsapp,
+  FaInstagram,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxios";
@@ -172,11 +173,13 @@ const ContactUs = () => {
                   <item.icon size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg">{item.title}</h4>
-                  <p className="text-l font-semibold text-gray-400 mt-1">
+                  <h4 className="font-extralight text-lg">{item.title}</h4>
+                  <p className="text-l font-extralight text-gray-400 mt-1">
                     {item.info}
                   </p>
-                  <p className="text-gray-600 text-sm">{item.sub}</p>
+                  <p className="text-gray-600 font-extralight text-sm">
+                    {item.sub}
+                  </p>
                 </div>
               </div>
             ))}
@@ -187,17 +190,23 @@ const ContactUs = () => {
               <div className="flex gap-4">
                 <a
                   href="https://www.facebook.com/profile.php?id=61560576206601"
-                  className="bg-indigo-600 text-white p-4 rounded-full hover:bg-indigo-700 transition"
+                  className="bg-indigo-600 text-white p-1 rounded-full"
                 >
-                  <FaFacebook size={24} />
+                  <FaFacebook size={28} />
+                </a>
+                <a
+                  href="https://www.instagram.com/wear.lunor/"
+                  className="bg-red-500 text-white p-1 rounded-full"
+                >
+                  <FaInstagram size={28} />
                 </a>
                 <a
                   href="https://wa.me/8801745762857"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-green-600 text-white p-4 rounded-full hover:bg-green-700 transition"
+                  className="bg-green-500 text-white p-1 rounded-full"
                 >
-                  <FaWhatsapp size={24} />
+                  <FaWhatsapp size={28} />
                 </a>
               </div>
             </div>

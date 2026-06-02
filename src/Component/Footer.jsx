@@ -7,19 +7,23 @@ import {
 import { SiX } from "react-icons/si"; // This is the official NEW X icon (not old Twitter)
 import { Link } from "react-router";
 import logo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
+import Logo from "./Logo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-black text-white py-5">
-      <div className="w-11/12 mx-auto sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Platform */}
           <div className="">
             {/* <h3 className="text-2xl font-bold">LUNOR</h3> */}
-            <img src={logo} alt="LUNOR Logo" className="h-24 -ml-13" />
-            <p className="text-gray-100 text-sm leading-relaxed">
+            {/* <img src={logo} alt="LUNOR Logo" className="h-24 -ml-13" /> */}
+            <span className="flex justify-start -ml-26 sm:-ml-64 md:ml-0">
+              <Logo></Logo>
+            </span>
+            <p className="mt-4 text-gray-100 text-sm leading-relaxed">
               To provide high-quality, affordable fashion that blends modern
               trends with cultural elegance.
             </p>

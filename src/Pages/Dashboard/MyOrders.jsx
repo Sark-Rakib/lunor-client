@@ -48,7 +48,7 @@ const MyOrders = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-20 font-semibold">
+      <div className="text-center font-semibold">
         <Loading />
       </div>
     );

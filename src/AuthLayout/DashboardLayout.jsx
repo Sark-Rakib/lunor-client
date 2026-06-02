@@ -28,7 +28,7 @@ const DashboardLayout = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar text-white sticky top-0 z-10 w-full bg-gray-400">
+        <nav className="navbar sticky top-0 z-10 w-full bg-black text-white">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -50,7 +50,7 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">LUNOR Dashboard</div>
+          <div className="px-4">LUNOR DASHBOARD</div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
@@ -61,14 +61,14 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-gray-400 is-drawer-close:w-20 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-black is-drawer-close:w-20 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
               <Link
                 to="/"
-                className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
                 {/* Home icon */}
@@ -84,7 +84,7 @@ const DashboardLayout = () => {
             <li>
               <Link
                 to="/dashboard/my-orders"
-                className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="My Order"
               >
                 <FaShoppingCart />
@@ -97,7 +97,7 @@ const DashboardLayout = () => {
                 <li>
                   <Link
                     to="/dashboard/admin"
-                    className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="User Management"
                   >
                     <MdAdminPanelSettings />
@@ -110,7 +110,7 @@ const DashboardLayout = () => {
                 <li>
                   <Link
                     to="/dashboard/customer-orders"
-                    className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Customer Orders"
                   >
                     <FaShoppingBag />
@@ -123,7 +123,7 @@ const DashboardLayout = () => {
                 <li>
                   <Link
                     to="/dashboard/customer-contact"
-                    className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Customer Contact"
                   >
                     <FaComment />
@@ -136,7 +136,7 @@ const DashboardLayout = () => {
                 <li>
                   <Link
                     to="/dashboard/student"
-                    className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Products"
                   >
                     <FaShoppingCart />
@@ -148,7 +148,7 @@ const DashboardLayout = () => {
                 <li>
                   <Link
                     to="/dashboard/add-tuition"
-                    className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Add Product"
                   >
                     <FaPlusSquare />
@@ -188,7 +188,7 @@ const DashboardLayout = () => {
             <li>
               <Link
                 to="/dashboard/profile"
-                className="btn bg-gray-600 shadow-gray-400 text-white flex items-center justify-start mb-1 gap-2
+                className="btn flex items-center justify-start mb-1 gap-2
     is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="My Profile"
               >
@@ -207,7 +207,7 @@ const DashboardLayout = () => {
             <li>
               <button
                 onClick={handleLogOut}
-                className="btn bg-gray-600 shadow-gray-400 text-white flex items-center w-full is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className="btn bg-red-500 text-white flex items-center w-full is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Log Out"
               >
                 {/* logout icon */}
