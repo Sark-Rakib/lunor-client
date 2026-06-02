@@ -53,7 +53,7 @@ const TrandingCategory = () => {
               className="w-full h-full object-cover"
             />
             <Link
-              to="/pant"
+              to="/baggy"
               className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white px-2 py-2 text-sm text-black md:text-base rounded"
             >
               FOR MEN

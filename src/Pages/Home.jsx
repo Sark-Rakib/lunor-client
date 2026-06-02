@@ -72,7 +72,7 @@ const HomePage = () => {
         <div className="text-center md:text-xl text-white/90 absolute top-1/2 left-1/4 transform -translate-x-1/3 -translate-y-1/2 ">
           <p className="text-lg md:text-4xl font-semibold">PANT COLLECTION</p>
           <Link
-            to="/pant"
+            to="/baggy"
             className="bg-white/80 text-gray-800 cursor-pointer rounded py-1 px-3 text-center mt-1 inline-block"
           >
             FOR HIM
