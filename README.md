@@ -59,9 +59,9 @@ This project includes a simple manual payment system for order processing.
 ## 📸 Screenshots
 
 ![Home Page](./src/assets/homepages.png)
-![Product Page](./src/assets/Screenshot%20from%202026-04-06%2000-38-25.png)
-![Product Details Page](./src/assets/Screenshot%20from%202026-04-08%2003-10-03.png)
-![Product Order Page](./src/assets/oderpage.png)
+![Product Page](./src/assets/allproductspage.png)
+![Product Details Page](./src/assets/productdetails.png)
+![Product Order Page](./src/assets/orderpage.png)
 
 ---
 
