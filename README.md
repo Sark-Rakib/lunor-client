@@ -60,7 +60,7 @@ This project includes a simple manual payment system for order processing.
 
 ![Home Page](./src/assets/homepages.png)
 ![Product Page](./src/assets/allproductspage.png)
-![Product Details Page](./src/assets/productdetails.png)
+![Product Details Page](./src/assets/productdetailspage.png)
 ![Product Order Page](./src/assets/orderpage.png)
 
 ---
