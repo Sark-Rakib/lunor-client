@@ -8,6 +8,7 @@ import { SiX } from "react-icons/si"; // This is the official NEW X icon (not ol
 import { Link } from "react-router";
 import logo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
 import Logo from "./Logo";
+import FooterLogo from "./FooterLogo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,7 +22,7 @@ const Footer = () => {
             {/* <h3 className="text-2xl font-bold">LUNOR</h3> */}
             {/* <img src={logo} alt="LUNOR Logo" className="h-24 -ml-13" /> */}
             <span className="flex justify-start -ml-26 sm:-ml-64 md:ml-0">
-              <Logo></Logo>
+              <FooterLogo></FooterLogo>
             </span>
             <p className="mt-4 text-gray-100 text-sm leading-relaxed">
               To provide high-quality, affordable fashion that blends modern

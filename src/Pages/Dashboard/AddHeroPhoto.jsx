@@ -1,9 +1,9 @@
 // src/pages/dashboard/student/AddHeroPhoto.jsx
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxios";
-import imageCompression from "browser-image-compression";
 
 const AddHeroPhoto = () => {
   const axiosSecure = useAxiosSecure();
@@ -16,20 +16,44 @@ const AddHeroPhoto = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // upload helper
-  const uploadImage = async (file) => {
-    const compressedFile = await imageCompression(file, {
-      maxWidthOrHeight: 2400,
-      useWebWorker: true,
-      fileType: "image/webp",
-      initialQuality: 0.95,
-    });
+  // upload image
 
+  //   const uploadImage = async (file) => {
+  //   const compressedFile = await imageCompression(file, {
+  //     maxWidthOrHeight: 3000,
+  //     useWebWorker: true,
+  //     initialQuality: 1,
+  //   });
+
+  //   const formData = new FormData();
+  //   formData.append("image", compressedFile);
+
+  //   const res = await fetch(
+  //     `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`,
+  //     {
+  //       method: "POST",
+  //       body: formData,
+  //     }
+  //   );
+
+  //   const data = await res.json();
+
+  //   return {
+  //     url: data.data.display_url,
+  //   };
+  // };
+
+  const uploadImage = async (file) => {
     const formData = new FormData();
-    formData.append("image", compressedFile);
+    formData.append("image", file);
     const res = await fetch(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`,
-      { method: "POST", body: formData },
+      `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_IMAGE_HOST_KEY
+      }`,
+      {
+        method: "POST",
+        body: formData,
+      },
     );
     const data = await res.json();
     return {
@@ -37,19 +61,19 @@ const AddHeroPhoto = () => {
     };
   };
 
-  // fetch existing hero photos
-  const fetchPhotos = async () => {
-    try {
-      const res = await axiosSecure.get("/photos");
-      setHeroPhotos(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  // fetch hero photos
   useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const res = await axiosSecure.get("/photos");
+        setHeroPhotos(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchPhotos();
-  }, []);
+  }, [axiosSecure]);
 
   // submit
   const onSubmit = async (data) => {
@@ -63,20 +87,32 @@ const AddHeroPhoto = () => {
 
     try {
       const imageUrl = await uploadImage(data.image[0]);
-      const productData = { images: [imageUrl] };
 
-      await axiosSecure.post("/photos", productData);
+      const heroData = {
+        images: [imageUrl],
+      };
+
+      await axiosSecure.post("/photos", heroData);
+
       Swal.fire({
         icon: "success",
         title: "Hero image posted successfully!",
         timer: 1500,
         showConfirmButton: false,
       });
+
       reset();
-      fetchPhotos(); // refresh list
+
+      // refresh data after upload
+      const res = await axiosSecure.get("/photos");
+      setHeroPhotos(res.data);
     } catch (error) {
       console.error(error);
-      Swal.fire({ icon: "error", title: "Upload failed" });
+
+      Swal.fire({
+        icon: "error",
+        title: "Upload failed",
+      });
     }
   };
 
@@ -95,20 +131,25 @@ const AddHeroPhoto = () => {
     if (result.isConfirmed) {
       try {
         await axiosSecure.delete(`/photos/${id}`);
+
         Swal.fire("Deleted!", "Hero image has been deleted.", "success");
-        fetchPhotos(); // refresh list
+
+        const res = await axiosSecure.get("/photos");
+        setHeroPhotos(res.data);
       } catch (error) {
         console.error(error);
+
         Swal.fire("Error", "Failed to delete image", "error");
       }
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 lg:p-10">
+    <div className="max-w-5xl mx-auto p-6 lg:p-10">
       <title>Lunor | Add Hero</title>
+
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-2xl md:text-4xl font-bold">
           Hero <span className="text-[#aba65e]">Photos</span>
         </h1>
       </div>
@@ -116,18 +157,22 @@ const AddHeroPhoto = () => {
       {/* Upload Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gray-50 rounded-3xl text-black shadow-xl p-8 border border-gray-200 space-y-7 mb-10"
+        className="bg-gray-50 rounded text-black shadow-xl p-8 border border-gray-200 space-y-7 mb-10"
       >
         <div>
           <label className="block text-lg font-semibold text-gray-700 mb-2">
             Hero Image <span className="text-red-500">*</span>
           </label>
+
           <input
             type="file"
             accept="image/*"
-            {...register("image", { required: "Image is required" })}
-            className="w-full px-5 py-4 rounded-xl border border-gray-300 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#aba65e] file:text-white hover:file:bg-[#8a854d] focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+            {...register("image", {
+              required: "Image is required",
+            })}
+            className="w-full px-5 py-4 rounded border border-gray-300 file:py-2 file:px-4 file:rounded file:border-0 file:bg-[#aba65e] file:text-white hover:file:bg-[#8a854d]"
           />
+
           {errors.image && (
             <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>
           )}
@@ -136,7 +181,8 @@ const AddHeroPhoto = () => {
         <div className="text-center pt-6">
           <button
             type="submit"
-            className={`px-12 py-5 rounded-xl text-white font-bold text-lg transition-all transform hover:scale-105 ${
+            disabled={isSubmitting}
+            className={`px-12 py-5 rounded text-white font-bold text-lg transition-all transform hover:scale-105 ${
               isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-linear-to-r from-[#aba65e] to-purple-200 hover:shadow-2xl"
@@ -152,13 +198,14 @@ const AddHeroPhoto = () => {
         {heroPhotos.map((photo) => (
           <div
             key={photo._id}
-            className="relative border rounded-lg overflow-hidden"
+            className="relative border rounded overflow-hidden"
           >
             <img
               src={photo.images?.[0]?.url || "/placeholder.jpg"}
               alt="Hero"
               className="w-full h-60 object-cover"
             />
+
             <button
               onClick={() => handleDelete(photo._id)}
               className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"

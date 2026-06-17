@@ -127,19 +127,19 @@ const AddProducts = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 lg:p-10">
+    <div className="max-w-5xl mx-auto p-6 lg:p-10">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold">
-          Post a <span className="text-gray-400">New Product</span>
+        <h1 className="text-2xl md:text-4xl font-bold">
+          Post <span className="text-gray-400">New Product</span>
         </h1>
       </div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gray-50 rounded-3xl text-black shadow-xl p-8 border border-gray-200 space-y-7"
+        className="bg-gray-50 rounded text-black shadow-xl p-8 border border-gray-200 space-y-7"
       >
         {/* User Info */}
-        <div className="flex flex-col items-center gap-4 md:gap-6 md:flex-row bg-gray-100 p-6 md:p-8 rounded-2xl shadow-lg">
+        <div className="flex flex-col items-center gap-4 md:gap-6 md:flex-row bg-gray-100 p-6 md:p-8 rounded shadow">
           <img
             src={user?.photoURL}
             alt={user?.displayName}
@@ -162,7 +162,7 @@ const AddProducts = () => {
             type="text"
             placeholder="e.g. Formal Shirt"
             {...register("name", { required: "Name is required" })}
-            className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+            className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -177,7 +177,7 @@ const AddProducts = () => {
             </label>
             <select
               {...register("category", { required: "Category is required" })}
-              className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200"
+              className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200"
             >
               <option value="">Select Category</option>
               {[
@@ -213,7 +213,7 @@ const AddProducts = () => {
               type="number"
               placeholder="e.g. 250"
               {...register("price", { required: "Price is required" })}
-              className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+              className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
             />
             {errors.price && (
               <p className="text-red-500 text-sm mt-1">
@@ -233,7 +233,7 @@ const AddProducts = () => {
               type="number"
               placeholder="e.g. 150"
               {...register("discountPrice")}
-              className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+              className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
             />
           </div>
 
@@ -245,7 +245,7 @@ const AddProducts = () => {
               type="text"
               placeholder="e.g. In Stock / Limited"
               {...register("ability", { required: "Ability is required" })}
-              className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+              className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
             />
             {errors.ability && (
               <p className="text-red-500 text-sm mt-1">
@@ -266,7 +266,7 @@ const AddProducts = () => {
                 key={size}
                 type="button"
                 onClick={() => toggleSize(size)}
-                className={`w-10 h-10 rounded-2xl border-2 font-medium transition-all ${
+                className={`w-10 h-10 rounded border-2 font-medium transition-all ${
                   selectedSizes.includes(size)
                     ? "border-black bg-black text-white"
                     : "border-gray-300 hover:border-gray-400"
@@ -299,7 +299,7 @@ const AddProducts = () => {
                     : null,
                 }))
               }
-              className="w-full px-5 py-4 rounded-xl border border-gray-300 file:py-3 file:px-6 file:rounded-xl file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-800"
+              className="w-full px-5 py-4 rounded border border-gray-300 file:py-3 file:px-6 file:rounded file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-800"
             />
             {errors[img] && (
               <p className="text-red-500 text-sm mt-1">{errors[img].message}</p>
@@ -315,7 +315,7 @@ const AddProducts = () => {
                 <img
                   key={i}
                   src={img}
-                  className="w-20 h-20 object-cover rounded-xl"
+                  className="w-20 h-20 object-cover rounded"
                 />
               ),
           )}
@@ -332,7 +332,7 @@ const AddProducts = () => {
             {...register("description", {
               required: "Description is required",
             })}
-            className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none resize-none"
+            className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none resize-none"
           />
           {errors.description && (
             <p className="text-red-500 text-sm mt-1">
@@ -346,7 +346,7 @@ const AddProducts = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-12 py-5 rounded-2xl text-white font-bold text-lg transition-all ${
+            className={`px-12 py-5 rounded text-white font-bold text-lg transition-all ${
               isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-black hover:bg-gray-800"

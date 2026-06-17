@@ -27,39 +27,20 @@ const HeroSection = () => {
     fetchImages();
   }, [axiosSecure]);
 
-  // Auto slide
-  // useEffect(() => {
-  //   if (images.length === 0) return;
-
-  //   const interval = setInterval(() => {
-  //     setCurrent((prev) => (prev + 1) % images.length);
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // }, [images]);
-
   return (
     <Link to="/all-products">
-      <section className="relative w-full h-[35vh] sm:h-[60vh] md:h-[90vh] overflow-hidden">
+      <section className="relative w-full h-[35vh] sm:h-[60vh] md:h-[77vh] overflow-hidden">
         {/* Carousel */}
         <div className="relative w-full h-full">
-          {/* {images.map((img, index) => (
-            <motion.img
-              key={index}
-              src={img}
-              alt="Hero"
-              className="absolute w-full h-full"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: current === index ? 1 : 0 }}
-              transition={{ duration: 1 }}
-            />
-          ))} */}
-
           <Swiper
             key={images.length}
             slidesPerView={1}
-            loop={true}
-            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            loop={images.length > 1}
+            autoplay={
+              images.length > 1
+                ? { delay: 2500, disableOnInteraction: false }
+                : false
+            }
             modules={[Autoplay]}
             className="absolute w-full h-full"
           >

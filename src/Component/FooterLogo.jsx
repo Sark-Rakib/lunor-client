@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 
-const Logo = () => {
+const FooterLogo = () => {
   return (
     <Link
       to="/"
-      className="flex ml-24 sm:ml-64 md:ml-0 md:justify-start items-center w-full"
+      className="flex ml-26 sm:ml-64 md:ml-0 md:justify-start items-center w-full"
     >
       <div className="flex flex-col items-center md:items-start leading-1">
         {/* LUNOR - breathing animation */}
@@ -46,4 +46,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default FooterLogo;
