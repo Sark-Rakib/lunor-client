@@ -23,17 +23,43 @@ const AddProducts = () => {
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm();
   const selectedCategory = watch("category");
 
+  const colors = [
+    { name: "Black", code: "#000000" },
+    { name: "White", code: "#FFFFFF" },
+    { name: "Navy Blue", code: "#000080" },
+    { name: "Sky Blue", code: "#87CEEB" },
+    { name: "Royal Blue", code: "#4169E1" },
+    { name: "Grey", code: "#808080" },
+    { name: "Ash", code: "#B2BEB5" },
+    { name: "Red", code: "#FF0000" },
+    { name: "Maroon", code: "#800000" },
+    { name: "Green", code: "#008000" },
+    { name: "Olive Green", code: "#808000" },
+    { name: "Yellow", code: "#FFFF00" },
+    { name: "Orange", code: "#FFA500" },
+    { name: "Pink", code: "#FFC0CB" },
+    { name: "Purple", code: "#800080" },
+    { name: "Brown", code: "#A52A2A" },
+    { name: "Beige", code: "#F5F5DC" },
+    { name: "Cream", code: "#FFFDD0" },
+    { name: "Khaki", code: "#C3B091" },
+    { name: "Off White", code: "#FAF9F6" },
+  ];
+
   const sizesList =
-    selectedCategory === "trousers" ||
-    selectedCategory === "baggy" ||
-    selectedCategory === "jeans" ||
-    selectedCategory === "chino"
-      ? ["28", "30", "32", "34", "36"]
-      : ["S", "M", "L", "XL", "2XL"];
+    selectedCategory === "sunglass"
+      ? []
+      : selectedCategory === "trousers" ||
+          selectedCategory === "baggy" ||
+          selectedCategory === "jeans" ||
+          selectedCategory === "chino"
+        ? ["28", "30", "32", "34", "36"]
+        : ["S", "M", "L", "XL", "2XL"];
 
   const toggleSize = (size) => {
     if (selectedSizes.includes(size)) {
@@ -68,7 +94,7 @@ const AddProducts = () => {
   };
 
   const onSubmit = async (data) => {
-    if (selectedSizes.length === 0) {
+    if (data.category !== "sunglass" && selectedSizes.length === 0) {
       Swal.fire({
         icon: "warning",
         title: "Please select at least one size",
@@ -90,6 +116,7 @@ const AddProducts = () => {
         discountPrice: Number(data.discountPrice || 0),
         description: data.description,
         ability: data.ability,
+        color: data.color,
         sizes: selectedSizes,
         images: [image1.url, image2.url],
         status: "Pending",
@@ -191,6 +218,7 @@ const AddProducts = () => {
                 "jeans",
                 "chino",
                 "Panjabi",
+                "sunglass",
                 "Other...",
               ].map((c) => (
                 <option key={c} value={c}>
@@ -255,8 +283,60 @@ const AddProducts = () => {
           </div>
         </div>
 
-        {/* Size Selector */}
+        {/* color add */}
+
         <div>
+          <label className="block text-lg font-semibold text-gray-700 mb-3">
+            Product Color <span className="text-red-500">*</span>
+          </label>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {colors.map((color) => (
+              <label
+                key={color.name}
+                className="flex items-center gap-3 border border-gray-300 rounded px-3 py-3 cursor-pointer hover:bg-gray-50"
+              >
+                <input
+                  type="checkbox"
+                  value={color.name}
+                  className="w-4 h-4"
+                  onChange={(e) => {
+                    const selectedColors = watch("color") || [];
+
+                    if (e.target.checked) {
+                      setValue("color", [...selectedColors, color]);
+                    } else {
+                      setValue(
+                        "color",
+                        selectedColors.filter(
+                          (item) => item.name !== color.name,
+                        ),
+                      );
+                    }
+                  }}
+                />
+
+                {/* Color Preview */}
+                <span
+                  className="w-6 h-6 rounded-full border"
+                  style={{
+                    backgroundColor: color.code,
+                  }}
+                ></span>
+
+                <span className="text-gray-700">{color.name}</span>
+              </label>
+            ))}
+          </div>
+
+          {errors.color && (
+            <p className="text-red-500 text-sm mt-2">{errors.color.message}</p>
+          )}
+        </div>
+
+        {/* Size Selector */}
+
+        {/* <div>
           <label className="block text-lg font-semibold text-gray-700 mb-3">
             Available Sizes <span className="text-red-500">*</span>
           </label>
@@ -279,7 +359,34 @@ const AddProducts = () => {
           <p className="text-xs text-gray-500 mt-2">
             Click to select / deselect sizes
           </p>
-        </div>
+        </div> */}
+
+        {/* Size Selector */}
+
+        {selectedCategory !== "sunglass" && (
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 mb-3">
+              Available Sizes <span className="text-red-500">*</span>
+            </label>
+
+            <div className="flex flex-wrap gap-3">
+              {sizesList.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => toggleSize(size)}
+                  className={`w-10 h-10 rounded border-2 font-medium transition-all ${
+                    selectedSizes.includes(size)
+                      ? "border-black bg-black text-white"
+                      : "border-gray-300 hover:border-gray-400"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Images */}
         {["image1", "image2"].map((img, i) => (

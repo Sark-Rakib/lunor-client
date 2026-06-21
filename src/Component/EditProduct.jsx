@@ -12,6 +12,29 @@ const EditProduct = () => {
   const navigate = useNavigate();
 
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
+  const colors = [
+    { name: "Black", code: "#000000" },
+    { name: "White", code: "#FFFFFF" },
+    { name: "Navy Blue", code: "#000080" },
+    { name: "Sky Blue", code: "#87CEEB" },
+    { name: "Royal Blue", code: "#4169E1" },
+    { name: "Grey", code: "#808080" },
+    { name: "Ash", code: "#B2BEB5" },
+    { name: "Red", code: "#FF0000" },
+    { name: "Maroon", code: "#800000" },
+    { name: "Green", code: "#008000" },
+    { name: "Olive Green", code: "#808000" },
+    { name: "Yellow", code: "#FFFF00" },
+    { name: "Orange", code: "#FFA500" },
+    { name: "Pink", code: "#FFC0CB" },
+    { name: "Purple", code: "#800080" },
+    { name: "Brown", code: "#A52A2A" },
+    { name: "Beige", code: "#F5F5DC" },
+    { name: "Cream", code: "#FFFDD0" },
+    { name: "Khaki", code: "#C3B091" },
+    { name: "Off White", code: "#FAF9F6" },
+  ];
 
   const { register, handleSubmit, reset, watch } = useForm();
 
@@ -55,6 +78,7 @@ const EditProduct = () => {
       });
 
       setSelectedSizes(tuition.sizes || []);
+      setSelectedColors(tuition.color || []);
     }
   }, [tuition, reset]);
 
@@ -74,12 +98,21 @@ const EditProduct = () => {
     );
   };
 
+  const toggleColor = (color) => {
+    setSelectedColors((prev) =>
+      prev.some((item) => item.name === color.name)
+        ? prev.filter((item) => item.name !== color.name)
+        : [...prev, color],
+    );
+  };
+
   // submit
   const onSubmit = async (data) => {
     try {
       const updatedData = {
         ...data,
         sizes: selectedSizes,
+        color: selectedColors,
       };
 
       const res = await axiosSecure.put(`/tuitions/${id}`, updatedData);
@@ -125,6 +158,41 @@ const EditProduct = () => {
             <option value="chino">Chino</option>
             <option value="Panjabi">Panjabi</option>
           </select>
+
+          {/* Colors */}
+          <div>
+            <label className="font-semibold mb-2 block">Product Colors</label>
+
+            <div className="grid grid-cols-2 gap-3">
+              {colors.map((color) => {
+                const isSelected = selectedColors.some(
+                  (item) => item.name === color.name,
+                );
+
+                return (
+                  <button
+                    key={color.name}
+                    type="button"
+                    onClick={() => toggleColor(color)}
+                    className={`flex items-center gap-3 border p-2 rounded ${
+                      isSelected
+                        ? "border-black bg-gray-100"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    <span
+                      className="w-6 h-6 rounded-full border"
+                      style={{
+                        backgroundColor: color.code,
+                      }}
+                    ></span>
+
+                    <span>{color.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
           {/* Sizes */}
           <div>

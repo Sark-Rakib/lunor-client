@@ -17,6 +17,7 @@ const OrderSuccess = () => {
     paymentMethod,
     deliveryCharge,
     selectedSize,
+    selectedColor,
   } = location.state || {};
 
   const safeTotal = Number(totalPrice) || 0;
@@ -88,6 +89,21 @@ const OrderSuccess = () => {
                   Quantity: {quantity || 0}
                 </p>
                 <p className="text-sm">Size: {selectedSize || "N/A"}</p>
+
+                {/* color */}
+
+                <div className="flex items-center gap-2">
+                  <span>{selectedColor?.name || "N/A"}</span>
+
+                  {selectedColor?.code && (
+                    <span
+                      className="w-5 h-5 rounded border inline-block"
+                      style={{
+                        backgroundColor: selectedColor.code,
+                      }}
+                    ></span>
+                  )}
+                </div>
               </div>
 
               <div className="text-right">

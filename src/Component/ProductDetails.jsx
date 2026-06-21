@@ -22,20 +22,12 @@ const ProductDetails = () => {
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [open, setOpen] = useState(false);
   const [opens, setOpens] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
   // const [activeImage, setActiveImage] = useState(0);
   // const { user } = useAuth();
   const { role } = UseRole();
 
   // Order form modal state
-  // const [showOrderForm, setShowOrderForm] = useState(false);
-
-  // Form state
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   phone: "",
-  //   district: "",
-  //   street: "",
-  // });
 
   useEffect(() => {
     const fetchTuition = async () => {
@@ -118,6 +110,12 @@ const ProductDetails = () => {
     });
   };
 
+  const noSizeCategories = ["sunglass"];
+
+  const isSizeRequired = !noSizeCategories.includes(
+    (tuition?.category || "").toLowerCase(),
+  );
+
   return (
     <div className="min-h-screen flex flex-col">
       <title>Lunor | Details</title>
@@ -131,7 +129,7 @@ const ProductDetails = () => {
           Back to Products
         </Link>
 
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col gap-5 lg:flex-row  lg:gap-15">
           {/* Product Image */}
           {/* <div className="w-full lg:w-1/2 p-2 mx-auto rounded">
             <ImageCarousel images={tuition.images} />
@@ -142,7 +140,8 @@ const ProductDetails = () => {
           {/* Product Info */}
           <div className="flex-1 flex flex-col gap-2">
             <h1 className="text-2xl uppercase">{tuition.name}</h1>
-            <h1 className="text-[12px] bg-gray-400 rounded-full w-max px-3 uppercase">
+            <h1 className="text-xs uppercase">Product code : {tuition._id}</h1>
+            <h1 className="text-[10px] bg-black text-white rounded-full w-max px-3 uppercase">
               {tuition.ability}
             </h1>
             {/* <p className="text-[13px] sm:text-l md:text-lg uppercase">
@@ -187,85 +186,84 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Size Selector with Selection */}
-            {/* <div className="mt-1">
-              <p className="text-s mb-3">Select Size</p>
+            {/* Product color */}
+
+            <div>
+              <p className="text-s mb-2 mt-1 uppercase">Select Color</p>
 
               <div className="flex flex-wrap gap-4">
-                {["S", "M", "L", "XL", "2XL"].map((size) => {
-                  const isAvailable = tuition?.sizes?.includes(size);
-                  const isSelected = selectedSize === size;
+                {Array.isArray(tuition.color) &&
+                  tuition.color.map((color) => (
+                    <div
+                      key={color.name}
+                      className="flex flex-col items-center gap-1"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setSelectedColor(color)}
+                        title={color.name}
+                        className={`w-7 h-7 rounded border transition-all ${
+                          selectedColor === color.name
+                            ? "border-black scale-110"
+                            : "border-gray-300"
+                        }`}
+                        style={{
+                          backgroundColor: color.code,
+                        }}
+                      ></button>
 
-                  return (
-                    <button
-                      key={size}
-                      type="button"
-                      disabled={!isAvailable}
-                      onClick={() => isAvailable && setSelectedSize(size)}
-                      className={`w-8 h-8 rounded border-2 text-sm font-medium transition-all flex items-center justify-center
+                      <span className="text-[8px] uppercase">{color.name}</span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* Size Selector with Selection */}
+
+            {isSizeRequired && (
+              <div className="mt-1">
+                <p className="text-s mb-3 uppercase">Select Size</p>
+
+                <div className="flex flex-wrap gap-4">
+                  {sizeOptions.map((size) => {
+                    const isAvailable = tuition?.sizes?.includes(size);
+                    const isSelected = selectedSize === size;
+
+                    return (
+                      <button
+                        key={size}
+                        type="button"
+                        disabled={!isAvailable}
+                        onClick={() => isAvailable && setSelectedSize(size)}
+                        className={`w-8 h-8 rounded border-2 text-sm font-medium
             ${
               !isAvailable
-                ? "border-dashed border-gray-300 text-gray-400 line-through cursor-not-allowed"
+                ? "border-gray-300 text-gray-400 line-through"
                 : isSelected
                   ? "border-black bg-black text-white"
-                  : "border-gray-400 hover:border-black hover:bg-gray-100"
+                  : "border-gray-400"
             }`}
-                    >
-                      {size}
-                    </button>
-                  );
-                })}
+                      >
+                        {size}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {!selectedSize && (
+                  <p className="text-red-500 text-[12px] mt-2">
+                    Please select a size *
+                  </p>
+                )}
               </div>
-
-              {!selectedSize && (
-                <p className="text-red-500 text-[12px] mt-2">
-                  Please select a size *
-                </p>
-              )}
-            </div> */}
-
-            <div className="mt-1">
-              <p className="text-s mb-3 uppercase">Select Size</p>
-
-              <div className="flex flex-wrap gap-4">
-                {sizeOptions.map((size) => {
-                  const isAvailable = tuition?.sizes?.includes(size); // DB check
-                  const isSelected = selectedSize === size;
-
-                  return (
-                    <button
-                      key={size}
-                      type="button"
-                      disabled={!isAvailable}
-                      onClick={() => isAvailable && setSelectedSize(size)}
-                      className={`w-8 h-8 rounded border-2 text-sm font-medium transition-all flex items-center justify-center
-          ${
-            !isAvailable
-              ? "border-dashed border-gray-300 text-gray-400 line-through cursor-not-allowed"
-              : isSelected
-                ? "border-black bg-black text-white"
-                : "border-gray-400 hover:border-black hover:bg-gray-100"
-          }`}
-                    >
-                      {size}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {!selectedSize && (
-                <p className="text-red-500 text-[12px] mt-2">
-                  Please select a size *
-                </p>
-              )}
-            </div>
+            )}
 
             {/* chart */}
 
             <button
               type="button"
               onClick={() => setShowSizeChart(true)}
-              className="mt-2 text-sm underline text-gray-500 hover:text-black transition-all text-start uppercase"
+              className="mt-2 text-sm underline hover:text-gray-700 cursor-pointer transition-all text-start uppercase"
             >
               View Size Chart
             </button>
@@ -368,19 +366,24 @@ const ProductDetails = () => {
                   quantity,
                   totalPrice,
                   selectedSize: selectedSize,
+                  selectedColor,
                 }}
               >
                 <button
-                  disabled={!selectedSize}
+                  disabled={!selectedColor || (isSizeRequired && !selectedSize)}
                   className={`w-full md:w-1/2 py-4 px-6 text-baserounded-xl shadow-lg transition-all rounded uppercase
         ${
-          selectedSize
+          selectedColor && (!isSizeRequired || selectedSize)
             ? "bg-black hover:bg-gray-800 text-white"
             : "bg-gray-400 text-gray-200 cursor-not-allowed"
         }
       `}
                 >
-                  {selectedSize ? "Order Now" : "Select Size First"}
+                  {selectedColor && (!isSizeRequired || selectedSize)
+                    ? "Order Now"
+                    : !selectedColor
+                      ? "Select Color First"
+                      : "Select Size First"}
                 </button>
               </Link>
             </div>
@@ -406,100 +409,6 @@ const ProductDetails = () => {
       </div>
 
       {/* Order Form Modal */}
-      {/* {showOrderForm && (
-        <div className="fixed p-4 inset-0 z-50 flex items-center justify-center bg-black/40 overflow-scroll">
-          <div className="bg-gray-200 p-6 rounded-xl max-w-md w-full relative">
-            <h2 className="text-2xl text-black font-bold mb-4 text-center">
-              Place Your <span className="text-gray-400">Order</span>
-            </h2>
-            <form
-              onSubmit={handleOrderSubmit}
-              className="flex flex-col gap-3 text-black"
-            >
-              <label>Your Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                required
-                value={formData.name}
-                onChange={handleInputChange}
-                className="border p-2 rounded outline-none border-gray-500"
-              />
-              <label>Your Email (auto-filled)</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                required={!user}
-                value={user ? user.email : formData.email}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, email: e.target.value }))
-                }
-                className={`border p-2 rounded outline-none border-gray-500 ${user ? "bg-gray-200" : ""}`}
-                disabled={!!user}
-              />
-              <label>Your Phone Number</label>
-              <input
-                type="number"
-                name="phone"
-                placeholder="Phone Number"
-                required
-                value={formData.phone}
-                onChange={handleInputChange}
-                className="border p-2 rounded outline-none border-gray-500"
-              />
-              <label>Payment Method</label>
-              <select
-                name="paymentMethod"
-                required
-                value={formData.paymentMethod}
-                onChange={handleInputChange}
-                className="border p-2 rounded outline-none border-gray-500"
-              >
-                <option value="">Select Payment Method</option>
-                <option value="cashOnDelivery">Cash on Delivery</option>
-                <option value="onlinePayment">Online Payment</option>
-              </select>
-              <label>Your District</label>
-              <input
-                type="text"
-                name="district"
-                placeholder="District"
-                required
-                value={formData.district}
-                onChange={handleInputChange}
-                className="border p-2 rounded outline-none border-gray-500"
-              />
-              <label>Your Street Address</label>
-              <input
-                type="text"
-                name="street"
-                placeholder="Street Address"
-                required
-                value={formData.street}
-                onChange={handleInputChange}
-                className="border p-2 rounded outline-none border-gray-500"
-              />
-              <div className="flex justify-between mt-4">
-                <button
-                  type="button"
-                  onClick={() => setShowOrderForm(false)}
-                  className="px-4 py-2 bg-gray-400 rounded hover:bg-gray-300 transition"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-                >
-                  Confirm
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )} */}
 
       <hr className="text-gray-400" />
 

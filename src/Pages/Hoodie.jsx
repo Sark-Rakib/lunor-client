@@ -39,9 +39,9 @@ const Hoodie = () => {
 
   if (loading) {
     return (
-      <p className="text-center py-20">
+      <div className="text-center py-20 px-4">
         <SkeletonLoader></SkeletonLoader>
-      </p>
+      </div>
     );
   }
 
@@ -78,7 +78,7 @@ const Hoodie = () => {
                     className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
                   />
 
-                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-[8px] font-semibold px-1.5 py-0.5 rounded-full">
+                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-[8px] px-1.5 py-0.5 rounded-full uppercase">
                     {item.ability}
                   </span>
                 </div>

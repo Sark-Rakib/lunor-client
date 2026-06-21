@@ -6,7 +6,7 @@ import {
 } from "react-icons/fa";
 import { SiX } from "react-icons/si"; // This is the official NEW X icon (not old Twitter)
 import { Link } from "react-router";
-import logo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
+// import logo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
 import Logo from "./Logo";
 import FooterLogo from "./FooterLogo";
 
@@ -138,9 +138,20 @@ const Footer = () => {
         </div>
 
         {/* Copyright Section */}
-        <div className="border-t border-white/20 mt-10 pt-8 text-center">
+        <div className="flex flex-col sm:flex-row lg:flex-row justify-between items-center border-t border-white/20 mt-10 pt-8 text-center">
           <p className="text-sm text-gray-100">
             © {currentYear} LUNOR. All rights reserved.
+          </p>
+          <p className="flex items-center gap-2 text-sm text-gray-100">
+            Design & Developed by{" "}
+            <a
+              href="https://www.facebook.com/sarkrakib/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-600 border-b border-white transition-all duration-300 hover:scale-110"
+            >
+              Rakib Sarker
+            </a>
           </p>
         </div>
       </div>

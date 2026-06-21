@@ -25,7 +25,8 @@ const OrderPlace = () => {
       street: "", // reset area
     }));
   };
-  const { product, quantity, totalPrice, selectedSize } = location.state || {};
+  const { product, quantity, totalPrice, selectedSize, selectedColor } =
+    location.state || {};
 
   useEffect(() => {
     if (!product) navigate("/");
@@ -204,6 +205,7 @@ const OrderPlace = () => {
             paymentMethod: formData.paymentMethod,
             deliveryCharge,
             selectedSize,
+            selectedColor,
             postedAt: new Date().toLocaleString("en-BD", {
               timeZone: "Asia/Dhaka",
             }),
@@ -374,7 +376,17 @@ const OrderPlace = () => {
                   <p className="text-sm text-gray-600">
                     {selectedSize} | {quantity} pcs
                   </p>
-                  <p className="font-semibold mt-2">৳{subtotal}</p>
+                  <p className="flex items-center gap-2">
+                    {location.state.selectedColor.name}{" "}
+                    <span
+                      className="w-5 h-5 rounded inline-block"
+                      style={{
+                        backgroundColor: location.state.selectedColor.code,
+                      }}
+                    ></span>
+                  </p>
+
+                  <p className="font-semibold ">৳{subtotal}</p>
                 </div>
               </div>
             </div>

@@ -52,6 +52,7 @@ import Baggy from "../Pages/Baggy";
 
 export const router = createBrowserRouter([
   {
+    
     path: "/",
     Component: Root,
     children: [

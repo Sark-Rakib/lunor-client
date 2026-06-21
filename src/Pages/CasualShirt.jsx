@@ -42,7 +42,7 @@ const CasualShirt = () => {
 
   if (loading) {
     return (
-      <div className="text-center py-20">
+      <div className="text-center py-20 px-4">
         <SkeletonLoader></SkeletonLoader>
       </div>
     );
