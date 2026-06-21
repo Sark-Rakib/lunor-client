@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import TopNavbar from "./TopNavbar";
 import OfferPopup from "./OfferPopup";
+import ScrollToTop from "./ScrollToTop";
 
 const Root = () => {
   const [theme, setTheme] = useState(
@@ -17,6 +18,7 @@ const Root = () => {
 
   return (
     <>
+      <ScrollToTop></ScrollToTop>
       <OfferPopup></OfferPopup>
       <TopNavbar></TopNavbar>
       <Navbar theme={theme} setTheme={setTheme} />
