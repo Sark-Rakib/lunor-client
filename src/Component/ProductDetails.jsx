@@ -122,14 +122,29 @@ const ProductDetails = () => {
     <div className="min-h-screen flex flex-col">
       <title>Lunor | Details</title>
       <div className="w-11/12 mx-auto py-7">
+        <div className="flex items-center gap-2 mb-5 text-xs font-extralight uppercase">
+          <Link to="/" className="text-gray-400 hover:text-black">
+            Home
+          </Link>
+
+          <span>/</span>
+
+          <Link to="/all-products" className="text-gray-400 hover:text-black">
+            Products
+          </Link>
+
+          <span>/</span>
+
+          <span className="">{tuition.name}</span>
+        </div>
         {/* Back Button */}
-        <Link
+        {/* <Link
           to="/all-products"
           className="flex w-45 items-center text-[15px] gap-2 mb-6 text-gray-400 hover:text-gray-200 transition-all uppercase"
         >
           <IoMdArrowRoundBack className="text-xl" />
           Back to Products
-        </Link>
+        </Link> */}
 
         <div className="flex flex-col gap-5 lg:flex-row  lg:gap-15">
           {/* Product Image */}
@@ -169,19 +184,19 @@ const ProductDetails = () => {
             {/* Quantity */}
             <div className="flex items-center gap-4">
               <span className="uppercase">Quantity :</span>
-              <div className="flex items-center -mt-2 overflow-hidden">
+              <div className="flex items-center overflow-hidden">
                 <button
                   onClick={() => handleQuantityChange("decrement")}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                  className="px-3 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                 >
                   -
                 </button>
-                <span className="px-3 py-1 bg-white text-gray-900 font-medium">
+                <span className="px-3 bg-white text-gray-900 font-medium">
                   {quantity}
                 </span>
                 <button
                   onClick={() => handleQuantityChange("increment")}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                  className="px-3  bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                 >
                   +
                 </button>
@@ -192,7 +207,7 @@ const ProductDetails = () => {
 
             {hasColor && (
               <div>
-                <p className="text-s mb-2 mt-1 uppercase">Select Color</p>
+                <p className="text-sm mb-2 mt-1 uppercase">Select Color</p>
 
                 <div className="flex flex-wrap gap-4">
                   {Array.isArray(tuition.color) &&
@@ -203,17 +218,23 @@ const ProductDetails = () => {
                       >
                         <button
                           type="button"
-                          onClick={() => setSelectedColor(color)}
+                          onClick={() => setSelectedColor(color.name)}
                           title={color.name}
-                          className={`w-7 h-7 rounded border transition-all ${
+                          className={`w-7 h-7 rounded border-2 transition-all relative ${
                             selectedColor === color.name
-                              ? "border-black scale-110"
-                              : "border-gray-300"
+                              ? "border-black ring-black"
+                              : "border-gray-200"
                           }`}
                           style={{
                             backgroundColor: color.code,
                           }}
-                        ></button>
+                        >
+                          {selectedColor === color.name && (
+                            <span className="absolute inset-0 flex items-center justify-center text-white text-xs font-bold">
+                              ✓
+                            </span>
+                          )}
+                        </button>
 
                         <span className="text-[8px] uppercase">
                           {color.name}

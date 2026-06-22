@@ -24,9 +24,7 @@ const Pagination = ({
           <button
             key={page}
             className={`btn btn-sm ${
-              currentPage === page
-                ? "bg-gray-500 text-white border-gray-500"
-                : "btn-outline"
+              currentPage === page ? "border-gray-500" : "btn-outline"
             }`}
             onClick={() => onPageChange(page)}
           >
@@ -44,7 +42,7 @@ const Pagination = ({
       </div>
 
       {/* showing info */}
-      <div className="text-center text-gray-600">
+      <div className="text-center">
         Showing {startItem}–{endItem} of {totalItems} products
       </div>
     </div>

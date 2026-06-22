@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
 import ProductCard from "../Component/ProductCard";
+import { Link } from "react-router";
 
 const ITEMS_PER_PAGE = 16;
 
@@ -49,11 +50,19 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="px-4 sm:px-9 md:px-6 py-10 min-h-screen">
+    <div className="px-4 sm:px-9 md:px-6 py-7 min-h-screen">
       <title>Lunor | All Products</title>
-      <h1 className="text-4xl md:text-5xl font-bold text-center mb-8">
-        Available <span className="text-gray-400">Products</span>
-      </h1>
+      <div className="flex items-center gap-2 mb-5 text-xs font-extralight uppercase">
+        <Link to="/" className="text-gray-400 hover:text-black">
+          Home
+        </Link>
+
+        <span>/</span>
+
+        <Link to="/all-products" className="text-black">
+          Products
+        </Link>
+      </div>
 
       {/* Search & Sort Controls – same style as Tutors page */}
       <div className="flex flex-col sm:flex-row gap-4 mb-10 max-w-4xl mx-auto">
@@ -116,7 +125,7 @@ const AllProducts = () => {
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
-                « Previous
+                « Prev
               </button>
 
               {Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -128,7 +137,7 @@ const AllProducts = () => {
                   <button
                     key={page}
                     className={`btn btn-sm ${
-                      currentPage === page ? "btn bg-gray-500" : "btn-outline"
+                      currentPage === page ? "btn" : "btn-outline"
                     }`}
                     onClick={() => handlePageChange(page)}
                   >
@@ -147,7 +156,7 @@ const AllProducts = () => {
           )}
 
           {/* Showing info */}
-          <div className="text-center mt-6 text-gray-600">
+          <div className="text-center mt-2">
             Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1}–
             {Math.min(currentPage * ITEMS_PER_PAGE, totalTuitions)} of{" "}
             {totalTuitions} products

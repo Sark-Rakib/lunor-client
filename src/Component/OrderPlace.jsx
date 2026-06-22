@@ -230,8 +230,32 @@ const OrderPlace = () => {
   }
 
   return (
-    <div className="min-h-screen py-10">
+    <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center gap-2 mb-5 text-xs font-extralight uppercase">
+          <Link to="/" className="text-gray-400 hover:text-black">
+            Home
+          </Link>
+
+          <span>/</span>
+
+          <Link to="/all-products" className="text-gray-400 hover:text-black">
+            Products
+          </Link>
+
+          <span>/</span>
+
+          <Link
+            to={`/products-details/${product._id}`}
+            className="text-gray-400 hover:text-black"
+          >
+            {product.name}
+          </Link>
+
+          <span>/</span>
+
+          <span>order place</span>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10">
           {/* LEFT - SHIPPING ADDRESS */}
           <div className="p-4 border border-gray-300">

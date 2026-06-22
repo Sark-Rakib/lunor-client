@@ -4,13 +4,54 @@ import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
 import Pagination from "../Component/Pagination";
 import usePagination from "../Hooks/usePagination";
+import ProductFilter from "../Component/ProductFilter";
 
 const CasualShirt = () => {
   const [sweets, setSweets] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
   const { currentData, currentPage, totalPages, handlePageChange } =
-    usePagination(sweets, 16);
+    usePagination(filteredProducts, 16);
+
+  const handleFilter = (filters) => {
+    let filtered = [...sweets];
+
+    // Price
+    if (filters.min) {
+      filtered = filtered.filter(
+        (item) =>
+          Number(item.discountPrice || item.price) >= Number(filters.min),
+      );
+    }
+
+    if (filters.max) {
+      filtered = filtered.filter(
+        (item) =>
+          Number(item.discountPrice || item.price) <= Number(filters.max),
+      );
+    }
+
+    // Size
+    if (filters.sizes?.length > 0) {
+      filtered = filtered.filter((item) => {
+        if (!item.sizes) return false;
+
+        return item.sizes.some((size) => filters.sizes.includes(size));
+      });
+    }
+
+    // Color
+    if (filters.colors?.length > 0) {
+      filtered = filtered.filter((item) => {
+        if (!item.color || !Array.isArray(item.color)) return false;
+
+        return item.color.some((c) => filters.colors.includes(c.name));
+      });
+    }
+
+    setFilteredProducts(filtered);
+  };
 
   useEffect(() => {
     const fetchSweetProducts = async () => {
@@ -30,6 +71,7 @@ const CasualShirt = () => {
         const approved = sorted.filter((item) => item.status === "Approved");
 
         setSweets(approved);
+        setFilteredProducts(approved);
       } catch (error) {
         console.error("Sweet fetch error:", error);
       } finally {
@@ -49,15 +91,20 @@ const CasualShirt = () => {
   }
 
   return (
-    <section className="py-10">
+    <section className="py-7">
       <title>Lunor | Casual Shirts</title>
       <div className="px-4 sm:px-7 md:px-6">
         {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-black">
-            All <span className="text-gray-400">Casual Shirts</span>
-          </h2>
-          <p className="text-gray-600 mt-1">Casual Shirt Collection</p>
+        <div className="flex items-center gap-2 mb-5 text-xs font-extralight uppercase">
+          <Link to="/" className="text-gray-400 hover:text-black">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="">Casual Shirt</span>
+        </div>
+
+        <div className="mb-5">
+          <ProductFilter onFilterChange={handleFilter} />
         </div>
 
         {/* Grid */}
@@ -132,12 +179,12 @@ const CasualShirt = () => {
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          totalItems={sweets.length}
+          totalItems={filteredProducts.length}
           itemsPerPage={16}
           onPageChange={handlePageChange}
         />
 
-        {sweets.length === 0 && (
+        {filteredProducts.length === 0 && (
           <p className="text-center text-gray-500 mt-10">
             No Casual-Shirt items found
           </p>

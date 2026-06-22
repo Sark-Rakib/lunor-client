@@ -1,13 +1,57 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
 import SkeletonLoader from "../Component/SkeletonLoader";
+import Pagination from "../Component/Pagination";
+import usePagination from "../Hooks/usePagination";
+import ProductFilter from "../Component/ProductFilter";
 
 const Panjabi = () => {
   const [sweets, setSweets] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
+  const { currentData, currentPage, totalPages, handlePageChange } =
+    usePagination(filteredProducts, 16);
+
+  const handleFilter = (filters) => {
+    let filtered = [...sweets];
+
+    // Price
+    if (filters.min) {
+      filtered = filtered.filter(
+        (item) =>
+          Number(item.discountPrice || item.price) >= Number(filters.min),
+      );
+    }
+
+    if (filters.max) {
+      filtered = filtered.filter(
+        (item) =>
+          Number(item.discountPrice || item.price) <= Number(filters.max),
+      );
+    }
+
+    // Size
+    if (filters.sizes?.length > 0) {
+      filtered = filtered.filter((item) => {
+        if (!item.sizes) return false;
+
+        return item.sizes.some((size) => filters.sizes.includes(size));
+      });
+    }
+
+    // Color
+    if (filters.colors?.length > 0) {
+      filtered = filtered.filter((item) => {
+        if (!item.color || !Array.isArray(item.color)) return false;
+
+        return item.color.some((c) => filters.colors.includes(c.name));
+      });
+    }
+
+    setFilteredProducts(filtered);
+  };
 
   useEffect(() => {
     const fetchSweetProducts = async () => {
@@ -27,6 +71,7 @@ const Panjabi = () => {
         const approved = sorted.filter((item) => item.status === "Approved");
 
         setSweets(approved);
+        setFilteredProducts(approved);
       } catch (error) {
         console.error("Sweet fetch error:", error);
       } finally {
@@ -46,26 +91,27 @@ const Panjabi = () => {
   }
 
   return (
-    <section className="py-10">
+    <section className="py-7">
       <title>Lunor | Panjabi</title>
       <div className="px-4 sm:px-7 md:px-6">
         {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-black">
-            All <span className="text-gray-400">Panjabis</span>
-          </h2>
-          <p className="text-gray-600 mt-1">Panjabi Collection</p>
+        <div className="flex items-center gap-2 mb-5 text-xs font-extralight uppercase">
+          <Link to="/" className="text-gray-400 hover:text-black">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="">Panjabi</span>
+        </div>
+
+        <div className="mb-5">
+          <ProductFilter onFilterChange={handleFilter} />
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
-          {sweets.map((item) => (
+          {currentData.map((item) => (
             <Link to={`/products-details/${item._id}`} key={item._id}>
-              <motion.div
-                key={item._id}
-                whileHover={{ y: -6 }}
-                className="transition-all overflow-hidden flex flex-col h-full"
-              >
+              <div className="transition-all overflow-hidden flex flex-col h-full">
                 {/* Image */}
                 <div className="relative">
                   <img
@@ -86,7 +132,7 @@ const Panjabi = () => {
                 {/* Content */}
                 <div className="mt-1 flex flex-col flex-1">
                   <div className="flex-1">
-                    <h3 className="text-sm md:text-base line-clamp-1 uppercase">
+                    <h3 className="uppercase text-sm md:text-base line-clamp-1">
                       {item.name}
                     </h3>
 
@@ -107,7 +153,7 @@ const Panjabi = () => {
                           </span>
                         </>
                       ) : (
-                        <span className="text-sm uppercase">
+                        <span className=" text-sm uppercase">
                           Price : ৳{item.price}
                         </span>
                       )}
@@ -120,17 +166,25 @@ const Panjabi = () => {
 
                   {/* Button */}
                   {/* <Link to={`/products-details/${item._id}`} className="mt-4">
-                  <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
-                    View Details
-                  </button>
-                </Link> */}
+                    <button className="w-full py-2 rounded bg-gray-600 text-white font-semibold hover:bg-gray-400 transition-all">
+                      View Details
+                    </button>
+                  </Link> */}
                 </div>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </div>
 
-        {sweets.length === 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filteredProducts.length}
+          itemsPerPage={16}
+          onPageChange={handlePageChange}
+        />
+
+        {filteredProducts.length === 0 && (
           <p className="text-center text-gray-500 mt-10">
             No Panjabi items found
           </p>
