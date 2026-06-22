@@ -52,6 +52,8 @@ const ProductDetails = () => {
 
   const pantCategories = ["trousers", "baggy", "jeans", "chino"];
 
+  const hasColor = Array.isArray(tuition?.color) && tuition.color.length > 0;
+
   const sizeOptions = pantCategories.includes(
     (tuition?.category || "").toLowerCase(),
   )
@@ -188,35 +190,39 @@ const ProductDetails = () => {
 
             {/* Product color */}
 
-            <div>
-              <p className="text-s mb-2 mt-1 uppercase">Select Color</p>
+            {hasColor && (
+              <div>
+                <p className="text-s mb-2 mt-1 uppercase">Select Color</p>
 
-              <div className="flex flex-wrap gap-4">
-                {Array.isArray(tuition.color) &&
-                  tuition.color.map((color) => (
-                    <div
-                      key={color.name}
-                      className="flex flex-col items-center gap-1"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setSelectedColor(color)}
-                        title={color.name}
-                        className={`w-7 h-7 rounded border transition-all ${
-                          selectedColor === color.name
-                            ? "border-black scale-110"
-                            : "border-gray-300"
-                        }`}
-                        style={{
-                          backgroundColor: color.code,
-                        }}
-                      ></button>
+                <div className="flex flex-wrap gap-4">
+                  {Array.isArray(tuition.color) &&
+                    tuition.color.map((color) => (
+                      <div
+                        key={color.name}
+                        className="flex flex-col items-center gap-1"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setSelectedColor(color)}
+                          title={color.name}
+                          className={`w-7 h-7 rounded border transition-all ${
+                            selectedColor === color.name
+                              ? "border-black scale-110"
+                              : "border-gray-300"
+                          }`}
+                          style={{
+                            backgroundColor: color.code,
+                          }}
+                        ></button>
 
-                      <span className="text-[8px] uppercase">{color.name}</span>
-                    </div>
-                  ))}
+                        <span className="text-[8px] uppercase">
+                          {color.name}
+                        </span>
+                      </div>
+                    ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Size Selector with Selection */}
 
@@ -370,19 +376,30 @@ const ProductDetails = () => {
                 }}
               >
                 <button
-                  disabled={!selectedColor || (isSizeRequired && !selectedSize)}
-                  className={`w-full md:w-1/2 py-4 px-6 text-baserounded-xl shadow-lg transition-all rounded uppercase
-        ${
-          selectedColor && (!isSizeRequired || selectedSize)
-            ? "bg-black hover:bg-gray-800 text-white"
-            : "bg-gray-400 text-gray-200 cursor-not-allowed"
-        }
-      `}
+                  disabled={
+                    hasColor
+                      ? !selectedColor || (isSizeRequired && !selectedSize)
+                      : isSizeRequired && !selectedSize
+                  }
+                  className={`w-full md:w-1/2 py-4 px-6 rounded shadow-lg uppercase
+${
+  hasColor
+    ? selectedColor && (!isSizeRequired || selectedSize)
+      ? "bg-black hover:bg-gray-800 text-white"
+      : "bg-gray-400 text-gray-200 cursor-not-allowed"
+    : !isSizeRequired || selectedSize
+      ? "bg-black hover:bg-gray-800 text-white"
+      : "bg-gray-400 text-gray-200 cursor-not-allowed"
+}`}
                 >
-                  {selectedColor && (!isSizeRequired || selectedSize)
-                    ? "Order Now"
-                    : !selectedColor
-                      ? "Select Color First"
+                  {hasColor
+                    ? selectedColor && (!isSizeRequired || selectedSize)
+                      ? "Order Now"
+                      : !selectedColor
+                        ? "Select Color First"
+                        : "Select Size First"
+                    : !isSizeRequired || selectedSize
+                      ? "Order Now"
                       : "Select Size First"}
                 </button>
               </Link>

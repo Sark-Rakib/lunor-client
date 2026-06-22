@@ -116,12 +116,18 @@ const AddProducts = () => {
         discountPrice: Number(data.discountPrice || 0),
         description: data.description,
         ability: data.ability,
-        color: data.color,
+
         sizes: selectedSizes,
         images: [image1.url, image2.url],
         status: "Pending",
         postedAt: new Date().toISOString(),
       };
+
+      // color select
+
+      if (data.color?.length > 0) {
+        productData.color = data.color;
+      }
 
       await axiosSecure.post("/tuitions", productData);
 
@@ -287,7 +293,7 @@ const AddProducts = () => {
 
         <div>
           <label className="block text-lg font-semibold text-gray-700 mb-3">
-            Product Color <span className="text-red-500">*</span>
+            Product Color
           </label>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -328,10 +334,6 @@ const AddProducts = () => {
               </label>
             ))}
           </div>
-
-          {errors.color && (
-            <p className="text-red-500 text-sm mt-2">{errors.color.message}</p>
-          )}
         </div>
 
         {/* Size Selector */}
