@@ -22,7 +22,7 @@ const ProductDetails = () => {
   const [showSizeChart, setShowSizeChart] = useState(false);
   const [open, setOpen] = useState(false);
   const [opens, setOpens] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState(null);
   // const [activeImage, setActiveImage] = useState(0);
   // const { user } = useAuth();
   const { role } = UseRole();
@@ -50,58 +50,10 @@ const ProductDetails = () => {
   const price = tuition.discountPrice || tuition.price;
   const totalPrice = quantity * price;
 
-  const pantCategories = ["trousers", "baggy", "jeans", "chino"];
-
-  const hasColor = Array.isArray(tuition?.color) && tuition.color.length > 0;
-
-  const sizeOptions = pantCategories.includes(
-    (tuition?.category || "").toLowerCase(),
-  )
-    ? ["28", "30", "32", "34", "36"]
-    : ["S", "M", "L", "XL", "2XL"];
-
   const handleQuantityChange = (type) => {
     if (type === "increment") setQuantity((prev) => prev + 1);
     if (type === "decrement" && quantity > 1) setQuantity((prev) => prev - 1);
   };
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleOrderSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const orderData = {
-  //       productId: tuition._id,
-  //       productName: tuition.name,
-  //       productImage: tuition.images[0],
-  //       quantity,
-  //       totalPrice,
-  //       size: tuition.size || "Not specified",
-  //       email: user?.email || formData.email,
-  //       ...formData,
-  //     };
-  //     await axiosSecure.post("/orders", orderData);
-  //     Swal.fire({
-  //       title: "Order Placed!",
-  //       text: "Your order at LUNOR has been placed successfully 🎉",
-  //       icon: "success",
-  //       confirmButtonText: "Ok",
-  //       confirmButtonColor: "#10B981", // green
-  //       timer: 3000,
-  //       toast: true,
-  //       position: "center",
-  //       showConfirmButton: false,
-  //     });
-  //     setShowOrderForm(false);
-  //     setFormData({ name: "", email: "", phone: "", district: "", street: "" });
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert("Failed to place order. Try again.");
-  //   }
-  // };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -112,11 +64,24 @@ const ProductDetails = () => {
     });
   };
 
+  const category = (tuition?.category || "").toLowerCase();
+
+  const pantCategories = ["baggy", "trousers", "jeans", "chino"];
+
+  const shirtCategories = ["formal shirt", "casual shirt", "t-shirt"];
+
+  const hasColor = Array.isArray(tuition?.color) && tuition.color.length > 0;
+
+  const sizeOptions = pantCategories.includes(category)
+    ? ["28", "30", "32", "34", "36"]
+    : ["S", "M", "L", "XL", "2XL"];
+
   const noSizeCategories = ["sunglass"];
 
-  const isSizeRequired = !noSizeCategories.includes(
-    (tuition?.category || "").toLowerCase(),
-  );
+  const isSizeRequired = !noSizeCategories.includes(category);
+
+  const showSizeChartOption =
+    pantCategories.includes(category) || shirtCategories.includes(category);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -158,9 +123,32 @@ const ProductDetails = () => {
           <div className="flex-1 flex flex-col gap-2">
             <h1 className="text-2xl uppercase">{tuition.name}</h1>
             <h1 className="text-xs uppercase">Product code : {tuition._id}</h1>
-            <h1 className="text-[10px] bg-black text-white rounded-full w-max px-3 uppercase">
-              {tuition.ability}
-            </h1>
+            <div className="flex items-center gap-10">
+              <h1 className="text-[10px] bg-black text-white rounded-full w-max px-3 uppercase">
+                {tuition.ability}
+              </h1>
+
+              {/* Product piece */}
+
+              <div className="mb-1">
+                <p
+                  className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] font-extralight uppercase ${
+                    tuition.piece === 0
+                      ? "text-gray-600"
+                      : tuition.piece < 3
+                        ? "text-red-600"
+                        : "text-green-600"
+                  }`}
+                >
+                  {tuition.piece === 0
+                    ? "Out of Stock"
+                    : tuition.piece < 3
+                      ? `! Only ${tuition.piece} item left in stock`
+                      : `${tuition.piece} items available in stock`}
+                </p>
+              </div>
+            </div>
+
             {/* <p className="text-[13px] sm:text-l md:text-lg uppercase">
               {tuition.description}
             </p> */}
@@ -218,10 +206,10 @@ const ProductDetails = () => {
                       >
                         <button
                           type="button"
-                          onClick={() => setSelectedColor(color.name)}
+                          onClick={() => setSelectedColor(color)}
                           title={color.name}
                           className={`w-7 h-7 rounded border-2 transition-all relative ${
-                            selectedColor === color.name
+                            selectedColor?.code === color.code
                               ? "border-black ring-black"
                               : "border-gray-200"
                           }`}
@@ -229,7 +217,7 @@ const ProductDetails = () => {
                             backgroundColor: color.code,
                           }}
                         >
-                          {selectedColor === color.name && (
+                          {selectedColor?.code === color.code && (
                             <span className="absolute inset-0 flex items-center justify-center text-white text-xs font-bold">
                               ✓
                             </span>
@@ -287,84 +275,88 @@ const ProductDetails = () => {
 
             {/* chart */}
 
-            <button
-              type="button"
-              onClick={() => setShowSizeChart(true)}
-              className="mt-2 text-sm underline hover:text-gray-700 cursor-pointer transition-all text-start uppercase"
-            >
-              View Size Chart
-            </button>
+            {showSizeChartOption && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setShowSizeChart(true)}
+                  className="mt-2 text-sm underline hover:text-gray-700 cursor-pointer transition-all text-start uppercase"
+                >
+                  View Size Chart
+                </button>
 
-            {showSizeChart && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                <div className="bg-white rounded-xl p-6 w-[90%] max-w-md relative">
-                  {/* Close Button */}
-                  <button
-                    onClick={() => setShowSizeChart(false)}
-                    className="absolute top-2 right-3 text-xl"
-                  >
-                    ✕
-                  </button>
+                {showSizeChart && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                    <div className="bg-white rounded-xl p-6 w-[90%] max-w-md relative">
+                      {/* Close Button */}
+                      <button
+                        onClick={() => setShowSizeChart(false)}
+                        className="absolute top-2 right-3 text-xl"
+                      >
+                        ✕
+                      </button>
 
-                  <h2 className="text-xl font-bold mb-4 text-center">
-                    Size Chart
-                  </h2>
+                      <h2 className="text-xl font-bold mb-4 text-center">
+                        Size Chart
+                      </h2>
 
-                  {/* Pant Chart */}
-                  {tuition?.category === "Pant" ? (
-                    <table className="w-full text-center border">
-                      <thead>
-                        <tr className="bg-gray-200">
-                          <th className="p-2 border">Size</th>
-                          <th className="p-2 border">Waist (inch)</th>
-                          <th className="p-2 border">Length (inch)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          { size: "28", waist: 28, length: 38 },
-                          { size: "30", waist: 30, length: 39 },
-                          { size: "32", waist: 32, length: 40 },
-                          { size: "34", waist: 34, length: 41 },
-                          { size: "36", waist: 36, length: 42 },
-                        ].map((row) => (
-                          <tr key={row.size}>
-                            <td className="p-2 border">{row.size}</td>
-                            <td className="p-2 border">{row.waist}</td>
-                            <td className="p-2 border">{row.length}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    /*  Shirt / T-shirt Chart */
-                    <table className="w-full text-center border">
-                      <thead>
-                        <tr className="bg-gray-200">
-                          <th className="p-2 border">Size</th>
-                          <th className="p-2 border">Chest (inch)</th>
-                          <th className="p-2 border">Length (inch)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          { size: "S", chest: "36-38", length: 27 },
-                          { size: "M", chest: "38-40", length: 28 },
-                          { size: "L", chest: "40-42", length: 29 },
-                          { size: "XL", chest: "42-44", length: 30 },
-                          { size: "2XL", chest: "44-46", length: 31 },
-                        ].map((row) => (
-                          <tr key={row.size}>
-                            <td className="p-2 border">{row.size}</td>
-                            <td className="p-2 border">{row.chest}</td>
-                            <td className="p-2 border">{row.length}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
-              </div>
+                      {/* Pant Chart */}
+                      {pantCategories.includes(category) ? (
+                        <table className="w-full text-center border">
+                          <thead>
+                            <tr className="bg-gray-200">
+                              <th className="p-2 border">Size</th>
+                              <th className="p-2 border">Waist (inch)</th>
+                              <th className="p-2 border">Length (inch)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              { size: "28", waist: 28, length: 38 },
+                              { size: "30", waist: 30, length: 39 },
+                              { size: "32", waist: 32, length: 40 },
+                              { size: "34", waist: 34, length: 41 },
+                              { size: "36", waist: 36, length: 42 },
+                            ].map((row) => (
+                              <tr key={row.size}>
+                                <td className="p-2 border">{row.size}</td>
+                                <td className="p-2 border">{row.waist}</td>
+                                <td className="p-2 border">{row.length}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      ) : (
+                        /*  Shirt / T-shirt Chart */
+                        <table className="w-full text-center border">
+                          <thead>
+                            <tr className="bg-gray-200">
+                              <th className="p-2 border">Size</th>
+                              <th className="p-2 border">Chest (inch)</th>
+                              <th className="p-2 border">Length (inch)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              { size: "S", chest: "36-38", length: 27 },
+                              { size: "M", chest: "38-40", length: 28 },
+                              { size: "L", chest: "40-42", length: 29 },
+                              { size: "XL", chest: "42-44", length: 30 },
+                              { size: "2XL", chest: "44-46", length: 31 },
+                            ].map((row) => (
+                              <tr key={row.size}>
+                                <td className="p-2 border">{row.size}</td>
+                                <td className="p-2 border">{row.chest}</td>
+                                <td className="p-2 border">{row.length}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
 
             {/* Total Price */}

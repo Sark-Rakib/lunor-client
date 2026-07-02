@@ -116,7 +116,7 @@ const AddProducts = () => {
         discountPrice: Number(data.discountPrice || 0),
         description: data.description,
         ability: data.ability,
-
+        piece: data.piece,
         sizes: selectedSizes,
         images: [image1.url, image2.url],
         status: "Pending",
@@ -287,6 +287,23 @@ const AddProducts = () => {
               </p>
             )}
           </div>
+        </div>
+
+        {/* availale product */}
+
+        <div>
+          <label className="block text-lg font-semibold text-gray-700 mb-2">
+            Product piece <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="number"
+            placeholder="e.g. In Stock Piece"
+            {...register("piece", { required: "product piece is required" })}
+            className="w-full px-5 py-4 rounded border border-gray-300 focus:border-gray-600 focus:ring-4 focus:ring-gray-200 outline-none"
+          />
+          {errors.piece && (
+            <p className="text-red-500 text-sm mt-1">{errors.piece.message}</p>
+          )}
         </div>
 
         {/* color add */}

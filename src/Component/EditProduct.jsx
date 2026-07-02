@@ -73,6 +73,7 @@ const EditProduct = () => {
         category: tuition.category || "",
         ability: tuition.ability || "",
         price: tuition.price || "",
+        piece: tuition.piece || "",
         discountPrice: tuition.discountPrice || "",
         description: tuition.description || "",
       });
@@ -225,6 +226,14 @@ const EditProduct = () => {
             {...register("ability")}
             className="input w-full border p-2"
             placeholder="Ability"
+          />
+
+          {/* piece */}
+
+          <input
+            {...register("piece")}
+            className="input w-full border p-2"
+            placeholder="Piece"
           />
 
           {/* Price */}

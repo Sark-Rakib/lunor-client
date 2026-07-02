@@ -400,15 +400,17 @@ const OrderPlace = () => {
                   <p className="text-sm text-gray-600">
                     {selectedSize} | {quantity} pcs
                   </p>
-                  <p className="flex items-center gap-2">
-                    {location.state.selectedColor.name}{" "}
-                    <span
-                      className="w-5 h-5 rounded inline-block"
-                      style={{
-                        backgroundColor: location.state.selectedColor.code,
-                      }}
-                    ></span>
-                  </p>
+                  {selectedColor && (
+                    <p className="flex items-center gap-2">
+                      <span>{selectedColor.name}</span>
+                      <span
+                        className="w-5 h-5 rounded border border-gray-300"
+                        style={{
+                          backgroundColor: selectedColor.code,
+                        }}
+                      />
+                    </p>
+                  )}
 
                   <p className="font-semibold ">৳{subtotal}</p>
                 </div>

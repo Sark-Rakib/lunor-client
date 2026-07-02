@@ -3,7 +3,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="relative flex flex-col items-center gap-6">
         {/* Rotating rings */}
         <div className="relative w-24 h-24">
