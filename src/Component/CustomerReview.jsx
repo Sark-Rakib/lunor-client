@@ -34,9 +34,8 @@ const CustomerReview = () => {
 
   return (
     <section className="max-w-3xl mx-auto px-5 py-10">
-      <h2 className="text-2xl text-center mb-5 flex items-center justify-center gap-2">
-        <MdOutlineRateReview /> CUSTOMER{" "}
-        <span className="text-gray-400">REVIEW</span>
+      <h2 className="text-2xl text-center mb-5 flex items-center justify-center gap-2 text-black">
+        <MdOutlineRateReview /> CUSTOMER REVIEW
       </h2>
 
       <form
@@ -90,7 +89,7 @@ const CustomerReview = () => {
           )}
         </div>
 
-        <button className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg font-semibold">
+        <button className="w-full bg-black hover:bg-gray-900 text-white py-2 rounded font-semibold">
           Submit Review
         </button>
       </form>

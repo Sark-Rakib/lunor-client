@@ -232,7 +232,7 @@ const OrderPlace = () => {
   return (
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center gap-2 mb-5 text-xs font-extralight uppercase">
+        <div className="flex flex-wrap items-center gap-2 mb-5 text-xs font-extralight uppercase">
           <Link to="/" className="text-gray-400 hover:text-black">
             Home
           </Link>

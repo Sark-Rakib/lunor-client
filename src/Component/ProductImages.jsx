@@ -6,13 +6,13 @@ const ProductImages = ({ images }) => {
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="w-full lg:w-1/2 mx-auto">
+    <div className="w-full sm:w-1/2 lg:w-1/2 mx-auto">
       {/* MAIN IMAGE */}
-      <div className="relative w-full aspect-square bg-gray-100 rounded overflow-hidden shadow-md">
+      <div className="relative w-full rounded overflow-hidden">
         <img
           src={images[activeImage]}
           alt="product"
-          className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+          className="w-100 h-full lg:w-120 object-cover transition-all duration-500 hover:scale-105"
         />
       </div>
 

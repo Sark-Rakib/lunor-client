@@ -367,8 +367,8 @@ const Navbar = ({ theme, setTheme }) => {
         className={` sticky top-0 z-50 transition-all duration-300 backdrop-blur-md
   ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}`}
       >
-        <div className="px-3 sm:px-8 md:px-6 lg:px-6">
-          <div className="flex items-center justify-between h-16">
+        <div className="px-3 sm:px-8 md:px-6 lg:px-6 shadow">
+          <div className="flex items-center justify-between h-17">
             {/* Left - Logo + Mobile Hamburger */}
             <div className="flex items-center gap-4">
               {/* Mobile Hamburger */}
