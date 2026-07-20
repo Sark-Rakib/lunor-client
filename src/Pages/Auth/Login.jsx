@@ -67,7 +67,7 @@ const Login = () => {
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
-          <button className="btn w-full bg-gray-500 border-none mt-4">
+          <button className="btn w-full bg-black text-white border-none mt-4">
             Login
           </button>
         </fieldset>

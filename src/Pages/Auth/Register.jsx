@@ -143,7 +143,9 @@ const Register = () => {
           <div>
             <a className="link link-hover">Forgot password?</a>
           </div>
-          <button className="btn bg-gray-500 border-none mt-4">Register</button>
+          <button className="btn bg-black text-white border-none mt-4">
+            Register
+          </button>
         </fieldset>
         <p className="text-center">Or</p>
       </form>

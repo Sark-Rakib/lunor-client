@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FiCheck, FiArrowRight, FiAward, FiTruck } from "react-icons/fi";
 import aboutImg from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
 import { Link } from "react-router";
+import Map from "../Component/Map";
 
 const About = () => {
   const features = [
@@ -124,6 +125,7 @@ const About = () => {
             </div>
           </div>
         </motion.div>
+        <Map></Map>
       </div>
     </section>
   );
