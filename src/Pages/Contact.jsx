@@ -45,8 +45,8 @@ const ContactUs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h2 className="text-2xl md:text-4xl font-bold mb-4">
-            Get in Touch <span className="text-gray-400">With Us</span>
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight mt-4 uppercase">
+            Get in Touch With Us
           </h2>
           <p className="text-sm md:text-l text-gray-600 max-w-2xl mx-auto">
             Have questions? Need help? We're here 24 hour for you.
