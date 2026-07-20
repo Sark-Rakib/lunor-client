@@ -175,7 +175,8 @@ const OrderPlace = () => {
         totalPrice: subtotal,
         deliveryCharge,
         grandTotal,
-        size: selectedSize || "Not specified",
+        size: selectedSize || "Not Specified",
+        color: selectedColor || "Not Specified",
         email: user?.email || formData.email,
         ...formData,
         postedAt: new Date().toLocaleString("en-BD", {

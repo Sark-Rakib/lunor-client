@@ -49,10 +49,10 @@ import PoloShirt from "../Pages/PoloShirt";
 import Trouser from "../Pages/Trouser";
 import Chino from "../Pages/Chino";
 import Baggy from "../Pages/Baggy";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
-    
     path: "/",
     Component: Root,
     children: [
@@ -202,20 +202,28 @@ export const router = createBrowserRouter([
         path: "/dashboard/student",
         element: (
           <PrivateRoute>
-            <AddProductsList></AddProductsList>
+            <AdminRoute>
+              <AddProductsList></AddProductsList>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/tuition/:id/edit",
-        Component: EditProduct,
+        element: (
+          <AdminRoute>
+            <EditProduct></EditProduct>
+          </AdminRoute>
+        ),
       },
 
       {
         path: "/dashboard/admin",
         element: (
           <PrivateRoute>
-            <Admin></Admin>
+            <AdminRoute>
+              <Admin></Admin>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -229,11 +237,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/customer-orders",
-        Component: CustomerOrder,
+        element: (
+          <AdminRoute>
+            <CustomerOrder></CustomerOrder>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/customer-contact",
-        Component: CustomerContact,
+        element: (
+          <AdminRoute>
+            <CustomerContact></CustomerContact>
+          </AdminRoute>
+        ),
       },
       // {
       //   path: "/dashboard/my-application",
@@ -241,11 +257,19 @@ export const router = createBrowserRouter([
       // },
       {
         path: "/dashboard/add-tuition",
-        Component: AddProducts,
+        element: (
+          <AdminRoute>
+            <AddProducts></AddProducts>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/add-hero-photo",
-        Component: AddHeroPhoto,
+        element: (
+          <AdminRoute>
+            <AddHeroPhoto></AddHeroPhoto>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/profile",

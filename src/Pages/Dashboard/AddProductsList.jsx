@@ -119,7 +119,7 @@ const AddProductsList = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="p-8 text-gray-400">
+    <div className="p-8 text-gray-500">
       <title>Lunor | Product</title>
       <h1 className="text-3xl text-center font-bold mb-6">
         All Products (<span className="text-amber-500">{tuitions.length}</span>)

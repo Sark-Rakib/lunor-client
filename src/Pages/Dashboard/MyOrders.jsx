@@ -79,14 +79,25 @@ const MyOrders = () => {
               />
 
               {/* Content */}
-              <div className="flex-grow space-y-1 text-gray-700">
-                <h2 className="text-xl font-semibold text-black">
+              <div className="flex-grow space-y-1 text-gray-900">
+                <h2 className="text-xl font-semibold text-black uppercase">
                   {order.productName}
                 </h2>
 
                 <p>Quantity: {order.quantity}</p>
                 <p>Size: {order.size}</p>
-                {/* <p>Total Price: ৳ {order.totalPrice}</p> */}
+                <p className="flex items-center gap-2">
+                  Color: {order.color?.name}
+                  <span
+                    className="w-4 h-4 rounded border"
+                    style={{ backgroundColor: order.color?.code }}
+                  ></span>
+                </p>
+                <p>Product Price: {order.totalPrice} BDT</p>
+                <p>Delivery Charge: {order.deliveryCharge} BDT</p>
+                <p>Total Price: {order.grandTotal} BDT</p>
+                <hr />
+                <p className="text-center border-b w-50">Payment System</p>
                 <p>Payment: {order.paymentMethod}</p>
                 {order.transactionId && (
                   <p>Transaction ID: {order.transactionId}</p>
