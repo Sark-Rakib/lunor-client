@@ -132,8 +132,8 @@ const EditProduct = () => {
 
   return (
     <div className="flex justify-center mt-5">
-      <div className="w-full max-w-lg bg-pink-50 p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+      <div className="w-full max-w-lg p-4 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold mb-6 text-center">
           Update Product Details
         </h1>
 
@@ -176,9 +176,7 @@ const EditProduct = () => {
                     type="button"
                     onClick={() => toggleColor(color)}
                     className={`flex items-center gap-3 border p-2 rounded ${
-                      isSelected
-                        ? "border-black bg-gray-100"
-                        : "border-gray-300"
+                      isSelected ? "border-black" : "border-gray-300"
                     }`}
                   >
                     <span
@@ -211,7 +209,7 @@ const EditProduct = () => {
                     className={`w-10 h-10 rounded border-2 transition ${
                       isSelected
                         ? "bg-black text-white border-black"
-                        : "border-gray-300 bg-white"
+                        : "border-gray-300 "
                     }`}
                   >
                     {size}
@@ -262,7 +260,7 @@ const EditProduct = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-amber-500 text-white py-2 rounded hover:bg-amber-600"
+            className="w-full bg-black text-white py-2 rounded hover:bg-amber-600"
           >
             Update Product
           </button>

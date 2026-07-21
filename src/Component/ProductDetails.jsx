@@ -11,6 +11,13 @@ import UseRole from "../Hooks/useRole";
 import CustomerReviewSwiper from "./CustomerReviewSwiper";
 import ProductImages from "./ProductImages";
 import RelatedProducts from "./RelatedProducts";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -82,6 +89,7 @@ const ProductDetails = () => {
 
   const showSizeChartOption =
     pantCategories.includes(category) || shirtCategories.includes(category);
+  const stock = Number(tuition.piece);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -123,18 +131,18 @@ const ProductDetails = () => {
               <div className="mb-1">
                 <p
                   className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] font-extralight uppercase ${
-                    tuition.piece === 0
-                      ? "text-gray-600"
-                      : tuition.piece < 3
+                    stock === 0
+                      ? "text-red-600"
+                      : stock < 3
                         ? "text-red-600"
                         : "text-green-600"
                   }`}
                 >
-                  {tuition.piece === 0
+                  {stock === 0
                     ? "Out of Stock"
-                    : tuition.piece < 3
-                      ? `! Only ${tuition.piece} item left in stock`
-                      : `${tuition.piece} items available in stock`}
+                    : stock < 3
+                      ? `! Only ${stock} item left in stock`
+                      : `${stock} items available in stock`}
                 </p>
               </div>
             </div>
@@ -157,7 +165,7 @@ const ProductDetails = () => {
 
             {/* Quantity */}
             <div className="flex items-center gap-4">
-              <span className="uppercase text-sm">Quantity </span>
+              <span className="uppercase text-[13px]">Quantity </span>
               <div className="flex items-center overflow-hidden">
                 <button
                   onClick={() => handleQuantityChange("decrement")}
@@ -181,7 +189,7 @@ const ProductDetails = () => {
 
             {hasColor && (
               <div>
-                <p className="text-sm mb-2 mt-1 uppercase">Select Color</p>
+                <p className="text-[13px] mb-2 mt-1 uppercase">Select Color</p>
 
                 <div className="flex flex-wrap gap-4">
                   {Array.isArray(tuition.color) &&
@@ -223,7 +231,7 @@ const ProductDetails = () => {
 
             {isSizeRequired && (
               <div className="mt-1">
-                <p className="text-sm mb-3 uppercase">Select Size</p>
+                <p className="text-[13px] mb-3 uppercase">Select Size</p>
 
                 <div className="flex flex-wrap gap-4">
                   {sizeOptions.map((size) => {
@@ -266,7 +274,7 @@ const ProductDetails = () => {
                 <button
                   type="button"
                   onClick={() => setShowSizeChart(true)}
-                  className="mt-2 text-sm underline hover:text-gray-700 cursor-pointer transition-all text-start uppercase"
+                  className="mt-2 text-[12px] underline hover:text-gray-700 cursor-pointer transition-all text-start uppercase"
                 >
                   View Size Chart
                 </button>
@@ -347,7 +355,7 @@ const ProductDetails = () => {
 
             {/* Total Price */}
             <div className="flex justify-between items-center">
-              <div className="text-base uppercase">
+              <div className="text-[16px] uppercase">
                 <span>Total Price </span>
                 <span className="">Tk {totalPrice} BDT</span>
               </div>
@@ -417,8 +425,59 @@ ${
               </a>
             </div>
 
-            <div className="p-2 text-right text-xs text-gray-400">
-              Posted: {formatDate(tuition.postedAt)}
+            <div className="flex justify-between items-center flex-row-reverse mt-4">
+              <div className="p-2 text-right text-xs text-gray-400">
+                Posted: {formatDate(tuition.postedAt)}
+              </div>
+
+              {/* social media link */}
+
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61560576206601"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all duration-300"
+                >
+                  <FaFacebookF size={18} />
+                </a>
+
+                <a
+                  href="https://www.instagram.com/wear.lunor/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#E4405F] hover:text-white transition-all duration-300"
+                >
+                  <FaInstagram size={18} />
+                </a>
+
+                <a
+                  href="https://tiktok.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300"
+                >
+                  <FaTiktok size={18} />
+                </a>
+
+                <a
+                  href="https://wa.me/8801745762857"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all duration-300"
+                >
+                  <FaWhatsapp size={18} />
+                </a>
+
+                <a
+                  href="https://www.youtube.com/@rakibrecord"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all duration-300"
+                >
+                  <FaYoutube size={18} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
