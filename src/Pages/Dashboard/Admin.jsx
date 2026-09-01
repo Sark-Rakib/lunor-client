@@ -47,16 +47,16 @@ const PendingTuitions = () => {
   if (isLoading) return <Loading></Loading>;
 
   return (
-    <div className="p-8 text-gray-400">
+    <div className="p-8">
       <title>Lunor | User Management</title>
       <h1 className="text-3xl font-bold mb-6">
-        User Management ({users.length})
+        User Management (<span className="text-amber-600">{users.length}</span>)
       </h1>
 
       {users.length === 0 ? (
         <p className="text-center text-gray-500 text-xl">No users found</p>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto  rounded-lg shadow">
           <table className="table table-zebra w-full">
             <thead className="bg-gray-100 text-black">
               <tr>

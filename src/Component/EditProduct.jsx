@@ -260,7 +260,7 @@ const EditProduct = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-black text-white py-2 rounded hover:bg-amber-600"
+            className="w-full bg-black text-white py-2 rounded hover:bg-green-600"
           >
             Update Product
           </button>

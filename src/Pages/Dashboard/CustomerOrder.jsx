@@ -62,8 +62,11 @@ const CustomerOrder = () => {
     <div className="max-w-6xl mx-auto px-4">
       <title>Lunor | Customer Order</title>
       <div className="font-bold text-xl text-center mb-5 py-5">
-        Customer Orders :{" "}
-        <span className="text-amber-500">{orders.length}</span>
+        <span>
+          {" "}
+          <span className="text-amber-500">{orders.length}</span> Order From
+          Customer
+        </span>
       </div>
 
       {orders.length === 0 && (

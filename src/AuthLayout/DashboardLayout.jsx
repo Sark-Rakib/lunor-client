@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import { CiLogout } from "react-icons/ci";
 import { FaComment, FaPlusSquare, FaShoppingBag } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
@@ -66,95 +66,172 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <Link
+              <NavLink
                 to="/"
-                className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className={({ isActive }) =>
+                  `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                }
                 data-tip="Homepage"
               >
-                {/* Home icon */}
+                <FaHome className="text-l transition-transform duration-300 group-hover:scale-110" />
 
-                <FaHome />
-                <span className="is-drawer-close:hidden">Homepage</span>
-              </Link>
+                <span className="is-drawer-close:hidden font-medium">
+                  Homepage
+                </span>
+              </NavLink>
             </li>
 
             {/* our dashboard links */}
 
             {/* my order */}
             <li>
-              <Link
+              <NavLink
                 to="/dashboard/my-orders"
-                className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                className={({ isActive }) =>
+                  `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                }
                 data-tip="My Order"
               >
-                <FaShoppingCart />
-                <span className="is-drawer-close:hidden">My Order</span>
-              </Link>
+                <FaShoppingCart className="text-l transition-transform duration-300 group-hover:scale-110" />
+
+                <span className="is-drawer-close:hidden font-medium">
+                  My Order
+                </span>
+              </NavLink>
             </li>
 
             {role === "admin" && (
               <>
+                <div>
+                  <p className="text-white underline text-[10px] text-center p-3 uppercase flex-wrap">
+                    Admin
+                  </p>
+                </div>
+
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/admin"
-                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className={({ isActive }) =>
+                      `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                    }
                     data-tip="User Management"
                   >
-                    <MdAdminPanelSettings />
-                    <span className="is-drawer-close:hidden">
+                    <MdAdminPanelSettings className="text-l transition-transform duration-300 group-hover:scale-110" />
+
+                    <span className="is-drawer-close:hidden font-medium">
                       User Management
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
                 {/* customer order */}
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/customer-orders"
-                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className={({ isActive }) =>
+                      `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                    }
                     data-tip="Customer Orders"
                   >
-                    <FaShoppingBag />
-                    <span className="is-drawer-close:hidden">
+                    <FaShoppingBag className="text-l transition-transform duration-300 group-hover:scale-110" />
+
+                    <span className="is-drawer-close:hidden font-medium">
                       Customer Orders
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
+
                 {/* customer contact */}
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/customer-contact"
-                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className={({ isActive }) =>
+                      `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                    }
                     data-tip="Customer Contact"
                   >
-                    <FaComment />
-                    <span className="is-drawer-close:hidden">
-                      Customer Contact
+                    <FaComment className="text-l transition-transform duration-300 group-hover:scale-110" />
+
+                    <span className="is-drawer-close:hidden font-medium">
+                      Customer Orders
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
                 {/* products */}
+
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/student"
-                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className={({ isActive }) =>
+                      `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                    }
                     data-tip="Products"
                   >
-                    <FaShoppingCart />
+                    <FaShoppingCart className="text-l transition-transform duration-300 group-hover:scale-110" />
                     <span className="is-drawer-close:hidden">Products</span>
-                  </Link>
+                  </NavLink>
                 </li>
 
                 {/* add products */}
+
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/add-tuition"
-                    className="btn flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className={({ isActive }) =>
+                      `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                    }
                     data-tip="Add Product"
                   >
-                    <FaPlusSquare />
-                    <span className="is-drawer-close:hidden">Add Product</span>
-                  </Link>
+                    <FaPlusSquare className="text-l transition-transform duration-300 group-hover:scale-110" />
+
+                    <span className="is-drawer-close:hidden font-medium">
+                      Add Product
+                    </span>
+                  </NavLink>
                 </li>
+
+                {/* add hero photo */}
                 <li>
                   <Link
                     to="/dashboard/add-hero-photo"

@@ -1,71 +1,103 @@
 import { useEffect, useState } from "react";
-// import { motion } from "framer-motion";
 import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxios";
+
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import "swiper/css";
 import "swiper/css/autoplay";
 
 const HeroSection = () => {
-  const [images, setImages] = useState([]);
-  // const [current, setCurrent] = useState(0);
+  const [heroMedia, setHeroMedia] = useState([]);
+
   const axiosSecure = useAxiosSecure();
 
-  // Fetch images from MongoDB (backend)
+  // Fetch hero media from MongoDB
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchHeroMedia = async () => {
       try {
         const res = await axiosSecure.get("/photos");
-        const heroImages = res.data.map((product) => product.images[0]);
-        setImages(heroImages);
+
+        setHeroMedia(res.data);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch hero media:", error);
       }
     };
 
-    fetchImages();
+    fetchHeroMedia();
   }, [axiosSecure]);
 
   return (
-    <Link to="/all-products">
+    <Link to="/all-products" className="block">
       <section className="relative w-full h-[35vh] sm:h-[60vh] md:h-[77vh] overflow-hidden">
-        {/* Carousel */}
         <div className="relative w-full h-full">
           <Swiper
-            key={images.length}
+            key={heroMedia.length}
             slidesPerView={1}
-            loop={images.length > 1}
+            loop={heroMedia.length > 1}
             autoplay={
-              images.length > 1
-                ? { delay: 2500, disableOnInteraction: false }
+              heroMedia.length > 1
+                ? {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }
                 : false
             }
             modules={[Autoplay]}
             className="absolute w-full h-full"
           >
-            {images.map((img, index) => (
-              <SwiperSlide key={index} className="relative flex justify-center">
-                <img
-                  src={img?.url || "/placeholder.jpg"}
-                  alt="Hero"
-                  className="w-full h-full"
-                />
-                {/* Text + Button */}
-                <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center px-6 mb-10">
-                  {/* <h1 className="text-3xl md:text-5xl font-bold">
-                    LUNOR COLLECTION
-                    <br />
-                  </h1> */}
+            {heroMedia.map((media, index) => {
+              // New structure
+              const isVideo = media.type === "video";
 
-                  {/* <Link to="/all-products">
-            <button className="mt-8 mb-4 px-8 py-3 bg-gray-600 hover:bg-gray-700 rounded text-white font-semibold shadow-xl">
-              Explore Now
-            </button>
-          </Link> */}
-                </div>
-              </SwiperSlide>
-            ))}
+              // New URL structure
+              // Also supports your old images[0].url structure
+              const mediaUrl =
+                media.url || media.images?.[0]?.url || "/placeholder.jpg";
+
+              return (
+                <SwiperSlide
+                  key={media._id || index}
+                  className="relative w-full h-full"
+                >
+                  {isVideo ? (
+                    <video
+                      src={mediaUrl}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={mediaUrl}
+                      alt="Lunor Hero"
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+
+                  {/* Optional dark overlay */}
+                  <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+
+                  {/* Hero content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-end text-white text-center px-6 mb-10 pointer-events-none">
+                    {/*
+                    <h1 className="text-3xl md:text-5xl font-bold">
+                      LUNOR COLLECTION
+                      <br />
+                    </h1>
+
+                    <button className="mt-8 mb-4 px-8 py-3 bg-gray-600 hover:bg-gray-700 rounded text-white font-semibold shadow-xl">
+                      Explore Now
+                    </button>
+                    */}
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </section>

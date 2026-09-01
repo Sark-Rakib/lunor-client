@@ -1,29 +1,57 @@
+import { Link } from "react-router";
 import {
+  FaFacebook,
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
+
 import { SiX } from "react-icons/si"; // This is the official NEW X icon (not old Twitter)
-import { Link } from "react-router";
+
 // import logo from "../assets/2f6a0e78-37e2-480b-9ab0-f6bd16373f85.jpg-removebg-preview.png";
+
 import Logo from "./Logo";
+
 import FooterLogo from "./FooterLogo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black text-white py-5">
-      <div className="px-4 sm:px-6 lg:px-6">
+    <footer className="relative overflow-hidden bg-black text-white py-5">
+      {/* LUNOR Background Text */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        aria-hidden="true"
+      >
+        <span
+          className="
+      whitespace-nowrap
+      font-black
+      leading-none
+      tracking-[-0.08em]
+      text-white/[0.035]
+
+      text-[120px]
+      sm:text-[180px]
+      md:text-[260px]
+      lg:text-[400px]
+    "
+        >
+          LUNOR
+        </span>
+      </div>
+
+      {/* Existing Footer Content */}
+      <div className="relative z-10 px-4 sm:px-6 lg:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Platform */}
-          <div className="">
-            {/* <h3 className="text-2xl font-bold">LUNOR</h3> */}
-            {/* <img src={logo} alt="LUNOR Logo" className="h-24 -ml-13" /> */}
+          <div>
             <span className="flex justify-start -ml-26 sm:-ml-64 md:ml-0">
               <FooterLogo></FooterLogo>
             </span>
+
             <p className="mt-4 text-gray-100 text-sm leading-relaxed">
               To provide high-quality, affordable fashion that blends modern
               trends with cultural elegance.
@@ -39,26 +67,31 @@ const Footer = () => {
                   Home
                 </span>
               </Link>
+
               <Link to="/about">
                 <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
                   About Us
                 </span>
               </Link>
+
               <Link to="/Contact">
                 <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
                   Contact
                 </span>
               </Link>
+
               <Link to="/blog">
                 <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
                   Blog
                 </span>
               </Link>
+
               <Link to="/privacy-policy">
                 <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
                   Privacy Policy
                 </span>
               </Link>
+
               <Link to="/terms-service">
                 <span className="text-gray-100 hover:text-gray-600 transition-colors duration-300 text-sm">
                   Terms of Service
@@ -71,15 +104,17 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-3 text-sm text-gray-100">
-              <li className="flex items-center gap-2">
+              <li>
                 <span className="font-medium">
                   Email : wear.lunor@gmail.com
                 </span>
               </li>
-              <li className="flex items-center gap-2">
+
+              <li>
                 <span className="font-medium">Phone : +880 1745762857</span>
               </li>
-              <li className="flex items-center gap-2">
+
+              <li>
                 <span className="font-medium">
                   Address : Dhunat more , Sherpur, Bogura, Bangladesh, 5840
                 </span>
@@ -90,6 +125,7 @@ const Footer = () => {
           {/* Social Media */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
+
             <div className="flex gap-4">
               <a
                 href="https://www.facebook.com/profile.php?id=61560576206601"
@@ -97,7 +133,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="bg-white/10 backdrop-blur-sm p-3 rounded-full hover:bg-indigo-600 transition-all duration-300 hover:scale-110"
               >
-                <FaFacebookF size={20} />
+                <FaFacebook size={20} />
               </a>
 
               <a
@@ -117,6 +153,7 @@ const Footer = () => {
               >
                 <SiX size={20} />
               </a>
+
               <a
                 href="https://www.linkedin.com/in/rakib-sarker-"
                 target="_blank"
@@ -125,6 +162,7 @@ const Footer = () => {
               >
                 <FaLinkedinIn size={20} />
               </a>
+
               <a
                 href="https://www.youtube.com/@rakibrecord"
                 target="_blank"
@@ -142,6 +180,7 @@ const Footer = () => {
           <p className="text-sm text-gray-100">
             © {currentYear} LUNOR. All rights reserved.
           </p>
+
           <p className="flex items-center gap-2 text-sm text-gray-100">
             Design & Developed by{" "}
             <a

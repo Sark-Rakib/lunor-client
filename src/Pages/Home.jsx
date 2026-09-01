@@ -4,8 +4,8 @@ import Loading from "../Component/Loading";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import HeroSection from "../Component/HeroSection";
-import CustomerReviewSwiper from "../Component/CustomerReviewSwiper";
-import WhyChooseUs from "../Component/WhyChooseUs";
+// import CustomerReviewSwiper from "../Component/CustomerReviewSwiper";
+// import WhyChooseUs from "../Component/WhyChooseUs";
 import Products from "../Component/Products";
 import panjabi from "../assets/panjabiforhome.jpg";
 import formal from "../assets/formalshirtforhome.png";
@@ -13,7 +13,7 @@ import casual from "../assets/CASUALSHIRTS.webp";
 import pant from "../assets/pantforhome.webp";
 import { Link } from "react-router";
 import TrandingCategory from "../Component/TrandingCategory";
-import OfferPopup from "../Component/OfferPopup";
+// import OfferPopup from "../Component/OfferPopup";
 
 const HomePage = () => {
   const axiosSecure = useAxiosSecure();
