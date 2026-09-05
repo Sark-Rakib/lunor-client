@@ -182,7 +182,7 @@ const DashboardLayout = () => {
                     <FaComment className="text-l transition-transform duration-300 group-hover:scale-110" />
 
                     <span className="is-drawer-close:hidden font-medium">
-                      Customer Orders
+                      Customer Contact
                     </span>
                   </NavLink>
                 </li>
