@@ -7,6 +7,7 @@ import { FaHome } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import UseRole from "../Hooks/useRole";
+import { ChartNoAxesCombined } from "lucide-react";
 
 const DashboardLayout = () => {
   const { role } = UseRole();
@@ -61,7 +62,7 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-black is-drawer-close:w-20 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-black is-drawer-close:w-22 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
             {/* List item */}
@@ -232,16 +233,41 @@ const DashboardLayout = () => {
                 </li>
 
                 {/* add hero photo */}
+
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/add-hero-photo"
-                    className="btn bg-[#aba65e] shadow-[#aba65e] text-white flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    className={({ isActive }) =>
+                      `group flex items-center justify-start gap-3 mb-1.5 px-4 py-3 rounded tooltip tooltip-right
+      transition-all duration-300
+      ${
+        isActive
+          ? "bg-white text-black shadow-md"
+          : "text-gray-400 hover:bg-white/10 hover:text-white hover:translate-x-1"
+      }`
+                    }
                     data-tip="Add Hero Photo"
                   >
-                    <FaPlusSquare />
-                    <span className="is-drawer-close:hidden">
+                    <FaPlusSquare className="text-l transition-transform duration-300 group-hover:scale-110" />
+
+                    <span className="is-drawer-close:hidden font-medium">
                       Add Hero Photo
                     </span>
+                  </NavLink>
+                </li>
+
+                <p className="text-white underline text-[10px] text-center p-3 uppercase flex-wrap">
+                  Account
+                </p>
+
+                <li>
+                  <Link
+                    to="https://lunor-account-client.vercel.app"
+                    className="btn bg-white text-black flex items-center justify-start mb-1 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Account"
+                  >
+                    <ChartNoAxesCombined size={20} />
+                    <span className="is-drawer-close:hidden">Account</span>
                   </Link>
                 </li>
               </>
