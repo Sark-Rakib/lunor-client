@@ -43,10 +43,7 @@ const ProductCard = ({ tuition }) => {
           className="w-full h-55 sm:h-65 md:h-80 hover:scale-105 transition-transform duration-300"
         />
         {/* Status Badge */}
-        <div
-          className="absolute top-3 right-3 px-1.5 py-0.5 rounded-full text-white text-[8px] uppercase
-            bg-gray-600"
-        >
+        <div className="absolute top-0 right-0 px-1 py-0.4 sm:py-0.5 md:py-0.5 lg:py-0.5 text-white text-[8px] uppercase bg-black">
           {ability}
         </div>
       </div>

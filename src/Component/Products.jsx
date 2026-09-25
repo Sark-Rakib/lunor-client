@@ -74,7 +74,7 @@ const Products = () => {
                   />
 
                   {/* Status */}
-                  <span className="absolute top-3 right-3 bg-gray-600 text-white text-[8px] px-1.5 py-0.5 rounded-full uppercase">
+                  <span className="absolute top-0 right-0 bg-black text-white text-[8px] px-1 py-0.4 sm:py-0.5 md:py-0.5 lg:py-0.5 uppercase">
                     {item.ability}
                   </span>
                 </div>
