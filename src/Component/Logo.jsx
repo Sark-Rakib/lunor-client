@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link
       to="/"
-      className="flex ml-20 sm:ml-64 md:ml-0 md:justify-start items-center w-full"
+      className="flex ml-21 sm:ml-64 md:ml-0 md:justify-start items-center w-full"
     >
       <div className="flex flex-col items-center md:items-start leading-1">
         {/* LUNOR - breathing animation */}
