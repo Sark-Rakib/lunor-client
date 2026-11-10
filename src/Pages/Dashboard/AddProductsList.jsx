@@ -121,8 +121,8 @@ const AddProductsList = () => {
   return (
     <div className="p-8">
       <title>Lunor | Product</title>
-      <h1 className="text-3xl text-center font-bold mb-6">
-        All Products (<span className="text-amber-500">{tuitions.length}</span>)
+      <h1 className="text-3xl text-center font-bold mb-6 uppercase">
+        All Products -- <span className="">{tuitions.length}</span>
       </h1>
       {tuitions.length === 0 ? (
         <p className="text-center text-gray-500">No products found</p>

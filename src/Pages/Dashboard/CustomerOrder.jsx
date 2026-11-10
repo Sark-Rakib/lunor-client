@@ -105,14 +105,14 @@ const CustomerOrder = () => {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Customer Orders</h2>
+          <h2 className="text-2xl font-bold uppercase">Customer Orders</h2>
 
           <p className="mt-1 text-sm ">Manage all customer orders from here.</p>
         </div>
 
-        <div className="rounded bg-amber-50 px-4 py-2">
-          <span className="text-sm text-gray-600">Total Orders: </span>
-          <span className="font-bold text-amber-600">{orders.length}</span>
+        <div className="rounded bg-black px-4 py-2">
+          <span className="text-sm text-white">Total Orders: </span>
+          <span className="text-white">{orders.length}</span>
         </div>
       </div>
 

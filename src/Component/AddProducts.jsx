@@ -160,19 +160,19 @@ const AddProducts = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="max-w-5xl mx-auto p-6 lg:p-10">
+    <div className="max-w-6xl mx-auto p-4 lg:p-10">
       <div className="text-center mb-10">
         <h1 className="text-2xl md:text-4xl font-bold">
-          Post <span className="text-gray-400">New Product</span>
+          POST <span className="">NEW PRODUCTS</span>
         </h1>
       </div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gray-50 rounded text-black shadow-xl p-8 border border-gray-200 space-y-7"
+        className="bg-gray-50 rounded text-black shadow-xl p-4 border border-gray-200 space-y-7"
       >
         {/* User Info */}
-        <div className="flex flex-col items-center gap-4 md:gap-6 md:flex-row bg-gray-100 p-6 md:p-8 rounded shadow">
+        <div className="flex flex-col items-center gap-4 md:gap-6 md:flex-row bg-gray-100 p-4 md:p-8 rounded shadow">
           <img
             src={user?.photoURL}
             alt={user?.displayName}

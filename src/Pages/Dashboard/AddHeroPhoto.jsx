@@ -238,8 +238,8 @@ const AddHeroPhoto = () => {
 
       {/* Page Title */}
       <div className="text-center mb-10">
-        <h1 className="text-2xl md:text-4xl font-bold">
-          Hero <span className="text-[#aba65e]">Media</span>
+        <h1 className="text-2xl md:text-4xl font-bold uppercase">
+          Hero <span className="">Media</span>
         </h1>
 
         <p className="text-gray-500 mt-2">
@@ -293,7 +293,7 @@ const AddHeroPhoto = () => {
             {...register("media", {
               required: "Media is required",
             })}
-            className="w-full px-5 py-4 rounded border border-gray-300 bg-white file:py-2 file:px-4 file:rounded file:border-0 file:bg-[#aba65e] file:text-white hover:file:bg-[#8a854d] cursor-pointer"
+            className="w-full px-5 py-4 rounded border border-gray-300 bg-white file:py-2 file:px-4 file:rounded file:border-0 file:bg-black file:text-white hover:file:bg-[#8a854d] cursor-pointer"
           />
 
           {errors.media && (
@@ -316,7 +316,7 @@ const AddHeroPhoto = () => {
             className={`px-10 md:px-12 py-4 md:py-5 rounded text-white font-bold text-base md:text-lg transition-all transform ${
               isSubmitting
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-linear-to-r from-[#aba65e] to-purple-200 hover:shadow-2xl hover:scale-105"
+                : "bg-black hover:shadow-2xl"
             }`}
           >
             {isSubmitting

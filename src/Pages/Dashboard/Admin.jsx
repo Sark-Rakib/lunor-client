@@ -49,8 +49,8 @@ const PendingTuitions = () => {
   return (
     <div className="p-8">
       <title>Lunor | User Management</title>
-      <h1 className="text-3xl font-bold mb-6">
-        User Management (<span className="text-amber-600">{users.length}</span>)
+      <h1 className="text-3xl font-bold mb-6 uppercase">
+        User Management -- <span className="">{users.length} USERS</span>
       </h1>
 
       {users.length === 0 ? (
