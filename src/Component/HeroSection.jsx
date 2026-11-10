@@ -30,7 +30,7 @@ const HeroSection = () => {
 
   return (
     <Link to="/all-products" className="block">
-      <section className="relative w-full h-[35vh] sm:h-[60vh] md:h-[77vh] overflow-hidden">
+      <section className="relative w-full h-[32vh] sm:h-[60vh] md:h-[45vh] lg:h-[77vh] overflow-hidden">
         <div className="relative w-full h-full">
           <Swiper
             key={heroMedia.length}
@@ -45,7 +45,7 @@ const HeroSection = () => {
                 : false
             }
             modules={[Autoplay]}
-            className="absolute w-full h-full"
+            className="absolute inset-0 w-full h-full"
           >
             {heroMedia.map((media, index) => {
               // New structure
@@ -69,13 +69,13 @@ const HeroSection = () => {
                       loop
                       playsInline
                       preload="metadata"
-                      className="w-full h-full object-cover"
+                      className="relative w-full h-full"
                     />
                   ) : (
                     <img
                       src={mediaUrl}
                       alt="Lunor Hero"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full md:object-cover object-center"
                     />
                   )}
 

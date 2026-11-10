@@ -43,7 +43,22 @@ const DashboardHome = () => {
   if (loading) {
     return (
       <div className="flex h-[70vh] items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-black"></span>
+        <div className="flex flex-col items-center gap-4">
+          {/* Loading Spinner */}
+          <div className="relative h-12 w-12">
+            <span className="absolute inset-0 rounded-full border-[3px] border-neutral-200 dark:border-neutral-800" />
+
+            <span className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-black dark:border-t-white animate-spin" />
+          </div>
+
+          {/* Brand Name */}
+          <h2 className="text-2xl font-extrabold tracking-[0.2em]">LUNOR</h2>
+
+          {/* Subtitle */}
+          <p className="text-[12px] font-medium tracking-[0.4em] text-neutral-400 dark:text-neutral-500">
+            EST. VINTAGE
+          </p>
+        </div>
       </div>
     );
   }

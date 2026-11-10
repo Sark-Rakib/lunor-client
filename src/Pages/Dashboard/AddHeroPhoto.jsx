@@ -47,7 +47,7 @@ const AddHeroPhoto = () => {
       throw new Error("Image upload failed");
     }
 
-    return data.data.display_url;
+    return data.data.url;
   };
 
   // Upload Video to Cloudinary

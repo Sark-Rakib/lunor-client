@@ -92,7 +92,7 @@ const CustomerOrder = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-10">
+      <div className="">
         <Loading />
       </div>
     );

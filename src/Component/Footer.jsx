@@ -31,7 +31,7 @@ const Footer = () => {
       font-black
       leading-none
       tracking-[-0.08em]
-      text-white/[0.035]
+      text-white/[0.070]
 
       text-[120px]
       sm:text-[180px]
