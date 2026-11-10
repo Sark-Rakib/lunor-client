@@ -2,7 +2,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white dark:bg-black">
+    <div className="flex items-center justify-center min-h-screen bg-transparent">
       <div className="flex flex-col items-center">
         {/* Top Label */}
         <div className="flex items-center gap-3 mb-5">
@@ -14,7 +14,7 @@ const Loading = () => {
         </div>
 
         {/* Brand Name */}
-        <h1 className="text-7xl sm:text-8xl md:text-9xl font-black tracking-[0.16em] text-black dark:text-white animate-lunor-fade">
+        <h1 className="text-7xl sm:text-8xl md:text-9xl font-black tracking-[0.16em] animate-lunor-fade">
           LUNOR
         </h1>
 

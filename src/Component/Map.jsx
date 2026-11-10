@@ -1,6 +1,12 @@
 import { FiMapPin, FiNavigation } from "react-icons/fi";
 
 const Map = () => {
+  const mapUrl =
+    "https://www.google.com/maps?q=24.6622956,89.4203512&output=embed";
+
+  const directionsUrl =
+    "https://www.google.com/maps/dir/?api=1&destination=24.6622956,89.4203512";
+
   return (
     <div className="mt-6">
       <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -10,9 +16,9 @@ const Map = () => {
 
       <div className="overflow-hidden rounded-2xl border border-white/20 shadow-lg">
         <iframe
-          title="OXIVOS Store Location"
-          src="https://www.google.com/maps?q=Dhunat+More+Sherpur+Bogura+Bangladesh&output=embed"
-          className="w-full h-56"
+          title="LUNOR Fashion Store Location"
+          src={mapUrl}
+          className="w-full h-56 md:h-72"
           loading="lazy"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
@@ -26,13 +32,13 @@ const Map = () => {
         </div>
 
         <a
-          href="https://www.google.com/maps/search/?api=1&query=Dhunat+More+Sherpur+Bogura+Bangladesh"
+          href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-black hover:bg-gray-200 transition font-medium"
         >
           <FiNavigation />
-          Open Map
+          Get Directions
         </a>
       </div>
     </div>
